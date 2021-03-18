@@ -11,7 +11,6 @@ class SettingsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print('Inside build');
     final settings = context.watch<SettingsModel>();
     return FutureBuilder<BlockInfo>(
         future: _futureBlockInfo,
