@@ -1,0 +1,59 @@
+import 'package:flutter/material.dart';
+import 'package:iop_wallet/src/models/settings.dart';
+import 'package:iop_wallet/src/router.dart';
+import 'package:iop_wallet/src/router_constants.dart';
+import 'package:provider/provider.dart';
+
+import '../utils.dart';
+
+class SetupPage extends StatelessWidget {
+  final double boxWidth = 240;
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            Image(
+              image: AssetImage('lib/src/assets/iop_logo.png'),
+              width: 200,
+            ),
+            Center(
+              child: Padding(
+                padding: EdgeInsets.all(8.0),
+                child: Text(
+                  "Ready to take back your digital identity?",
+                  style: TextStyle(
+                      color: Theme.of(context).primaryColorDark,
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold),
+                ),
+              ),
+            ),
+            Column(
+              children: [
+                SizedBox(
+                  width: boxWidth,
+                  child: ElevatedButton(
+                      child: Text('Create a new personal vault'),
+                      onPressed: () {
+                        Navigator.pushNamed(context, routeSetupCreateVault);
+                      }),
+                ),
+                SizedBox(
+                  width: boxWidth,
+                  child: ElevatedButton(
+                      child: Text('Restore an existing vault'),
+                      onPressed: () {
+                        Navigator.pushNamed(context, routeSetupRestoreVault);
+                      }),
+                ),
+              ],
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
