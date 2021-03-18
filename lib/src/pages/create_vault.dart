@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:iop_wallet/src/router_constants.dart';
 import 'package:iop_wallet/src/utils.dart';
-
-import '../router_constants.dart';
 
 class CreateVaultPage extends StatefulWidget {
   @override
@@ -21,14 +20,14 @@ class _CreateVaultPageState extends State<CreateVaultPage> {
         children: [
           Text('Your Mnemonmic'),
           Padding(
-            padding: const EdgeInsets.all(8.0),
+            padding: EdgeInsets.all(8.0),
             child: Text(
                 'The mnemonic is a human readable representation of your master seed. This seed allows you to derive all the key pairs for your identities.'),
           ),
-          Table(children: this._createMnemonicTable()),
+          Table(children: _createMnemonicTable()),
           IconButton(onPressed: () {}, icon: Icon(Icons.cached)),
           Padding(
-            padding: const EdgeInsets.all(8.0),
+            padding: EdgeInsets.all(8.0),
             child: Text(
                 'DO NOT FORGET to write down your mnemonic to a secure place! You will need this to restore your wallet in case you lose access to your device.'),
           ),
@@ -37,10 +36,10 @@ class _CreateVaultPageState extends State<CreateVaultPage> {
             children: [
               SizedBox(
                 child: ElevatedButton(
-                    child: Text('Continue'),
-                    onPressed: () {
-                      Navigator.pushNamed(context, routeSetupEnterPassword);
-                    }),
+                  child: Text('Continue'),
+                  onPressed: () =>
+                      Navigator.pushNamed(context, routeSetupEnterPassword),
+                ),
                 width: buttonWidth,
               ),
             ],
@@ -55,7 +54,7 @@ class _CreateVaultPageState extends State<CreateVaultPage> {
     List<Widget> tableRow = [];
 
     for (var i = 0; i < mnemonicList.length; i++) {
-      Widget tile = this._createListTile(i, mnemonicList[i]);
+      Widget tile = _createListTile(i, mnemonicList[i]);
       tableRow.add(tile);
 
       if (tableRow.length == 4) {

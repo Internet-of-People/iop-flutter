@@ -27,7 +27,7 @@ class WalletPage extends StatelessWidget {
 class _CredentialList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    var wallet = context.watch<WalletModel>();
+    final wallet = context.watch<WalletModel>();
 
     return ListView.builder(
       itemCount: wallet.credentials.length,
@@ -35,13 +35,13 @@ class _CredentialList extends StatelessWidget {
         leading: Icon(Icons.card_membership,
             color: Theme.of(context).primaryColorDark),
         title: ElevatedButton(
-          child: Text(wallet.credentials[index]!.credentialName!),
+          child: Text(wallet.credentials[index].credentialName),
           onPressed: () {
             Navigator.push(
                 context,
                 MaterialPageRoute(
                     builder: (context) =>
-                        CredentialRoute(wallet.credentials[index]!)));
+                        CredentialRoute(wallet.credentials[index])));
           },
         ),
         trailing: IconButton(

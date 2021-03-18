@@ -1,38 +1,33 @@
 import 'package:flutter/foundation.dart';
-
-import '../shared_prefs.dart';
+import 'package:iop_wallet/src/shared_prefs.dart';
 import 'credential.dart';
 
 class WalletModel extends ChangeNotifier {
-  List<CredentialModel> _credentials = [];
-  List<CredentialModel?> get credentials => _credentials;
+  List<CredentialModel> credentials = [];
 
-  bool _isWaiting = true;
-  bool _hasError = false;
-
-  bool get isWaiting => _isWaiting;
-  bool get hasError => _hasError;
+  bool isWaiting = true;
+  bool hasError = false;
 
   add(CredentialModel credential) async {
     await _updateStorageAndNotifyAfter(() {
-      _credentials.add(credential);
+      credentials.add(credential);
     });
   }
 
   remove(CredentialModel? credential) async {
     await _updateStorageAndNotifyAfter(() {
-      _credentials.remove(credential);
+      credentials.remove(credential);
     });
   }
 
   Future load() async {
-    _isWaiting = true;
+    isWaiting = true;
     final credentialsString = await AppSharedPrefs.loadWallet();
-    _credentials = credentialsString
+    credentials = credentialsString
         .map((str) => CredentialModel.fromString(str))
         .toList();
     notifyListeners();
-    _isWaiting = false;
+    isWaiting = false;
   }
 
   _updateStorageAndNotifyAfter(Function function) async {
@@ -40,21 +35,21 @@ class WalletModel extends ChangeNotifier {
       function.call();
       await _saveWallet();
       notifyListeners();
-      _hasError = false;
+      hasError = false;
     } catch (e) {
-      _hasError = true;
+      hasError = true;
     }
   }
 
   _saveWallet() async {
-    _isWaiting = true;
-    await AppSharedPrefs.setWallet(_credentials);
-    _isWaiting = false;
+    isWaiting = true;
+    await AppSharedPrefs.setWallet(credentials);
+    isWaiting = false;
   }
 
   emptyStorage() async {
-    _isWaiting = true;
+    isWaiting = true;
     await AppSharedPrefs.setWallet([]);
-    _isWaiting = false;
+    isWaiting = false;
   }
 }

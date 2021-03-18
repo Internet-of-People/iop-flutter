@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
@@ -14,8 +13,7 @@ void main() {
         find.widgetWithText(ElevatedButton, 'Add Credential');
     expect(addCredentialFinder, findsOneWidget);
 
-    expect(find.byIcon(Icons.settings), findsOneWidget);
-    expect(find.byIcon(Icons.menu), findsOneWidget);
+    expect(find.byIcon(Icons.home_outlined), findsOneWidget);
     expect(
         find.byIcon(
           Icons.wallet_membership,

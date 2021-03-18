@@ -24,9 +24,7 @@ Route<dynamic> generateRoute(RouteSettings settings) {
     final subRoute = settings.name!.substring(
       routePrefixSetup.length,
     );
-    page = SetupNavigator(
-      setupPageRoute: subRoute,
-    );
+    page = SetupNavigator();
   } else {
     throw Exception('Unknown route: ${settings.name}');
   }
@@ -34,26 +32,14 @@ Route<dynamic> generateRoute(RouteSettings settings) {
   return MaterialPageRoute(builder: (context) => page, settings: settings);
 }
 
-class SetupNavigator extends StatefulWidget {
-  const SetupNavigator({
-    Key? key,
-    required this.setupPageRoute,
-  }) : super(key: key);
-
-  final String setupPageRoute;
-
-  @override
-  _SetupNavigatorState createState() => _SetupNavigatorState();
-}
-
-class _SetupNavigatorState extends State<SetupNavigator> {
+class SetupNavigator extends StatelessWidget {
   final _navigatorKey = GlobalKey<NavigatorState>();
 
   @override
   Widget build(BuildContext context) {
     return Navigator(
       key: _navigatorKey,
-      initialRoute: widget.setupPageRoute,
+      initialRoute: routeSetupStart,
       onGenerateRoute: _onGenerateRoute,
     );
   }
@@ -77,31 +63,6 @@ class _SetupNavigatorState extends State<SetupNavigator> {
         page = SetupPage();
     }
 
-    return MaterialPageRoute(builder: (context) {
-      return page;
-    });
+    return MaterialPageRoute(builder: (context) => page, settings: settings);
   }
-
-  // void _onStartup() {
-  //   _navigatorKey.currentState!.pushNamed(
-  //     routeSetupStartPage,
-  //   );
-  // }
-  //
-  // void _onCreateVaultCLicked() {
-  //   _navigatorKey.currentState!.pushNamed(
-  //     routeSetupCreateVault,
-  //   );
-  // }
-  //
-  // void _onRestoreVaultClicked() {
-  //   _navigatorKey.currentState!.pushNamed(
-  //     routeSetupRestoreVault,
-  //   );
-  // }
-  //
-  // void _onEnterPasswordClicked() {
-  //   _navigatorKey.currentState!.pushNamed(routeSetupEnterPassword);
-  // }
-
 }

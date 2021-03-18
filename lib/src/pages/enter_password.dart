@@ -8,7 +8,7 @@ import 'package:iop_wallet/src/utils.dart';
 class EnterPasswordPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    var settings = context.watch<SettingsModel>();
+    final settings = context.watch<SettingsModel>();
 
     return Scaffold(
       body: Column(

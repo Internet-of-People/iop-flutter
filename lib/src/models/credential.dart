@@ -1,13 +1,10 @@
 import 'dart:convert';
 
 class CredentialModel {
-  String? credentialName;
-  Map<String, dynamic>? details;
+  final String credentialName;
+  final Map<String, dynamic> details;
 
-  CredentialModel(String credentialName, Map<String, dynamic> detailsJson) {
-    this.credentialName = credentialName;
-    this.details = detailsJson;
-  }
+  CredentialModel({required this.credentialName, required this.details});
 
   @override
   String toString() {
@@ -20,6 +17,8 @@ class CredentialModel {
 
   static CredentialModel fromString(String str) {
     final credentialMap = jsonDecode(str);
-    return CredentialModel(credentialMap['name'], credentialMap['details']);
+    return CredentialModel(
+        credentialName: credentialMap['name'],
+        details: credentialMap['details']);
   }
 }

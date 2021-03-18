@@ -6,36 +6,28 @@ import 'package:iop_wallet/src/models/settings.dart';
 import 'package:iop_wallet/src/router_constants.dart';
 import 'package:provider/provider.dart';
 
-class SettingsPage extends StatefulWidget {
-  @override
-  _SettingsPageState createState() => _SettingsPageState();
-}
-
-class _SettingsPageState extends State<SettingsPage> {
-  late final Future<BlockInfo> blockInfo;
-
-  @override
-  void initState() {
-    super.initState();
-    blockInfo = fetchBlockheight();
-  }
+class SettingsPage extends StatelessWidget {
+  late final Future<BlockInfo> _futureBlockInfo = _fetchBlockheight();
 
   @override
   Widget build(BuildContext context) {
-    var settings = context.watch<SettingsModel>();
+    print('Inside build');
+    final settings = context.watch<SettingsModel>();
     return FutureBuilder<BlockInfo>(
-        future: blockInfo,
+        future: _futureBlockInfo,
         builder: (context, snapshot) {
-          if (snapshot.hasData) {
-            return scaffold(settings, snapshot.data!.height);
-          } else if (snapshot.hasError) {
-            return Text("${snapshot.error}");
+          if (snapshot.connectionState == ConnectionState.done) {
+            if (snapshot.hasError) {
+              return Text("${snapshot.error}");
+            }
+            return _createScaffold(context, settings, snapshot.data?.height);
           }
           return Center(child: CircularProgressIndicator());
         });
   }
 
-  Widget scaffold(SettingsModel settings, Object? blockInfo) {
+  Widget _createScaffold(
+      BuildContext context, SettingsModel settings, Object? blockInfo) {
     return Scaffold(
       appBar: AppBar(centerTitle: true, title: Text("Settings")),
       body: Center(
@@ -55,11 +47,9 @@ class _SettingsPageState extends State<SettingsPage> {
     );
   }
 
-  Future<BlockInfo> fetchBlockheight() async {
+  static Future<BlockInfo> _fetchBlockheight() async {
     final resp =
         await http.get(Uri.https('hydra.iop.global:4705', 'api/v2/blockchain'));
-    print("Inside Fetch!");
-
     if (resp.statusCode == 200) {
       return BlockInfo.fromJson(jsonDecode(resp.body));
     } else {
@@ -69,11 +59,11 @@ class _SettingsPageState extends State<SettingsPage> {
 }
 
 class BlockInfo {
-  final int? height;
-  final String? id;
-  final String? supply;
+  final int height;
+  final String id;
+  final String supply;
 
-  BlockInfo({this.height, this.id, this.supply});
+  BlockInfo({required this.height, required this.id, required this.supply});
 
   factory BlockInfo.fromJson(Map<String, dynamic> json) {
     final data = json['data'];

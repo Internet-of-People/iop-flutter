@@ -24,7 +24,7 @@ void main() {
     test('Add Credential', () async {
       callCount = 0;
       await wallet.add(CredentialModel.fromString(
-          """{"name":"Hello","details":{"name":"World"}}"""));
+          '{"name":"Hello","details":{"name":"World"}}'));
       expect(wallet.credentials.length, 1);
       expect(callCount, 1);
     });
@@ -32,7 +32,7 @@ void main() {
     test('Remove Credential', () async {
       callCount = 0;
       await wallet.remove(CredentialModel.fromString(
-          """"{"name":"Hello","details":{"name":"World"}}"""));
+          '{"name":"Hello","details":{"name":"World"}}'));
       expect(wallet.credentials.length, 0);
       expect(callCount, 1);
     });
@@ -41,7 +41,7 @@ void main() {
   group('Wallet Model Data is persisted', () {
     WalletModel wallet;
     CredentialModel credential = CredentialModel.fromString(
-        """"{"name":"Hello","details":{"name":"World"}}""");
+        '{"name":"Hello","details":{"name":"World"}}');
 
     setUp(() async {
       wallet = WalletModel();
@@ -53,8 +53,8 @@ void main() {
       final newWallet = WalletModel();
       await newWallet.load();
       expect(
-          newWallet.credentials[0]!.credentialName, credential.credentialName);
-      expect(newWallet.credentials[0]!.details, credential.details);
+          newWallet.credentials[0].credentialName, credential.credentialName);
+      expect(newWallet.credentials[0].details, credential.details);
     });
   });
 }

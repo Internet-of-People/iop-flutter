@@ -13,7 +13,7 @@ class QrScanner extends StatelessWidget {
     String barcodeScanRes = await FlutterBarcodeScanner.scanBarcode(
         "#ff6666", "Cancel", true, ScanMode.QR);
     print(barcodeScanRes);
-    this.setState(barcodeScanRes);
+    setState(barcodeScanRes);
   }
 
   setState(String result) {

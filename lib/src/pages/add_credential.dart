@@ -6,20 +6,15 @@ import 'package:provider/provider.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 export 'add_credential.dart';
 
-class Scanner extends StatefulWidget {
-  @override
-  _ScannerState createState() => _ScannerState();
-}
-
-class _ScannerState extends State<Scanner> {
+class Scanner extends StatelessWidget {
   final double boxWidth = 200;
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(body: Center(child: _getOptions()));
+    return Scaffold(body: Center(child: _getOptions(context)));
   }
 
-  Widget _getOptions() {
+  Widget _getOptions(BuildContext context) {
     return Center(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -29,14 +24,17 @@ class _ScannerState extends State<Scanner> {
             width: 200,
           ),
           ElevatedButton(
-              child: Text('Add Credential'), onPressed: _addCredential),
+              child: Text('Add Credential'),
+              onPressed: () {
+                _addCredential(context);
+              }),
         ],
       ),
     );
   }
 
-  void _addCredential() {
-    var wallet = context.read<WalletModel>();
+  void _addCredential(BuildContext context) {
+    final wallet = context.read<WalletModel>();
     final nameEditingController = TextEditingController();
     final jsonController = TextEditingController();
 
@@ -47,7 +45,7 @@ class _ScannerState extends State<Scanner> {
             body: Column(
               children: [
                 Padding(
-                  padding: const EdgeInsets.all(8.0),
+                  padding: EdgeInsets.all(8.0),
                   child: TextField(
                     controller: nameEditingController,
                     decoration: InputDecoration(
@@ -56,7 +54,7 @@ class _ScannerState extends State<Scanner> {
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.all(8.0),
+                  padding: EdgeInsets.all(8.0),
                   child: TextField(
                     controller: jsonController,
                     decoration: InputDecoration(
@@ -66,7 +64,7 @@ class _ScannerState extends State<Scanner> {
                   ),
                 ),
                 SizedBox(
-                  width: this.boxWidth,
+                  width: boxWidth,
                   child: ElevatedButton(
                     child: Text('Add Credential'),
                     onPressed: () {
@@ -76,7 +74,7 @@ class _ScannerState extends State<Scanner> {
                   ),
                 ),
                 SizedBox(
-                  width: this.boxWidth,
+                  width: boxWidth,
                   child: ElevatedButton(
                     child: Text('Add dummy Credential'),
                     onPressed: () {
@@ -86,12 +84,9 @@ class _ScannerState extends State<Scanner> {
                   ),
                 ),
                 SizedBox(
-                  width: this.boxWidth,
+                  width: boxWidth,
                   child: ElevatedButton(
-                      onPressed: () {
-                        this.scanQR();
-                      },
-                      child: Text('Scan QR-code')),
+                      onPressed: () => scanQR(), child: Text('Scan QR-code')),
                 )
               ],
             ));

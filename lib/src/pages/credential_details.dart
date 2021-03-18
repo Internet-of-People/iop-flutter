@@ -8,10 +8,10 @@ class CredentialRoute extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final _details = _credential.details!;
+    final _details = _credential.details;
     return Scaffold(
         appBar:
-            AppBar(centerTitle: true, title: Text(_credential.credentialName!)),
+            AppBar(centerTitle: true, title: Text(_credential.credentialName)),
         body: ListView(children: [
           _listDetails(_details),
           Center(child: QrImage(data: _details.toString(), size: 200.0)),

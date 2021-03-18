@@ -21,12 +21,7 @@ void main() {
   );
 }
 
-class UserApp extends StatefulWidget {
-  @override
-  State createState() => UserAppState();
-}
-
-class UserAppState extends State<UserApp> {
+class UserApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(

@@ -15,13 +15,9 @@ class WelcomePage extends StatelessWidget {
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.done) {
           if (snapshot.data == true) {
-            print(snapshot.data);
             return HomePage();
           } else {
-            print('setup');
-            return SetupNavigator(
-              setupPageRoute: routeSetupStart,
-            );
+            return SetupNavigator();
           }
         } else {
           return CircularProgressIndicator();
