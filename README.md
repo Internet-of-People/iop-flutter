@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # IOP Wallet
 
 The user app that holds a vault with digital identities (DID and VC's).
@@ -7,4 +6,3 @@ The user app that holds a vault with digital identities (DID and VC's).
 ```
 flutter pub get
 ```
-=======
