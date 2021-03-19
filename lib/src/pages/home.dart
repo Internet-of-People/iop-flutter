@@ -4,7 +4,6 @@ import 'package:iop_wallet/src/router_constants.dart';
 import 'add_credential.dart';
 import 'wallet_page.dart';
 
-// TODO AppBar might need a leading icon with a back button
 class HomePage extends StatelessWidget {
   final _tabs = <Tab>[Tab(child: Scanner()), Tab(child: WalletPage())];
 
