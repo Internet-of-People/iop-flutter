@@ -4,7 +4,7 @@ import 'package:iop_wallet/src/models/wallet.dart';
 
 void main() {
   group('Wallet Model notifies listeners', () {
-    int callCount = 0;
+    var callCount = 0;
     late WalletModel wallet;
 
     setUp(() async {
@@ -40,7 +40,7 @@ void main() {
 
   group('Wallet Model Data is persisted', () {
     WalletModel wallet;
-    CredentialModel credential = CredentialModel.fromString(
+    final credential = CredentialModel.fromString(
         '{"name":"Hello","details":{"name":"World"}}');
 
     setUp(() async {

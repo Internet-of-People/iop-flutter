@@ -35,7 +35,6 @@ class _CredentialList extends StatelessWidget {
         leading: Icon(Icons.card_membership,
             color: Theme.of(context).primaryColorDark),
         title: ElevatedButton(
-          child: Text(wallet.credentials[index].credentialName),
           onPressed: () {
             Navigator.push(
                 context,
@@ -43,6 +42,7 @@ class _CredentialList extends StatelessWidget {
                     builder: (context) =>
                         CredentialRoute(wallet.credentials[index])));
           },
+          child: Text(wallet.credentials[index].credentialName),
         ),
         trailing: IconButton(
           icon: Icon(

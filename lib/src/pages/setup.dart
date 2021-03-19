@@ -18,7 +18,7 @@ class SetupPage extends StatelessWidget {
               child: Padding(
                 padding: EdgeInsets.all(8.0),
                 child: Text(
-                  "Ready to take back your digital identity?",
+                  'Ready to take back your digital identity?',
                   style: TextStyle(
                       color: Theme.of(context).primaryColorDark,
                       fontSize: 16,
@@ -31,18 +31,20 @@ class SetupPage extends StatelessWidget {
                 SizedBox(
                   width: boxWidth,
                   child: ElevatedButton(
-                      child: Text('Create a new personal vault'),
-                      onPressed: () {
-                        Navigator.pushNamed(context, routeSetupCreateVault);
-                      }),
+                    onPressed: () {
+                      Navigator.pushNamed(context, routeSetupCreateVault);
+                    },
+                    child: Text('Create a new personal vault'),
+                  ),
                 ),
                 SizedBox(
                   width: boxWidth,
                   child: ElevatedButton(
-                      child: Text('Restore an existing vault'),
-                      onPressed: () {
-                        Navigator.pushNamed(context, routeSetupRestoreVault);
-                      }),
+                    onPressed: () {
+                      Navigator.pushNamed(context, routeSetupRestoreVault);
+                    },
+                    child: Text('Restore an existing vault'),
+                  ),
                 ),
               ],
             ),

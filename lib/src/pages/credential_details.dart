@@ -3,8 +3,8 @@ import 'package:iop_wallet/src/models/credential.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 
 class CredentialRoute extends StatelessWidget {
-  final CredentialModel _credential;
   CredentialRoute(this._credential);
+  final CredentialModel _credential;
 
   @override
   Widget build(BuildContext context) {
@@ -25,14 +25,14 @@ class CredentialRoute extends StatelessWidget {
     return ListView.builder(
       itemCount: details.length,
       itemBuilder: (context, index) {
-        String key = details.keys.elementAt(index);
+        final key = details.keys.elementAt(index);
         return Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: new Row(
+          padding: EdgeInsets.all(8.0),
+          child: Row(
             children: [
-              new Text('$key : '),
-              new Expanded(
-                child: new Text(details[key].toString()),
+              Text('$key : '),
+              Expanded(
+                child: Text(details[key].toString()),
               )
             ],
           ),

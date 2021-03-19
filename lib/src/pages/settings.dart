@@ -18,7 +18,7 @@ class SettingsPage extends StatelessWidget {
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.done) {
             if (snapshot.hasError) {
-              return Text("${snapshot.error}");
+              return Text('${snapshot.error}');
             }
             return _createScaffold(context, settings, snapshot.data?.height);
           }
@@ -29,17 +29,18 @@ class SettingsPage extends StatelessWidget {
   Widget _createScaffold(
       BuildContext context, SettingsModel settings, Object? blockInfo) {
     return Scaffold(
-      appBar: AppBar(centerTitle: true, title: Text("Settings")),
+      appBar: AppBar(centerTitle: true, title: Text('Settings')),
       body: Center(
         child: Column(
           children: [
             ElevatedButton(
-                child: Text('Remove your vault'),
-                onPressed: () {
-                  settings.setInitialized(false);
-                  Navigator.pushNamedAndRemoveUntil(
-                      context, routeWelcome, (Route<dynamic> route) => false);
-                }),
+              onPressed: () async {
+                await settings.setInitialized(false);
+                await Navigator.pushNamedAndRemoveUntil(
+                    context, routeWelcome, (Route<dynamic> route) => false);
+              },
+              child: Text('Remove your vault'),
+            ),
             Text('Show Blockheight: $blockInfo'),
           ],
         ),
@@ -59,10 +60,6 @@ class SettingsPage extends StatelessWidget {
 }
 
 class BlockInfo {
-  final int height;
-  final String id;
-  final String supply;
-
   BlockInfo({required this.height, required this.id, required this.supply});
 
   factory BlockInfo.fromJson(Map<String, dynamic> json) {
@@ -75,4 +72,8 @@ class BlockInfo {
       supply: data['supply'],
     );
   }
+
+  final int height;
+  final String id;
+  final String supply;
 }

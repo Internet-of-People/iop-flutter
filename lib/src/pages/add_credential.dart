@@ -24,10 +24,11 @@ class Scanner extends StatelessWidget {
             width: 200,
           ),
           ElevatedButton(
-              child: Text('Add Credential'),
-              onPressed: () {
-                _addCredential(context);
-              }),
+            onPressed: () {
+              _addCredential(context);
+            },
+            child: Text('Add Credential'),
+          ),
         ],
       ),
     );
@@ -66,21 +67,21 @@ class Scanner extends StatelessWidget {
                 SizedBox(
                   width: boxWidth,
                   child: ElevatedButton(
-                    child: Text('Add Credential'),
                     onPressed: () {
                       wallet.add(CredentialModel.fromString(
                           '{"name": "${nameEditingController.text}", "details": ${jsonController.text}}'));
                     },
+                    child: Text('Add Credential'),
                   ),
                 ),
                 SizedBox(
                   width: boxWidth,
                   child: ElevatedButton(
-                    child: Text('Add dummy Credential'),
                     onPressed: () {
                       wallet.add(CredentialModel.fromString(
                           '{"name": "Hello", "details": {"name": "Hello", "details": "world"}}'));
                     },
+                    child: Text('Add dummy Credential'),
                   ),
                 ),
                 SizedBox(
@@ -95,8 +96,8 @@ class Scanner extends StatelessWidget {
   }
 
   Future<void> scanQR() async {
-    String barcodeScanRes = await FlutterBarcodeScanner.scanBarcode(
-        "#ff6666", "Cancel", true, ScanMode.QR);
+    final barcodeScanRes = await FlutterBarcodeScanner.scanBarcode(
+        '#ff6666', 'Cancel', true, ScanMode.QR);
     print(barcodeScanRes);
   }
 }

@@ -13,7 +13,7 @@ class HomePage extends StatelessWidget {
     return DefaultTabController(
       length: 2,
       child: Scaffold(
-        appBar: AppBar(centerTitle: true, title: Text("IOP Wallet")),
+        appBar: AppBar(centerTitle: true, title: Text('IOP Wallet')),
         body: TabBarView(children: _tabs),
         bottomNavigationBar: TabBar(
           tabs: [
@@ -25,16 +25,16 @@ class HomePage extends StatelessWidget {
         drawer: Drawer(
           child: ListView(
             children: [
-              DrawerHeader(child: Center(child: Text("IOP Wallet"))),
+              DrawerHeader(child: Center(child: Text('IOP Wallet'))),
               ListTile(
-                title: Text("Settings"),
+                title: Text('Settings'),
                 onTap: () {
                   Navigator.pop(context);
                   Navigator.pushNamed(context, routeSettings);
                 },
               ),
-              ListTile(title: Text("History")),
-              ListTile(title: Text("List Processes")),
+              ListTile(title: Text('History')),
+              ListTile(title: Text('List Processes')),
             ],
           ),
         ),

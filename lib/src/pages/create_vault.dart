@@ -35,12 +35,12 @@ class _CreateVaultPageState extends State<CreateVaultPage> {
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               SizedBox(
+                width: buttonWidth,
                 child: ElevatedButton(
-                  child: Text('Continue'),
                   onPressed: () =>
                       Navigator.pushNamed(context, routeSetupEnterPassword),
+                  child: Text('Continue'),
                 ),
-                width: buttonWidth,
               ),
             ],
           ),
@@ -50,8 +50,8 @@ class _CreateVaultPageState extends State<CreateVaultPage> {
   }
 
   List<TableRow> _createMnemonicTable() {
-    List<TableRow> mnemonicTable = [];
-    List<Widget> tableRow = [];
+    final mnemonicTable = <TableRow>[];
+    var tableRow = <Widget>[];
 
     for (var i = 0; i < mnemonicList.length; i++) {
       Widget tile = _createListTile(i, mnemonicList[i]);

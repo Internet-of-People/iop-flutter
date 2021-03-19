@@ -23,12 +23,13 @@ class RestoreVaultPage extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               SizedBox(
-                child: ElevatedButton(
-                    child: Text('Continue'),
-                    onPressed: () {
-                      Navigator.pushNamed(context, routeSetupEnterPassword);
-                    }),
                 width: buttonWidth,
+                child: ElevatedButton(
+                  onPressed: () async {
+                    await Navigator.pushNamed(context, routeSetupEnterPassword);
+                  },
+                  child: Text('Continue'),
+                ),
               ),
             ],
           ),

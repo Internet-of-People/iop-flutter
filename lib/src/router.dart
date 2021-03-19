@@ -21,9 +21,6 @@ Route<dynamic> generateRoute(RouteSettings settings) {
   } else if (settings.name == routeWallet) {
     page = WalletPage();
   } else if (settings.name!.startsWith(routePrefixSetup)) {
-    final subRoute = settings.name!.substring(
-      routePrefixSetup.length,
-    );
     page = SetupNavigator();
   } else {
     throw Exception('Unknown route: ${settings.name}');

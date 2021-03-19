@@ -8,13 +8,13 @@ class WalletModel extends ChangeNotifier {
   bool isWaiting = true;
   bool hasError = false;
 
-  add(CredentialModel credential) async {
+  Future<void> add(CredentialModel credential) async {
     await _updateStorageAndNotifyAfter(() {
       credentials.add(credential);
     });
   }
 
-  remove(CredentialModel? credential) async {
+  Future<void> remove(CredentialModel? credential) async {
     await _updateStorageAndNotifyAfter(() {
       credentials.remove(credential);
     });
@@ -30,7 +30,7 @@ class WalletModel extends ChangeNotifier {
     isWaiting = false;
   }
 
-  _updateStorageAndNotifyAfter(Function function) async {
+  Future<void> _updateStorageAndNotifyAfter(Function function) async {
     try {
       function.call();
       await _saveWallet();
@@ -41,13 +41,13 @@ class WalletModel extends ChangeNotifier {
     }
   }
 
-  _saveWallet() async {
+  Future<void> _saveWallet() async {
     isWaiting = true;
     await AppSharedPrefs.setWallet(credentials);
     isWaiting = false;
   }
 
-  emptyStorage() async {
+  Future<void> emptyStorage() async {
     isWaiting = true;
     await AppSharedPrefs.setWallet([]);
     isWaiting = false;
