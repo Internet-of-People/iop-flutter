@@ -1,4 +1,4 @@
-import "package:flutter/material.dart";
+import 'package:flutter/material.dart';
 
 final ThemeData appTheme = ThemeData(
   primaryColor: Colors.teal,
@@ -20,6 +20,6 @@ final ThemeData appTheme = ThemeData(
 
 final TextTheme textTheme = TextTheme(
   headline1: TextStyle(color: Color(0xff0fd7c9), fontSize: 24, wordSpacing: -1),
-  headline2: TextStyle(fontSize: 18, fontFamily: "Roboto"),
+  headline2: TextStyle(fontSize: 18, fontFamily: 'Roboto'),
   bodyText1: TextStyle(fontSize: 12),
 );

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:iop_wallet/src/router_constants.dart';
 
-import 'add_credential.dart';
+import 'action_page.dart';
 import 'wallet_page.dart';
 
 class HomePage extends StatelessWidget {

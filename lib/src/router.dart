@@ -1,13 +1,14 @@
-import "package:flutter/material.dart";
-import "package:iop_wallet/src/pages/home.dart";
-import "package:iop_wallet/src/pages/create_vault_slider.dart";
+import 'package:flutter/material.dart';
+import 'package:iop_wallet/src/pages/add_credential.dart';
+import 'package:iop_wallet/src/pages/home.dart';
+import 'package:iop_wallet/src/pages/create_vault_slider.dart';
 import 'package:iop_wallet/src/pages/restore_vault_slider.dart';
-import "package:iop_wallet/src/pages/settings.dart";
-import "package:iop_wallet/src/pages/setup_start.dart";
-import "package:iop_wallet/src/pages/welcome.dart";
-import "package:iop_wallet/src/router_constants.dart";
+import 'package:iop_wallet/src/pages/settings.dart';
+import 'package:iop_wallet/src/pages/setup_start.dart';
+import 'package:iop_wallet/src/pages/welcome.dart';
+import 'package:iop_wallet/src/router_constants.dart';
 
-import "pages/wallet_page.dart";
+import 'pages/wallet_page.dart';
 
 Route<dynamic> generateRoute(RouteSettings settings) {
   late Widget page;
@@ -15,6 +16,8 @@ Route<dynamic> generateRoute(RouteSettings settings) {
     page = HomePage();
   } else if (settings.name == routeWelcome) {
     page = WelcomePage();
+  } else if (settings.name == routeAddCredential) {
+    page = AddCredentialPage();
   } else if (settings.name == routeSettings) {
     page = SettingsPage();
   } else if (settings.name == routeWallet) {
@@ -22,7 +25,7 @@ Route<dynamic> generateRoute(RouteSettings settings) {
   } else if (settings.name!.startsWith(routePrefixSetup)) {
     page = SetupNavigator();
   } else {
-    throw Exception("Unknown route: ${settings.name}");
+    throw Exception('Unknown route: ${settings.name}');
   }
 
   return MaterialPageRoute(builder: (context) => page, settings: settings);

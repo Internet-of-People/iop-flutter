@@ -1,10 +1,10 @@
-import "package:flutter/material.dart";
-import "package:iop_wallet/src/models/wallet.dart";
-import "package:provider/provider.dart";
+import 'package:flutter/material.dart';
+import 'package:iop_wallet/src/models/wallet.dart';
+import 'package:provider/provider.dart';
 
-import "credential_details.dart";
+import 'credential_details.dart';
 
-export "wallet_page.dart";
+export 'wallet_page.dart';
 
 class WalletPage extends StatelessWidget {
   @override
