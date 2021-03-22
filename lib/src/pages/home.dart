@@ -5,7 +5,7 @@ import 'action_page.dart';
 import 'wallet_page.dart';
 
 class HomePage extends StatelessWidget {
-  final _tabs = <Tab>[Tab(child: Scanner()), Tab(child: WalletPage())];
+  final _tabs = <Tab>[Tab(child: ActionPage()), Tab(child: WalletPage())];
 
   @override
   Widget build(BuildContext context) {

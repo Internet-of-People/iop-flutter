@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:iop_wallet/src/pages/add_credential.dart';
 import 'package:iop_wallet/src/pages/home.dart';
 import 'package:iop_wallet/src/pages/create_vault_slider.dart';
+import 'package:iop_wallet/src/pages/qr_scanner.dart';
 import 'package:iop_wallet/src/pages/restore_vault_slider.dart';
 import 'package:iop_wallet/src/pages/settings.dart';
 import 'package:iop_wallet/src/pages/setup_start.dart';
@@ -18,6 +19,8 @@ Route<dynamic> generateRoute(RouteSettings settings) {
     page = WelcomePage();
   } else if (settings.name == routeAddCredential) {
     page = AddCredentialPage();
+  } else if (settings.name == routeScanner) {
+    page = QrScanner();
   } else if (settings.name == routeSettings) {
     page = SettingsPage();
   } else if (settings.name == routeWallet) {
