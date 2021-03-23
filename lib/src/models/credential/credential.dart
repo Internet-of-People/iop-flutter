@@ -1,7 +1,7 @@
 import 'dart:convert';
 
-class CredentialModel {
-  CredentialModel({required this.credentialName, required this.details});
+class Credential {
+  Credential({required this.credentialName, required this.details});
 
   final String credentialName;
   final Map<String, dynamic> details;
@@ -15,9 +15,9 @@ class CredentialModel {
     return jsonEncode(credentialJson);
   }
 
-  static CredentialModel fromString(String str) {
+  static Credential fromString(String str) {
     final Map<String, dynamic> credentialMap = jsonDecode(str);
-    return CredentialModel(
+    return Credential(
         credentialName: credentialMap['name'],
         details: credentialMap['details']);
   }

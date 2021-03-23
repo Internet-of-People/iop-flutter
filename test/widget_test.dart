@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-import 'package:iop_wallet/src/pages/home.dart';
+import 'package:iop_wallet/src/pages/home/home.dart';
 
 void main() {
   testWidgets('Home Page has a title, buttons and icons',

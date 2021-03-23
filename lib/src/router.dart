@@ -1,24 +1,34 @@
 import 'package:flutter/material.dart';
-import 'package:iop_wallet/src/pages/add_credential.dart';
-import 'package:iop_wallet/src/pages/home.dart';
-import 'package:iop_wallet/src/pages/create_vault_slider.dart';
-import 'package:iop_wallet/src/pages/qr_scanner.dart';
-import 'package:iop_wallet/src/pages/restore_vault_slider.dart';
-import 'package:iop_wallet/src/pages/settings.dart';
-import 'package:iop_wallet/src/pages/setup_start.dart';
-import 'package:iop_wallet/src/pages/welcome.dart';
+// ignore: import_of_legacy_library_into_null_safe
+import 'package:iop_sdk/entities.dart';
+import 'package:iop_wallet/src/pages/actions/add_credential.dart';
+import 'package:iop_wallet/src/pages/authority/authority_processes.dart';
+import 'package:iop_wallet/src/pages/home/home.dart';
+import 'package:iop_wallet/src/pages/setup/create_vault_slider.dart';
+import 'package:iop_wallet/src/pages/qr_scanner/qr_scanner.dart';
+import 'package:iop_wallet/src/pages/setup/restore_vault_slider.dart';
+import 'package:iop_wallet/src/pages/settings/settings.dart';
+import 'package:iop_wallet/src/pages/setup/setup_start.dart';
+import 'package:iop_wallet/src/pages/wallet/wallet_page.dart';
+import 'package:iop_wallet/src/pages/welcome/welcome.dart';
 import 'package:iop_wallet/src/router_constants.dart';
-
-import 'pages/wallet_page.dart';
+import 'package:iop_wallet/src/utils.dart';
 
 Route<dynamic> generateRoute(RouteSettings settings) {
   late Widget page;
+  final args = settings.arguments;
+
   if (settings.name == routeHome) {
     page = HomePage();
   } else if (settings.name == routeWelcome) {
     page = WelcomePage();
   } else if (settings.name == routeAddCredential) {
     page = AddCredentialPage();
+  } else if (settings.name == routeAuthorityProcesses) {
+    if (args is AuthorityUrlArguments) {
+      page =
+          AuthorityProcessesPage(authorityUrl: ApiConfig(args.host, args.port));
+    }
   } else if (settings.name == routeScanner) {
     page = QrScanner();
   } else if (settings.name == routeSettings) {

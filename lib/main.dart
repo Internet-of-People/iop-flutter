@@ -1,8 +1,8 @@
 // @dart=2.9
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:iop_wallet/src/models/settings.dart';
-import 'package:iop_wallet/src/models/wallet.dart';
+import 'package:iop_wallet/src/models/settings/settings.dart';
+import 'package:iop_wallet/src/models/wallet/wallet.dart';
 import 'package:iop_wallet/src/router.dart';
 import 'package:iop_wallet/src/router_constants.dart';
 import 'package:iop_wallet/src/theme.dart';

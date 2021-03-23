@@ -1,20 +1,20 @@
 import 'package:flutter/foundation.dart';
 import 'package:iop_wallet/src/shared_prefs.dart';
-import 'credential.dart';
+import '../credential/credential.dart';
 
 class WalletModel extends ChangeNotifier {
-  List<CredentialModel> credentials = [];
+  List<Credential> credentials = [];
 
   bool isWaiting = true;
   bool hasError = false;
 
-  Future<void> add(CredentialModel credential) async {
+  Future<void> add(Credential credential) async {
     await _updateStorageAndNotifyAfter(() {
       credentials.add(credential);
     });
   }
 
-  Future<void> remove(CredentialModel? credential) async {
+  Future<void> remove(Credential? credential) async {
     await _updateStorageAndNotifyAfter(() {
       credentials.remove(credential);
     });
@@ -23,9 +23,8 @@ class WalletModel extends ChangeNotifier {
   Future load() async {
     isWaiting = true;
     final credentialsString = await AppSharedPrefs.loadWallet();
-    credentials = credentialsString
-        .map((str) => CredentialModel.fromString(str))
-        .toList();
+    credentials =
+        credentialsString.map((str) => Credential.fromString(str)).toList();
     notifyListeners();
     isWaiting = false;
   }

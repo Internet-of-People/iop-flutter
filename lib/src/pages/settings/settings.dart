@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'package:iop_wallet/src/models/settings.dart';
+import 'package:iop_wallet/src/models/settings/settings.dart';
 import 'package:iop_wallet/src/router_constants.dart';
 import 'package:provider/provider.dart';
 

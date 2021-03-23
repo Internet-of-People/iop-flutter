@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:iop_wallet/src/pages/actions/action_page.dart';
+import 'package:iop_wallet/src/pages/wallet/wallet_page.dart';
 import 'package:iop_wallet/src/router_constants.dart';
-
-import 'action_page.dart';
-import 'wallet_page.dart';
 
 class HomePage extends StatelessWidget {
   final _tabs = <Tab>[Tab(child: ActionPage()), Tab(child: WalletPage())];

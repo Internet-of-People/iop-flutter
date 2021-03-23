@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:iop_wallet/src/models/credential.dart';
+import 'package:iop_wallet/src/models/credential/credential.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 
 class CredentialRoute extends StatelessWidget {
   CredentialRoute(this._credential);
-  final CredentialModel _credential;
+  final Credential _credential;
 
   @override
   Widget build(BuildContext context) {

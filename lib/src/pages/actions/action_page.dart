@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:iop_wallet/src/router_constants.dart';
-export 'action_page.dart';
+import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
+import 'package:iop_wallet/src/utils.dart';
 
 class ActionPage extends StatelessWidget {
   final double boxWidth = 100;
@@ -22,7 +23,9 @@ class ActionPage extends StatelessWidget {
           ),
           ElevatedButton(
             onPressed: () {
-              Navigator.pushNamed(context, routeScanner);
+              Navigator.pushNamed(context, routeAuthorityProcesses,
+                  arguments: AuthorityUrlArguments(
+                      host: 'http://10.0.2.2', port: 8083));
             },
             child: SizedBox(
                 width: boxWidth, child: Center(child: Text('Scan QR'))),
@@ -35,5 +38,11 @@ class ActionPage extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  Future<void> scanQR() async {
+    final barcodeScanRes = await FlutterBarcodeScanner.scanBarcode(
+        '#ff6666', 'Cancel', true, ScanMode.QR);
+    print(barcodeScanRes);
   }
 }
