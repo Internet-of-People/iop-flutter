@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:iop_wallet/src/router_constants.dart';
-import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'package:iop_wallet/src/utils.dart';
 
 class ActionPage extends StatelessWidget {
@@ -22,11 +21,7 @@ class ActionPage extends StatelessWidget {
             width: 200,
           ),
           ElevatedButton(
-            onPressed: () {
-              Navigator.pushNamed(context, routeAuthorityProcesses,
-                  arguments: AuthorityUrlArguments(
-                      host: 'http://10.0.2.2', port: 8083));
-            },
+            onPressed: () => scanQR(context, listAuthorityProcesses),
             child: SizedBox(
                 width: boxWidth, child: Center(child: Text('Scan QR'))),
           ),
@@ -40,9 +35,16 @@ class ActionPage extends StatelessWidget {
     );
   }
 
-  Future<void> scanQR() async {
-    final barcodeScanRes = await FlutterBarcodeScanner.scanBarcode(
-        '#ff6666', 'Cancel', true, ScanMode.QR);
-    print(barcodeScanRes);
+  Future<void> scanQR(BuildContext context, Function executeOnResult) async {
+    final barcodeScanRes = 'http://10.0.2.2:8083';
+    await executeOnResult(context, barcodeScanRes);
+  }
+
+  Future<void> listAuthorityProcesses(BuildContext context, String ip) async {
+    final uri = Uri.parse(ip);
+    final host = uri.scheme + '://' + uri.host;
+    final port = uri.port;
+    await Navigator.pushNamed(context, routeAuthorityProcesses,
+        arguments: AuthorityUrlArguments(host: host, port: port));
   }
 }

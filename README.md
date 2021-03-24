@@ -17,3 +17,5 @@ flutter pub outdated --mode=null-safety
 
 Current unsafe dependencies:
 - intro_slider: ^2.3.4
+- iop_sdk
+- build_runner

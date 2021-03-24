@@ -4,7 +4,7 @@ import 'package:flutter/widgets.dart';
 import 'package:intro_slider/intro_slider.dart';
 // ignore: import_of_legacy_library_into_null_safe
 import 'package:intro_slider/slide_object.dart';
-import 'package:iop_wallet/src/models/settings.dart';
+import 'package:iop_wallet/src/models/settings/settings.dart';
 import 'package:iop_wallet/src/pages/onboarding_slides.dart';
 import 'package:iop_wallet/src/router_constants.dart';
 import 'package:provider/provider.dart';

@@ -1,3 +1,4 @@
+# When the iop_sdk is available on pub dev, enable pipeline on Gitlab
 image: cirrusci/flutter:stable
 
 stages:

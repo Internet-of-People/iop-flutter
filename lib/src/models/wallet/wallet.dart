@@ -1,6 +1,6 @@
 import 'package:flutter/foundation.dart';
+import 'package:iop_wallet/src/models/credential/credential.dart';
 import 'package:iop_wallet/src/shared_prefs.dart';
-import '../credential/credential.dart';
 
 class WalletModel extends ChangeNotifier {
   List<Credential> credentials = [];

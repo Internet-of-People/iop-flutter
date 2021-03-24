@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:iop_wallet/src/models/settings/settings.dart';
+import 'package:iop_wallet/src/pages/home/home.dart';
 import 'package:iop_wallet/src/router.dart';
 import 'package:provider/provider.dart';
-import '../home/home.dart';
 
 class WelcomePage extends StatelessWidget {
   @override
