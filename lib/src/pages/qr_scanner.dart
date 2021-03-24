@@ -7,13 +7,13 @@ class QrScanner extends StatefulWidget {
 }
 
 class _QrScannerState extends State<QrScanner> {
-  late final String? scanResult;
+  String scanResult = '';
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
-        child: Text((scanResult == null) || (scanResult == '')
+        child: Text(scanResult.isEmpty
             ? 'Please scan to show some result'
             : 'Result:' + scanResult.toString()),
       ),

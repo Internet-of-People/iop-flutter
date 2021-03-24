@@ -7,26 +7,15 @@ import 'package:intro_slider/slide_object.dart';
 import 'package:provider/provider.dart';
 
 import 'package:iop_wallet/src/models/settings.dart';
-import 'package:iop_wallet/src/pages/slides.dart';
+import 'package:iop_wallet/src/pages/onboarding_slides.dart';
 import 'package:iop_wallet/src/router_constants.dart';
 
-class RestoreVaultSlider extends StatefulWidget {
-  @override
-  _RestoreVaultSliderState createState() => _RestoreVaultSliderState();
-}
-
-class _RestoreVaultSliderState extends State<RestoreVaultSlider> {
-  List<Slide> slides = <Slide>[];
-
-  @override
-  void initState() {
-    super.initState();
-    slides.add(Slides.mnemonicInfoSlide);
-
-    slides.add(Slides.enterMnemonic);
-
-    slides.add(Slides.pickPassword);
-  }
+class RestoreVaultSlider extends StatelessWidget {
+  final slides = <Slide>[
+    OnboardingSlides.mnemonicInfoSlide,
+    OnboardingSlides.enterMnemonic,
+    OnboardingSlides.pickPassword
+  ];
 
   void onDonePress() {}
 

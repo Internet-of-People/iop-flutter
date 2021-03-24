@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 // ignore: import_of_legacy_library_into_null_safe
 import 'package:intro_slider/slide_object.dart';
 
-class Slides {
+class OnboardingSlides {
   static final Color backgroundColor = Color(0xff009688);
 
   static final mnemonicInfoSlide = Slide(

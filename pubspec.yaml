@@ -1,5 +1,5 @@
 name: iop_wallet
-description: The wallet to hold IOP"s Verifiable Credentials
+description: The wallet to hold IOP's Verifiable Credentials
 
 # The following line prevents the package from being accidentally published to
 # pub.dev using `pub publish`. This is preferred for private packages.
