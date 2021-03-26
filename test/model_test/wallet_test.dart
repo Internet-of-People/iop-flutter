@@ -23,16 +23,20 @@ void main() {
 
     test('Add Credential', () async {
       callCount = 0;
-      await wallet.add(
-          Credential.fromString('{"name":"Hello","details":{"name":"World"}}'));
+      await wallet.add(Credential.fromJson({
+        'name': 'Hello',
+        'details': {'name': 'World'}
+      }));
       expect(wallet.credentials.length, 1);
       expect(callCount, 1);
     });
 
     test('Remove Credential', () async {
       callCount = 0;
-      await wallet.remove(
-          Credential.fromString('{"name":"Hello","details":{"name":"World"}}'));
+      await wallet.remove(Credential.fromJson({
+        'name': 'Hello',
+        'details': {'name': 'World'}
+      }));
       expect(wallet.credentials.length, 0);
       expect(callCount, 1);
     });
@@ -40,8 +44,10 @@ void main() {
 
   group('Wallet Model Data is persisted', () {
     WalletModel wallet;
-    final credential =
-        Credential.fromString('{"name":"Hello","details":{"name":"World"}}');
+    final credential = Credential.fromJson({
+      'name': 'Hello',
+      'details': {'name': 'World'}
+    });
 
     setUp(() async {
       wallet = WalletModel();

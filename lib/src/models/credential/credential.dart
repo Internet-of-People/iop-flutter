@@ -1,24 +1,15 @@
-import 'dart:convert';
+import 'package:json_annotation/json_annotation.dart';
 
+part 'credential.g.dart';
+
+@JsonSerializable()
 class Credential {
-  Credential({required this.credentialName, required this.details});
+  Credential(this.credentialName, this.details);
 
-  final String credentialName;
-  final Map<String, dynamic> details;
+  factory Credential.fromJson(Map<String, dynamic> json) =>
+      _$CredentialFromJson(json);
+  Map<String, dynamic> toJson() => _$CredentialToJson(this);
 
-  @override
-  String toString() {
-    final credentialJson = <String, dynamic>{
-      'name': credentialName,
-      'details': details,
-    };
-    return jsonEncode(credentialJson);
-  }
-
-  static Credential fromString(String str) {
-    final Map<String, dynamic> credentialMap = jsonDecode(str);
-    return Credential(
-        credentialName: credentialMap['name'],
-        details: credentialMap['details']);
-  }
+  String credentialName;
+  Map<String, dynamic> details;
 }

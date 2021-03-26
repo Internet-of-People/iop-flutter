@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'package:iop_wallet/src/models/credential/credential.dart';
@@ -41,8 +43,10 @@ class AddCredentialPage extends StatelessWidget {
             width: boxWidth,
             child: ElevatedButton(
               onPressed: () {
-                wallet.add(Credential.fromString(
-                    '{"name": "${nameEditingController.text}", "details": ${jsonController.text}}'));
+                wallet.add(Credential.fromJson({
+                  'credentialName': '${nameEditingController.text}',
+                  'details': jsonDecode('${jsonController.text}')
+                }));
               },
               child: Text('Add Credential'),
             ),
@@ -51,8 +55,10 @@ class AddCredentialPage extends StatelessWidget {
             width: boxWidth,
             child: ElevatedButton(
               onPressed: () {
-                wallet.add(Credential.fromString(
-                    '{"name": "Hello", "details": {"name": "Hello", "details": "world"}}'));
+                wallet.add(Credential.fromJson({
+                  'credentialName': 'Hello',
+                  'details': {'name': 'Hello', 'details': 'world'}
+                }));
               },
               child: Text('Add dummy Credential'),
             ),

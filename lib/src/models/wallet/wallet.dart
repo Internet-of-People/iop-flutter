@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/foundation.dart';
 import 'package:iop_wallet/src/models/credential/credential.dart';
 import 'package:iop_wallet/src/shared_prefs.dart';
@@ -9,6 +11,8 @@ class WalletModel extends ChangeNotifier {
   bool hasError = false;
 
   Future<void> add(Credential credential) async {
+    print(credential.credentialName);
+    print(credential.details);
     await _updateStorageAndNotifyAfter(() {
       credentials.add(credential);
     });
@@ -23,8 +27,9 @@ class WalletModel extends ChangeNotifier {
   Future load() async {
     isWaiting = true;
     final credentialsString = await AppSharedPrefs.loadWallet();
-    credentials =
-        credentialsString.map((str) => Credential.fromString(str)).toList();
+    credentials = credentialsString
+        .map((str) => Credential.fromJson(jsonDecode(str)))
+        .toList();
     notifyListeners();
     isWaiting = false;
   }
