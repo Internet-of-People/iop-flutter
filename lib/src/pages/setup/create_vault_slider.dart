@@ -10,6 +10,7 @@ import 'package:iop_wallet/src/router_constants.dart';
 import 'package:provider/provider.dart';
 
 class CreateVaultSlider extends StatelessWidget {
+  // TODO: mnemonic has to be generated using the sdk
   static final mnemonic =
       'helmet loop diesel nephew birth word spring erosion bitter ugly orbit festival cake armed worth orchard immense hunt crime nominee nominee nominee nominee nominee';
   static final List<String> mnemonicList = mnemonic.split(' ');

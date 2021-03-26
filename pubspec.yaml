@@ -28,6 +28,7 @@ dependencies:
   flutter_barcode_scanner: ^2.0.0-nullsafety.0
   http: ^0.13.0
   intro_slider: ^2.3.4
+  # TODO: replace iop-sdk with the package from pub dev
   iop_sdk:
     path: /home/ddt/IOP/morpheus-dart
   provider: ^5.0.0

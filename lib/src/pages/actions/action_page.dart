@@ -36,6 +36,7 @@ class ActionPage extends StatelessWidget {
   }
 
   Future<void> scanQR(BuildContext context, Function executeOnResult) async {
+    // TODO replace url string with openScanner() function
     final barcodeScanRes = 'http://10.0.2.2:8083';
     await executeOnResult(context, barcodeScanRes);
   }
