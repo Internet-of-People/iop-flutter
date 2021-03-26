@@ -4,7 +4,7 @@ import 'package:iop_wallet/src/router_constants.dart';
 import 'package:iop_wallet/src/utils.dart';
 
 class ActionPage extends StatelessWidget {
-  final double boxWidth = 100;
+  final double boxWidth = 150;
 
   @override
   Widget build(BuildContext context) {
@@ -14,21 +14,27 @@ class ActionPage extends StatelessWidget {
   Widget _getOptions(BuildContext context) {
     return Center(
       child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
           Image(
             image: AssetImage('lib/src/assets/iop_logo.png'),
-            width: 200,
+            width: 300,
           ),
-          ElevatedButton(
-            onPressed: () => scanQr(context, listAuthorityProcesses),
-            child: SizedBox(
-                width: boxWidth, child: Center(child: Text('Scan QR'))),
-          ),
-          ElevatedButton(
-            onPressed: () => Navigator.pushNamed(context, routeAddCredential),
-            child: SizedBox(
-                width: boxWidth, child: Center(child: Text('Add Credential'))),
+          Column(
+            children: [
+              ElevatedButton(
+                onPressed: () => scanQr(context, listAuthorityProcesses),
+                child: SizedBox(
+                    width: boxWidth, child: Center(child: Text('Scan QR'))),
+              ),
+              ElevatedButton(
+                onPressed: () =>
+                    Navigator.pushNamed(context, routeAddCredential),
+                child: SizedBox(
+                    width: boxWidth,
+                    child: Center(child: Text('Add Credential'))),
+              ),
+            ],
           ),
         ],
       ),
