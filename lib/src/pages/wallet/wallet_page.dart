@@ -28,10 +28,6 @@ class _CredentialList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final wallet = context.watch<WalletModel>();
-    print(wallet.credentials[0].runtimeType);
-    print(wallet.credentials.length);
-    print(wallet.credentials[0].credentialName);
-    print(wallet.credentials[0].toJson());
     return ListView.builder(
       itemCount: wallet.credentials.length,
       itemBuilder: (context, index) => ListTile(
