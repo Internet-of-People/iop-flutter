@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 // ignore: import_of_legacy_library_into_null_safe
 import 'package:intro_slider/slide_object.dart';
+import 'package:iop_wallet/src/utils.dart';
 
 class OnboardingSlides {
   static final Color backgroundColor = Color(0xff009688);
@@ -58,43 +59,13 @@ class OnboardingSlides {
           'Anybody with access to these 24 words can steal your identity. Write them down and store them in a secure location, in case you lose your device!',
       centerWidget: Column(
         children: [
-          Table(children: _createMnemonicTable(mnemonicList)),
+          Table(children: createMnemonicTable(mnemonicList)),
           IconButton(
               onPressed: () {}, icon: Icon(Icons.cached, color: Colors.white)),
         ],
       ),
       backgroundColor: backgroundColor,
     );
-  }
-
-  static List<TableRow> _createMnemonicTable(List<String> mnemonicList) {
-    final mnemonicTable = <TableRow>[];
-    var tableRow = <Widget>[];
-
-    for (var i = 0; i < mnemonicList.length; i++) {
-      Widget tile = _createListTile(i, mnemonicList[i]);
-      tableRow.add(tile);
-
-      if (tableRow.length == 4) {
-        mnemonicTable.add(TableRow(children: tableRow));
-        tableRow = [];
-      }
-    }
-    return mnemonicTable;
-  }
-
-  static ListTile _createListTile(int index, String content) {
-    final style = TextStyle(fontSize: 12, color: Colors.white);
-    return ListTile(
-        dense: true,
-        minLeadingWidth: 1,
-        horizontalTitleGap: 4,
-        contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 10),
-        leading: Text(
-          '${index + 1}.',
-          style: style,
-        ),
-        title: Text(content, style: style));
   }
 
   static Widget textField(String hintText, bool obscured) {
