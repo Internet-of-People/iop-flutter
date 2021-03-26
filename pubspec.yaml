@@ -21,8 +21,6 @@ environment:
   sdk: ">=2.12.0 <3.0.0"
 
 dependencies:
-  built_collection: ^5.0.0
-  built_value: ^8.0.4
   flutter:
     sdk: flutter
   flutter_barcode_scanner: ^2.0.0-nullsafety.0
@@ -31,6 +29,7 @@ dependencies:
   # TODO: replace iop-sdk with the package from pub dev
   iop_sdk:
     path: /home/ddt/IOP/morpheus-dart
+  json_annotation: ^4.0.1
   provider: ^5.0.0
   qr_flutter: ^4.0.0
   shared_preferences: ^2.0.4
@@ -42,9 +41,9 @@ dependencies:
 
 dev_dependencies:
   build_runner: ^1.12.2
-  built_value_generator: ^8.0.4
   flutter_test:
     sdk: flutter
+  json_serializable: ^4.1.0
   pedantic: ^1.11.0
   test: ^1.16.5
 

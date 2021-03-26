@@ -1,27 +1,20 @@
-import 'dart:convert';
-
-import 'package:built_value/built_value.dart';
-import 'package:built_value/serializer.dart';
-import 'package:iop_wallet/src/models/serializers/serializers.dart';
+import 'package:json_annotation/json_annotation.dart';
 
 part 'process.g.dart';
 
-abstract class Process implements Built<Process, ProcessBuilder> {
-  Process._();
-  factory Process([void Function(ProcessBuilder) updates]) = _$Process;
+@JsonSerializable()
+class Process {
+  Process(this.version, this.name, this.description, this.claimSchema,
+      this.evidenceSchema, this.constraintsSchema);
 
-  int get version;
-  String get name;
-  String get description;
-  String get claimSchema;
-  String get evidenceSchema;
-  String? get constraintsSchema;
+  factory Process.fromJson(Map<String, dynamic> json) =>
+      _$ProcessFromJson(json);
+  Map<String, dynamic> toJson() => _$ProcessToJson(this);
 
-  static Serializer<Process> get serializer => _$processSerializer;
-}
-
-Process? jsonToProcess(String jsonProcess) {
-  final parsed = jsonDecode(jsonProcess);
-  final process = jsonSerializers.deserializeWith(Process.serializer, parsed);
-  return process;
+  int version;
+  String name;
+  String description;
+  String claimSchema;
+  String evidenceSchema;
+  String? constraintsSchema;
 }

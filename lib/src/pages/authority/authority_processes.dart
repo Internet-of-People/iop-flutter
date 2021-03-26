@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 // ignore: import_of_legacy_library_into_null_safe
 import 'package:iop_sdk/authority.dart';
@@ -49,11 +51,11 @@ class _AuthorityProcessesPageState extends State<AuthorityProcessesPage> {
     final contentFutures = Map.fromIterable(contentIds,
         value: (contentId) async => await api.getPublicBlob(contentId));
     final contents = await Future.wait(contentFutures.values);
-
     final contentIdContentMap = <String, Process?>{};
+    print(1);
     for (var i = 0; i < contents.length; i++) {
-      contentIdContentMap[contentIds[i].toJson()] =
-          jsonToProcess(contents[i].value);
+      final json = jsonDecode(contents[i].value);
+      contentIdContentMap[contentIds[i].toJson()] = Process.fromJson(json);
     }
     return contentIdContentMap;
   }
