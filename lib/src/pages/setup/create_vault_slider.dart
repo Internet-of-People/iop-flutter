@@ -31,11 +31,10 @@ class CreateVaultSlider extends StatelessWidget {
         isShowSkipBtn: false,
         slides: slides,
         onDonePress: () async {
-          if (true) {
-            await settings.setInitialized(true);
-            await Navigator.of(context)
-                .pushNamedAndRemoveUntil(routeWelcome, (route) => false);
-          }
+          await settings.setMnemonic(mnemonicList);
+          await settings.setInitialized(true);
+          await Navigator.of(context)
+              .pushNamedAndRemoveUntil(routeWelcome, (route) => false);
         });
   }
 }
