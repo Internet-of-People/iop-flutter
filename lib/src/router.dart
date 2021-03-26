@@ -4,6 +4,7 @@ import 'package:iop_sdk/entities.dart';
 import 'package:iop_wallet/src/pages/actions/add_credential.dart';
 import 'package:iop_wallet/src/pages/authority/authority_processes.dart';
 import 'package:iop_wallet/src/pages/home/home.dart';
+import 'package:iop_wallet/src/pages/settings/show_mnemonic.dart';
 import 'package:iop_wallet/src/pages/setup/create_vault_slider.dart';
 import 'package:iop_wallet/src/pages/setup/restore_vault_slider.dart';
 import 'package:iop_wallet/src/pages/settings/settings.dart';
@@ -30,6 +31,8 @@ Route<dynamic> generateRoute(RouteSettings settings) {
     }
   } else if (settings.name == routeSettings) {
     page = SettingsPage();
+  } else if (settings.name == routeShowMnemonic) {
+    page = showMnemonicPage();
   } else if (settings.name == routeWallet) {
     page = WalletPage();
   } else if (settings.name!.startsWith(routePrefixSetup)) {
