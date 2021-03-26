@@ -19,7 +19,9 @@ final ThemeData appTheme = ThemeData(
 );
 
 final TextTheme textTheme = TextTheme(
-  headline1: TextStyle(color: Color(0xff0fd7c9), fontSize: 24, wordSpacing: -1),
-  headline2: TextStyle(fontSize: 18, fontFamily: 'Roboto'),
-  bodyText1: TextStyle(fontSize: 12),
+  headline1: TextStyle(color: Colors.teal[800], fontSize: 24, wordSpacing: -1),
+  headline2: TextStyle(
+      color: Colors.teal[900], fontSize: 20, fontWeight: FontWeight.bold),
+  bodyText1: TextStyle(fontSize: 16),
+  bodyText2: TextStyle(fontSize: 12),
 );

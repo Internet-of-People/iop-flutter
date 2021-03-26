@@ -35,13 +35,17 @@ List<TableRow> createMnemonicTable(List<String> mnemonicList) {
 ListTile createListTile(int index, String content) {
   final style = TextStyle(fontSize: 12, color: Colors.white);
   return ListTile(
-      dense: true,
-      minLeadingWidth: 1,
-      horizontalTitleGap: 4,
-      contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 10),
-      leading: Text(
-        '${index + 1}.',
-        style: style,
-      ),
-      title: Text(content, style: style));
+    dense: true,
+    minLeadingWidth: 1,
+    horizontalTitleGap: 4,
+    contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 10),
+    leading: Text(
+      '${index + 1}.',
+      style: style,
+    ),
+    title: Text(
+      content,
+      style: style,
+    ),
+  );
 }

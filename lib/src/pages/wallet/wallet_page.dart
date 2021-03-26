@@ -33,7 +33,7 @@ class _CredentialList extends StatelessWidget {
         ? Center(
             child: Text(
             'You have no credentials in your wallet.',
-            style: textTheme.headline2,
+            style: textTheme.bodyText1,
           ))
         : ListView.builder(
             itemCount: wallet.credentials.length,

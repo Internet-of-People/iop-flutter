@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:iop_wallet/src/pages/actions/action_page.dart';
 import 'package:iop_wallet/src/pages/wallet/wallet_page.dart';
 import 'package:iop_wallet/src/router_constants.dart';
+import 'package:iop_wallet/src/theme.dart';
 
 class HomePage extends StatelessWidget {
   final _tabs = <Tab>[Tab(child: ActionPage()), Tab(child: WalletPage())];
@@ -11,7 +12,7 @@ class HomePage extends StatelessWidget {
     return DefaultTabController(
       length: 2,
       child: Scaffold(
-        appBar: AppBar(centerTitle: true, title: Text('IOP Wallet')),
+        appBar: AppBar(centerTitle: true, title: Text('Wallet Actions')),
         body: TabBarView(children: _tabs),
         bottomNavigationBar: TabBar(
           tabs: [
@@ -23,16 +24,23 @@ class HomePage extends StatelessWidget {
         drawer: Drawer(
           child: ListView(
             children: [
-              DrawerHeader(child: Center(child: Text('IOP Wallet'))),
+              DrawerHeader(
+                  child: Center(
+                      child: Text(
+                'IOP Wallet',
+                style: textTheme.headline1,
+              ))),
               ListTile(
-                title: Text('Settings'),
+                title: Text(
+                  'Settings',
+                  style: textTheme.bodyText1,
+                ),
                 onTap: () {
                   Navigator.pop(context);
                   Navigator.pushNamed(context, routeSettings);
                 },
               ),
               ListTile(title: Text('History')),
-              ListTile(title: Text('List Processes')),
             ],
           ),
         ),

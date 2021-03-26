@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:iop_wallet/src/models/settings/settings.dart';
+import 'package:iop_wallet/src/theme.dart';
 import 'package:iop_wallet/src/utils.dart';
 import 'package:provider/provider.dart';
 
@@ -27,12 +28,15 @@ class showMnemonicPage extends StatelessWidget {
 
   Widget _buildPage(List<String> mnemonicList) {
     return Column(
-      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      mainAxisAlignment: MainAxisAlignment.spaceAround,
       children: [
         Padding(
           padding: const EdgeInsets.all(16),
           child: Text(
-              'Do not share your mnemonic with anyone, since this can result in identity theft!'),
+            'Do not share your mnemonic with anyone, since this can result in identity theft! Keep it written down in a safe place!',
+            style: textTheme.headline2,
+            textAlign: TextAlign.center,
+          ),
         ),
         Padding(
           padding: const EdgeInsets.all(8.0),

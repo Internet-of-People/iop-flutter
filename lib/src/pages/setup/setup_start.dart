@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:iop_wallet/src/router_constants.dart';
+import 'package:iop_wallet/src/theme.dart';
 
 class SetupPage extends StatelessWidget {
   final double boxWidth = 240;
@@ -12,18 +13,13 @@ class SetupPage extends StatelessWidget {
           children: [
             Image(
               image: AssetImage('lib/src/assets/iop_logo.png'),
-              width: 200,
+              width: 400,
             ),
             Center(
               child: Padding(
                 padding: EdgeInsets.all(8.0),
-                child: Text(
-                  'Ready to take back your digital identity?',
-                  style: TextStyle(
-                      color: Theme.of(context).primaryColorDark,
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold),
-                ),
+                child: Text('Ready to take back your digital identity?',
+                    style: textTheme.headline2),
               ),
             ),
             Column(
@@ -34,7 +30,7 @@ class SetupPage extends StatelessWidget {
                     onPressed: () {
                       Navigator.pushNamed(context, routeSetupCreateVault);
                     },
-                    child: Text('Create a new personal vault'),
+                    child: Text('Create a New Personal Vault'),
                   ),
                 ),
                 SizedBox(
@@ -43,7 +39,7 @@ class SetupPage extends StatelessWidget {
                     onPressed: () {
                       Navigator.pushNamed(context, routeSetupRestoreVault);
                     },
-                    child: Text('Restore an existing vault'),
+                    child: Text('Restore an Existing Vault'),
                   ),
                 ),
               ],
