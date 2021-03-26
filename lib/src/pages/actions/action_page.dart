@@ -21,7 +21,7 @@ class ActionPage extends StatelessWidget {
             width: 200,
           ),
           ElevatedButton(
-            onPressed: () => scanQR(context, listAuthorityProcesses),
+            onPressed: () => scanQr(context, listAuthorityProcesses),
             child: SizedBox(
                 width: boxWidth, child: Center(child: Text('Scan QR'))),
           ),
@@ -35,8 +35,8 @@ class ActionPage extends StatelessWidget {
     );
   }
 
-  Future<void> scanQR(BuildContext context, Function executeOnResult) async {
-    // TODO replace url string with openScanner() function
+  Future<void> scanQr(BuildContext context, Function executeOnResult) async {
+    // TODO replace local authority url with 'await scanQrUntilResult()'
     final barcodeScanRes = 'http://10.0.2.2:8083';
     await executeOnResult(context, barcodeScanRes);
   }

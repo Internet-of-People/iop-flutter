@@ -5,7 +5,6 @@ import 'package:iop_wallet/src/pages/actions/add_credential.dart';
 import 'package:iop_wallet/src/pages/authority/authority_processes.dart';
 import 'package:iop_wallet/src/pages/home/home.dart';
 import 'package:iop_wallet/src/pages/setup/create_vault_slider.dart';
-import 'package:iop_wallet/src/pages/qr_scanner/qr_scanner.dart';
 import 'package:iop_wallet/src/pages/setup/restore_vault_slider.dart';
 import 'package:iop_wallet/src/pages/settings/settings.dart';
 import 'package:iop_wallet/src/pages/setup/setup_start.dart';
@@ -29,8 +28,6 @@ Route<dynamic> generateRoute(RouteSettings settings) {
       page =
           AuthorityProcessesPage(authorityUrl: ApiConfig(args.host, args.port));
     }
-  } else if (settings.name == routeScanner) {
-    page = QrScanner();
   } else if (settings.name == routeSettings) {
     page = SettingsPage();
   } else if (settings.name == routeWallet) {
