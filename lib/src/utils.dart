@@ -16,12 +16,13 @@ Future<String> scanQrUntilResult() async {
   return barcodeScanRes;
 }
 
-List<TableRow> createMnemonicTable(List<String> mnemonicList) {
+// TODO: make txtstyle indepenent of function
+List<TableRow> createMnemonicTable(List<String> mnemonicList, Color textColor) {
   final mnemonicTable = <TableRow>[];
   var tableRow = <Widget>[];
 
   for (var i = 0; i < mnemonicList.length; i++) {
-    Widget tile = createListTile(i, mnemonicList[i]);
+    Widget tile = createListTile(i, mnemonicList[i], textColor);
     tableRow.add(tile);
 
     if (tableRow.length == 4) {
@@ -32,8 +33,8 @@ List<TableRow> createMnemonicTable(List<String> mnemonicList) {
   return mnemonicTable;
 }
 
-ListTile createListTile(int index, String content) {
-  final style = TextStyle(fontSize: 12, color: Colors.white);
+ListTile createListTile(int index, String content, Color textColor) {
+  final style = TextStyle(fontSize: 12, color: textColor);
   return ListTile(
     dense: true,
     minLeadingWidth: 1,

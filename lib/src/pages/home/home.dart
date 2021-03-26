@@ -12,7 +12,7 @@ class HomePage extends StatelessWidget {
     return DefaultTabController(
       length: 2,
       child: Scaffold(
-        appBar: AppBar(centerTitle: true, title: Text('Wallet Actions')),
+        appBar: AppBar(centerTitle: true, title: Text('IOP Wallet')),
         body: TabBarView(children: _tabs),
         bottomNavigationBar: TabBar(
           tabs: [

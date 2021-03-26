@@ -59,7 +59,7 @@ class OnboardingSlides {
           'Anybody with access to these 24 words can steal your identity. Write them down and store them in a secure location, in case you lose your device!',
       centerWidget: Column(
         children: [
-          Table(children: createMnemonicTable(mnemonicList)),
+          Table(children: createMnemonicTable(mnemonicList, Colors.white)),
           IconButton(
               onPressed: () {}, icon: Icon(Icons.cached, color: Colors.white)),
         ],
