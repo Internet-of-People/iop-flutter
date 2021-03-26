@@ -1,8 +1,10 @@
 import 'dart:convert';
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:iop_wallet/src/models/settings/settings.dart';
+import 'package:iop_wallet/src/pages/actions/action_page.dart';
 import 'package:iop_wallet/src/router_constants.dart';
 import 'package:provider/provider.dart';
 
@@ -32,18 +34,68 @@ class SettingsPage extends StatelessWidget {
       body: Center(
         child: Column(
           children: [
-            ElevatedButton(
-              onPressed: () async {
-                await settings.setInitialized(false);
-                await Navigator.pushNamedAndRemoveUntil(
-                    context, routeWelcome, (Route<dynamic> route) => false);
-              },
-              child: Text('Remove your vault'),
+            ListTile(
+              onTap: () => showDialog(
+                  context: context,
+                  builder: (_) => _buildExportDialog(context, settings)),
+              title: Padding(
+                padding: EdgeInsets.all(16),
+                child: Text('Export Wallet'),
+              ),
             ),
-            Text('Show Blockheight: $blockInfo'),
+            ListTile(
+              onTap: () => showDialog(
+                  context: context,
+                  builder: (context) => _buildRemoveDialog(context, settings)),
+              title: Padding(
+                padding: EdgeInsets.all(16),
+                child: Text('Remove Wallet'),
+              ),
+            ),
+            Padding(
+              padding: EdgeInsets.all(16),
+              child: Text('Blockheight: $blockInfo'),
+            ),
           ],
         ),
       ),
+    );
+  }
+
+  Widget _buildRemoveDialog(BuildContext context, SettingsModel settings) {
+    return AlertDialog(
+      title: Text('Remove Wallet'),
+      content: Text(
+          'Are you sure to delete your wallet? You will lose access to your credentials unless you have a backup of your seed phrase.'),
+      actions: [
+        TextButton(onPressed: () => Navigator.pop(context), child: Text('No')),
+        TextButton(
+            onPressed: () async {
+              await settings.setInitialized(false);
+              await Navigator.pushNamedAndRemoveUntil(
+                  context, routeWelcome, (Route<dynamic> route) => false);
+            },
+            child: Text('Yes')),
+      ],
+      elevation: 24.0,
+    );
+  }
+
+  Widget _buildExportDialog(BuildContext context, SettingsModel settings) {
+    return AlertDialog(
+      title: Text('Export Wallet'),
+      content: Text(
+          'Are you sure nobody is looking? Your mnemonic allows anyone to access your identities.'),
+      actions: [
+        TextButton(onPressed: () => Navigator.pop(context), child: Text('No')),
+        TextButton(
+            onPressed: () async {
+              Navigator.pop(context);
+              await Navigator.pushNamed(context, routeShowMnemonic);
+            },
+            child: Text('Yes')),
+      ],
+      elevation: 24.0,
     );
   }
 

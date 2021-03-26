@@ -5,6 +5,7 @@ import 'models/credential/credential.dart';
 class AppSharedPrefs {
   static final _credentialPrefsKey = 'credentials';
   static final _initializedKey = 'initialized';
+  static final _mnemonicKey = 'mnemonic';
 
   static Future<void> setWallet(List<Credential> credentials) async {
     final prefs = await SharedPreferences.getInstance();
@@ -25,5 +26,15 @@ class AppSharedPrefs {
   static Future<bool?> loadInitialized() async {
     final prefs = await SharedPreferences.getInstance();
     return prefs.getBool(_initializedKey);
+  }
+
+  static Future<void> setMnemonic(List<String> mnemonic) async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setStringList(_mnemonicKey, mnemonic);
+  }
+
+  static Future<List<String>?> loadMnemonic() async {
+    final prefs = await SharedPreferences.getInstance();
+    return prefs.getStringList(_mnemonicKey);
   }
 }
