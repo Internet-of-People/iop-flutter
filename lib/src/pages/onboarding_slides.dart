@@ -56,8 +56,16 @@ class OnboardingSlides {
       centerWidget: Column(
         children: [
           Table(children: createMnemonicTable(mnemonicList, Colors.white)),
-          IconButton(
-              onPressed: () {}, icon: Icon(Icons.cached, color: Colors.white)),
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: 0, vertical: 15),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                styledTextButton('Copy', Icons.content_copy),
+                styledTextButton('Generate', Icons.cached),
+              ],
+            ),
+          ),
         ],
       ),
       marginDescription: EdgeInsets.all(15),
@@ -79,4 +87,14 @@ class OnboardingSlides {
 
   static Icon formattedIcon(IconData iconData) =>
       Icon(iconData, size: 250, color: Colors.amber);
+
+  static Widget styledTextButton(String label, IconData iconData) => SizedBox(
+        width: 120,
+        child: TextButton.icon(
+          style: TextButton.styleFrom(backgroundColor: Colors.white),
+          label: Text(label, style: TextStyle(color: Colors.teal)),
+          icon: Icon(iconData, color: Colors.teal),
+          onPressed: () {},
+        ),
+      );
 }
