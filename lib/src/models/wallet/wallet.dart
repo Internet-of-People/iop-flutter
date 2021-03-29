@@ -11,8 +11,6 @@ class WalletModel extends ChangeNotifier {
   bool hasError = false;
 
   Future<void> add(Credential credential) async {
-    print(credential.credentialName);
-    print(credential.details);
     await _updateStorageAndNotifyAfter(() {
       credentials.add(credential);
     });
