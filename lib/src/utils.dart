@@ -22,7 +22,7 @@ List<TableRow> createMnemonicTable(List<String> mnemonicList, Color textColor) {
   var tableRow = <Widget>[];
 
   for (var i = 0; i < mnemonicList.length; i++) {
-    Widget tile = createListTile(i, mnemonicList[i], textColor);
+    final tile = createListTile(i, mnemonicList[i], textColor);
     tableRow.add(tile);
 
     if (tableRow.length == 4) {
@@ -33,19 +33,15 @@ List<TableRow> createMnemonicTable(List<String> mnemonicList, Color textColor) {
   return mnemonicTable;
 }
 
-ListTile createListTile(int index, String content, Color textColor) {
+Widget createListTile(int index, String content, Color textColor) {
   final style = TextStyle(fontSize: 12, color: textColor);
   return ListTile(
     dense: true,
     minLeadingWidth: 1,
     horizontalTitleGap: 4,
-    contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 10),
-    leading: Text(
-      '${index + 1}.',
-      style: style,
-    ),
+    contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 14),
     title: Text(
-      content,
+      '${index + 1}: $content',
       style: style,
     ),
   );
