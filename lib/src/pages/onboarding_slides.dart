@@ -60,6 +60,7 @@ class OnboardingSlides {
               onPressed: () {}, icon: Icon(Icons.cached, color: Colors.white)),
         ],
       ),
+      marginDescription: EdgeInsets.all(15),
       backgroundColor: backgroundColor,
     );
   }
