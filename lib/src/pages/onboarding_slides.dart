@@ -1,6 +1,9 @@
+import 'dart:math' as math;
 import 'package:flutter/material.dart';
-import 'package:iop_wallet/src/intro-slider/slide_object.dart';
-
+import 'package:flutter/widgets.dart';
+import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
+// ignore: import_of_legacy_library_into_null_safe
+import 'package:intro_slider/slide_object.dart';
 import 'package:iop_wallet/src/utils.dart';
 
 class OnboardingSlides {
@@ -10,7 +13,10 @@ class OnboardingSlides {
     title: 'Your Mnemonic',
     description:
         'The mnemonic is a human readable representation of your master seed. This seed allows you to derive all the key pairs for your identities.',
-    pathImage: 'lib/src/assets/key_derivation.png',
+    centerWidget: Transform.rotate(
+      angle: math.pi / 2,
+      child: formattedIcon(Icons.account_tree),
+    ),
     backgroundColor: backgroundColor,
   );
 
@@ -20,11 +26,7 @@ class OnboardingSlides {
         'The password encrypts your mnemonic. This adds another layer of security for your personal identities.',
     centerWidget: Column(
       children: [
-        Image.asset(
-          'lib/src/assets/lock.png',
-          width: 250,
-          height: 250,
-        ),
+        formattedIcon(MdiIcons.formTextboxPassword),
         Padding(
           padding: const EdgeInsets.all(32.0),
           child: Center(child: textField('Enter your password here', true)),
@@ -40,11 +42,7 @@ class OnboardingSlides {
           "Enter your 24-word mnemonic to restore your wallet. Don't forget the spaces between the words and remember that the order of the words is important!",
       centerWidget: Column(
         children: [
-          Image.asset(
-            'lib/src/assets/unlocked_vault.png',
-            width: 250,
-            height: 250,
-          ),
+          formattedIcon(Icons.account_balance),
           Padding(
               padding: const EdgeInsets.all(32.0),
               child: textField('Enter your mnemonic', false)),
@@ -79,4 +77,7 @@ class OnboardingSlides {
       ),
     );
   }
+
+  static Icon formattedIcon(IconData iconData) =>
+      Icon(iconData, size: 250, color: Colors.amber);
 }
