@@ -1,8 +1,7 @@
 import 'dart:math' as math;
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-// ignore: import_of_legacy_library_into_null_safe
-import 'package:intro_slider/slide_object.dart';
+import 'package:iop_wallet/src/intro-slider/slide_object.dart';
 import 'package:iop_wallet/src/utils.dart';
 
 class OnboardingSlides {
