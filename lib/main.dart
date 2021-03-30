@@ -10,19 +10,19 @@ import 'package:iop_wallet/src/theme.dart';
 import 'package:provider/provider.dart';
 import 'package:provider/single_child_widget.dart';
 
-void main() {
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]).then(
-    (_) => runApp(
-      MultiProvider(
-        providers: <SingleChildWidget>[
-          ChangeNotifierProvider<WalletModel>(
-              create: (BuildContext context) => WalletModel()),
-          ChangeNotifierProvider<SettingsModel>(
-              create: (BuildContext context) => SettingsModel())
-        ],
-        child: UserApp(),
-      ),
+
+  await SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
+  runApp(
+    MultiProvider(
+      providers: <SingleChildWidget>[
+        ChangeNotifierProvider<WalletModel>(
+            create: (BuildContext context) => WalletModel()),
+        ChangeNotifierProvider<SettingsModel>(
+            create: (BuildContext context) => SettingsModel())
+      ],
+      child: UserApp(),
     ),
   );
 }
