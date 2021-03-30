@@ -1,7 +1,6 @@
 import 'dart:math' as math;
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 // ignore: import_of_legacy_library_into_null_safe
 import 'package:intro_slider/slide_object.dart';
 import 'package:iop_wallet/src/utils.dart';
@@ -26,7 +25,7 @@ class OnboardingSlides {
         'The password encrypts your mnemonic. This adds another layer of security for your personal identities.',
     centerWidget: Column(
       children: [
-        formattedIcon(MdiIcons.formTextboxPassword),
+        formattedIcon(Icons.security),
         Padding(
           padding: const EdgeInsets.all(32.0),
           child: Center(child: textField('Enter your password here', true)),

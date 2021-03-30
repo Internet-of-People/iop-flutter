@@ -29,7 +29,6 @@ dependencies:
   iop_sdk:
     path: ../morpheus-dart
   json_annotation: ^4.0.1
-  material_design_icons_flutter: ^5.0.5955-rc.1
   provider: ^5.0.0
   qr_flutter: ^4.0.0
   shared_preferences: ^2.0.4
