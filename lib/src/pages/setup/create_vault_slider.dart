@@ -3,36 +3,48 @@ import 'package:flutter/widgets.dart';
 import 'package:iop_wallet/src/intro-slider/intro_slider.dart';
 import 'package:iop_wallet/src/intro-slider/slide_object.dart';
 import 'package:iop_wallet/src/models/settings/settings.dart';
-import 'package:iop_wallet/src/pages/onboarding_slides.dart';
+import 'package:iop_wallet/src/pages/setup/onboarding_slides.dart';
+import 'package:iop_wallet/src/pages/setup/mnemonic_slide_body.dart';
+import 'package:iop_wallet/src/pages/setup/password_slide_body.dart';
 import 'package:iop_wallet/src/router_constants.dart';
 import 'package:provider/provider.dart';
 
-class CreateVaultSlider extends StatelessWidget {
-  // TODO: mnemonic has to be generated using the sdk
-  static final mnemonic =
-      'helmet loop diesel nephew birth word spring erosion bitter ugly orbit festival cake armed worth orchard immense hunt crime nominee nominee nominee nominee nominee';
-  static final List<String> mnemonicList = mnemonic.split(' ');
+class CreateVaultSlider extends StatefulWidget {
+  @override
+  _CreateVaultSliderState createState() => _CreateVaultSliderState();
+}
 
-  final slides = <Slide>[
-    OnboardingSlides.mnemonicInfoSlide,
-    OnboardingSlides.showMnemonic(mnemonicList),
-    OnboardingSlides.pickPassword
-  ];
+class _CreateVaultSliderState extends State<CreateVaultSlider> {
+  final List<Slide> _slides = [];
+  final MnemonicSlideBody _mnemonicSlideBody = MnemonicSlideBody();
+  final PasswordSlideBody _passwordSlideBody = PasswordSlideBody();
 
-  void onDonePress() {}
+  @override
+  void initState() {
+    super.initState();
+    _slides.addAll(<Slide>[
+      OnboardingSlides.mnemonicInfoSlide,
+      OnboardingSlides.showMnemonic(_mnemonicSlideBody),
+      OnboardingSlides.enterPassword(_passwordSlideBody),
+    ]);
+  }
 
   @override
   Widget build(BuildContext context) {
     final settings = context.watch<SettingsModel>();
 
-    return IntroSlider(
-        isShowSkipBtn: false,
-        slides: slides,
+    return Scaffold(
+      body: IntroSlider(
+        slides: _slides,
         onDonePress: () async {
-          await settings.setMnemonic(mnemonicList);
+          if (!_passwordSlideBody.formKey.currentState!.validate()) {
+            return;
+          }
           await settings.setInitialized(true);
           await Navigator.of(context)
               .pushNamedAndRemoveUntil(routeWelcome, (route) => false);
-        });
+        },
+      ),
+    );
   }
 }

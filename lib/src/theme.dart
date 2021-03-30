@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 
 final ThemeData appTheme = ThemeData(
   primaryColor: Colors.teal,
+  primaryColorLight: Colors.teal[400],
+  primaryColorDark: Colors.teal[800],
   primarySwatch: MaterialColor(0xff009688, const {
     50: Color(0xffa0f8f2),
     100: Color(0xff88f7ef),
@@ -19,9 +21,21 @@ final ThemeData appTheme = ThemeData(
 );
 
 final TextTheme textTheme = TextTheme(
-  headline1: TextStyle(color: Colors.teal[800], fontSize: 24, wordSpacing: -1),
+  // Text for onboarding titles
+  headline1: TextStyle(
+      color: Colors.teal[800],
+      fontSize: 28,
+      fontWeight: FontWeight.bold,
+      wordSpacing: -1),
+  // Text for in-app titles
   headline2: TextStyle(
       color: Colors.teal[900], fontSize: 20, fontWeight: FontWeight.bold),
-  bodyText1: TextStyle(fontSize: 16),
-  bodyText2: TextStyle(fontSize: 12),
+  // Text inside mnemonicTable
+  headline3:
+      TextStyle(color: Colors.white, fontSize: 12, fontWeight: FontWeight.bold),
+  // Text for onboarding description
+  bodyText1: TextStyle(color: Colors.teal[800], fontSize: 18),
+  // Text for Form Fields
+  bodyText2: TextStyle(color: Colors.teal[400], fontSize: 14),
+  button: TextStyle(color: Colors.white, fontSize: 14),
 );

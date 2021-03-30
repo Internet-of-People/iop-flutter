@@ -52,7 +52,7 @@ class _AuthorityProcessesPageState extends State<AuthorityProcessesPage> {
         value: (contentId) async => await api.getPublicBlob(contentId));
     final contents = await Future.wait(contentFutures.values);
     final contentIdContentMap = <String, Process?>{};
-    print(1);
+
     for (var i = 0; i < contents.length; i++) {
       final json = jsonDecode(contents[i].value);
       contentIdContentMap[contentIds[i].toJson()] = Process.fromJson(json);

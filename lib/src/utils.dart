@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
+import 'package:iop_wallet/src/theme.dart';
 
 final double buttonWidth = 100;
 
@@ -16,13 +17,13 @@ Future<String> scanQrUntilResult() async {
   return barcodeScanRes;
 }
 
-// TODO: make txtstyle indepenent of function
-List<TableRow> createMnemonicTable(List<String> mnemonicList, Color textColor) {
+// TODO: This is now only used in showMnemonicPage in the settings. This might be deleted in the future.
+List<TableRow> createMnemonicTable(List<String> mnemonicList) {
   final mnemonicTable = <TableRow>[];
   var tableRow = <Widget>[];
 
   for (var i = 0; i < mnemonicList.length; i++) {
-    final tile = createListTile(i, mnemonicList[i], textColor);
+    final tile = createListTile(i, mnemonicList[i]);
     tableRow.add(tile);
 
     if (tableRow.length == 4) {
@@ -33,8 +34,8 @@ List<TableRow> createMnemonicTable(List<String> mnemonicList, Color textColor) {
   return mnemonicTable;
 }
 
-Widget createListTile(int index, String content, Color textColor) {
-  final style = TextStyle(fontSize: 12, color: textColor);
+// TODO: This is now only used in the function above. This might be deleted in the future.
+Widget createListTile(int index, String content) {
   return ListTile(
     dense: true,
     minLeadingWidth: 1,
@@ -42,7 +43,20 @@ Widget createListTile(int index, String content, Color textColor) {
     contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 14),
     title: Text(
       '${index + 1}: $content',
-      style: style,
+      style: textTheme.bodyText2,
     ),
   );
 }
+
+Icon formattedIcon(IconData iconData) =>
+    Icon(iconData, size: 250, color: appTheme.primaryColor);
+
+Widget buildStyledTextButton(String label, IconData iconData) => SizedBox(
+      width: 120,
+      child: TextButton.icon(
+        style: TextButton.styleFrom(backgroundColor: appTheme.backgroundColor),
+        label: Text(label, style: TextStyle(color: appTheme.primaryColor)),
+        icon: Icon(iconData, color: appTheme.primaryColor),
+        onPressed: () {},
+      ),
+    );

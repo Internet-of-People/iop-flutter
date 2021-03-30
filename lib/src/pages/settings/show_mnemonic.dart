@@ -40,8 +40,7 @@ class showMnemonicPage extends StatelessWidget {
         ),
         Padding(
           padding: const EdgeInsets.all(8.0),
-          child:
-              Table(children: createMnemonicTable(mnemonicList, Colors.black)),
+          child: Table(children: createMnemonicTable(mnemonicList)),
         )
       ],
     );

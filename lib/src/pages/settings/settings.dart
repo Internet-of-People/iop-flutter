@@ -20,13 +20,13 @@ class SettingsPage extends StatelessWidget {
             if (snapshot.hasError) {
               return Text('${snapshot.error}');
             }
-            return _createScaffold(context, settings, snapshot.data?.height);
+            return _buildScaffold(context, settings, snapshot.data?.height);
           }
           return Center(child: CircularProgressIndicator());
         });
   }
 
-  Widget _createScaffold(
+  Widget _buildScaffold(
       BuildContext context, SettingsModel settings, Object? blockInfo) {
     return Scaffold(
       appBar: AppBar(centerTitle: true, title: Text('Settings')),

@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:iop_wallet/src/theme.dart';
 
 import 'dot_animation_enum.dart';
 import 'list_rtl_language.dart';
@@ -40,7 +41,7 @@ class IntroSlider extends StatefulWidget {
   final Color? highlightColorSkipBtn;
 
   /// Show or hide SKIP button
-  final bool? isShowSkipBtn;
+  final bool showSkipBtn = false;
 
   /// Rounded SKIP button
   final double? borderRadiusSkipBtn;
@@ -65,7 +66,7 @@ class IntroSlider extends StatefulWidget {
   final Color? highlightColorPrevBtn;
 
   /// Show or hide PREV button (only visible if skip is hidden)
-  final bool? isShowPrevBtn;
+  final bool? showPrevBtn;
 
   /// Rounded PREV button
   final double? borderRadiusPrevBtn;
@@ -78,7 +79,7 @@ class IntroSlider extends StatefulWidget {
   final String? nameNextBtn;
 
   /// Show or hide NEXT button
-  final bool? isShowNextBtn;
+  final bool? showNextBtn;
 
   // ---------- DONE button ----------
   /// Change DONE to any text you want
@@ -94,7 +95,7 @@ class IntroSlider extends StatefulWidget {
   final Function? onDonePress;
 
   /// Style for text at DONE button
-  final TextStyle? styleNameDoneBtn;
+  final TextStyle? styleDoneBtn = textTheme.bodyText2;
 
   /// Color for DONE button
   final Color? colorDoneBtn;
@@ -106,17 +107,17 @@ class IntroSlider extends StatefulWidget {
   final double? borderRadiusDoneBtn;
 
   /// Show or hide DONE button
-  final bool? isShowDoneBtn;
+  final bool? showDoneBtn;
 
   // ---------- Dot indicator ----------
   /// Show or hide dot indicator
-  final bool? isShowDotIndicator;
+  final bool? showDotIndicator;
 
   /// Color for dot when passive
-  final Color? colorDot;
+  final Color colorDot = appTheme.primaryColorLight;
 
   /// Color for dot when active
-  final Color? colorActiveDot;
+  final Color colorActiveDot = appTheme.primaryColorDark;
 
   /// Size of each dot
   final double? sizeDot;
@@ -140,7 +141,7 @@ class IntroSlider extends StatefulWidget {
   final ScrollPhysics? scrollPhysics;
 
   /// Show or hide status bar
-  final bool? shouldHideStatusBar;
+  final bool? hideStatusBar;
 
   /// The way the vertical scrollbar should behave
   final scrollbarBehavior? verticalScrollbarBehavior;
@@ -159,14 +160,13 @@ class IntroSlider extends StatefulWidget {
     this.styleNameSkipBtn,
     this.colorSkipBtn,
     this.highlightColorSkipBtn,
-    this.isShowSkipBtn,
     this.borderRadiusSkipBtn,
 
     // Prev
     this.renderPrevBtn,
     this.widthPrevBtn,
     this.namePrevBtn,
-    this.isShowPrevBtn,
+    this.showPrevBtn,
     this.styleNamePrevBtn,
     this.colorPrevBtn,
     this.highlightColorPrevBtn,
@@ -180,18 +180,15 @@ class IntroSlider extends StatefulWidget {
     this.colorDoneBtn,
     this.highlightColorDoneBtn,
     this.borderRadiusDoneBtn,
-    this.styleNameDoneBtn,
-    this.isShowDoneBtn,
+    this.showDoneBtn,
 
     // Next
     this.renderNextBtn,
     this.nameNextBtn,
-    this.isShowNextBtn,
+    this.showNextBtn,
 
     // Dots
-    this.isShowDotIndicator,
-    this.colorDot,
-    this.colorActiveDot,
+    this.showDotIndicator,
     this.sizeDot,
     this.typeDotAnimation,
 
@@ -203,72 +200,72 @@ class IntroSlider extends StatefulWidget {
     // Behavior
     this.isScrollable,
     this.scrollPhysics,
-    this.shouldHideStatusBar,
+    this.hideStatusBar,
     this.verticalScrollbarBehavior,
   });
 
   @override
   IntroSliderState createState() {
-    return new IntroSliderState(
+    return IntroSliderState(
       // Slides
-      slides: this.slides,
-      backgroundColorAllSlides: this.backgroundColorAllSlides,
+      slides: slides,
+      backgroundColorAllSlides: backgroundColorAllSlides,
 
       // Skip
-      renderSkipBtn: this.renderSkipBtn,
-      widthSkipBtn: this.widthSkipBtn,
-      onSkipPress: this.onSkipPress,
-      nameSkipBtn: this.nameSkipBtn,
-      styleNameSkipBtn: this.styleNameSkipBtn,
-      colorSkipBtn: this.colorSkipBtn,
-      highlightColorSkipBtn: this.highlightColorSkipBtn,
-      isShowSkipBtn: this.isShowSkipBtn,
-      borderRadiusSkipBtn: this.borderRadiusSkipBtn,
+      renderSkipBtn: renderSkipBtn,
+      widthSkipBtn: widthSkipBtn,
+      onSkipPress: onSkipPress,
+      nameSkipBtn: nameSkipBtn,
+      styleNameSkipBtn: styleNameSkipBtn,
+      colorSkipBtn: colorSkipBtn,
+      highlightColorSkipBtn: highlightColorSkipBtn,
+      showSkipBtn: showSkipBtn,
+      borderRadiusSkipBtn: borderRadiusSkipBtn,
 
       // Prev
-      renderPrevBtn: this.renderPrevBtn,
-      widthPrevBtn: this.widthPrevBtn,
-      namePrevBtn: this.namePrevBtn,
-      isShowPrevBtn: this.isShowPrevBtn,
-      styleNamePrevBtn: this.styleNamePrevBtn,
-      colorPrevBtn: this.colorPrevBtn,
-      highlightColorPrevBtn: this.highlightColorPrevBtn,
-      borderRadiusPrevBtn: this.borderRadiusPrevBtn,
+      renderPrevBtn: renderPrevBtn,
+      widthPrevBtn: widthPrevBtn,
+      namePrevBtn: namePrevBtn,
+      showPrevBtn: showPrevBtn,
+      styleNamePrevBtn: styleNamePrevBtn,
+      colorPrevBtn: colorPrevBtn,
+      highlightColorPrevBtn: highlightColorPrevBtn,
+      borderRadiusPrevBtn: borderRadiusPrevBtn,
 
       // Done
-      renderDoneBtn: this.renderDoneBtn,
-      widthDoneBtn: this.widthDoneBtn,
-      onDonePress: this.onDonePress,
-      nameDoneBtn: this.nameDoneBtn,
-      styleNameDoneBtn: this.styleNameDoneBtn,
-      colorDoneBtn: this.colorDoneBtn,
-      highlightColorDoneBtn: this.highlightColorDoneBtn,
-      borderRadiusDoneBtn: this.borderRadiusDoneBtn,
-      isShowDoneBtn: this.isShowDoneBtn,
+      renderDoneBtn: renderDoneBtn,
+      widthDoneBtn: widthDoneBtn,
+      onDonePress: onDonePress,
+      nameDoneBtn: nameDoneBtn,
+      styleNameDoneBtn: styleDoneBtn,
+      colorDoneBtn: colorDoneBtn,
+      highlightColorDoneBtn: highlightColorDoneBtn,
+      borderRadiusDoneBtn: borderRadiusDoneBtn,
+      isShowDoneBtn: showDoneBtn,
 
       // Next
-      renderNextBtn: this.renderNextBtn,
-      nameNextBtn: this.nameNextBtn,
-      isShowNextBtn: this.isShowNextBtn,
+      renderNextBtn: renderNextBtn,
+      nameNextBtn: nameNextBtn,
+      showNextBtn: showNextBtn,
 
       // Dots
-      isShowDotIndicator: this.isShowDotIndicator,
-      colorDot: this.colorDot,
-      colorActiveDot: this.colorActiveDot,
-      sizeDot: this.sizeDot,
-      typeDotAnimation: this.typeDotAnimation,
+      showDotIndicator: showDotIndicator,
+      colorDot: colorDot,
+      colorActiveDot: colorActiveDot,
+      sizeDot: sizeDot,
+      typeDotAnimation: typeDotAnimation,
 
       // Tabs
-      listCustomTabs: this.listCustomTabs,
-      onTabChangeCompleted: this.onTabChangeCompleted,
-      refFuncGoToTab: this.refFuncGoToTab,
+      listCustomTabs: listCustomTabs,
+      onTabChangeCompleted: onTabChangeCompleted,
+      refFuncGoToTab: refFuncGoToTab,
 
       // Behavior
-      isScrollable: this.isScrollable,
-      scrollPhysics: this.scrollPhysics,
-      shouldHideStatusBar: this.shouldHideStatusBar,
+      isScrollable: isScrollable,
+      scrollPhysics: scrollPhysics,
+      hideStatusBar: hideStatusBar,
       verticalScrollbarBehavior:
-          this.verticalScrollbarBehavior ?? scrollbarBehavior.HIDE,
+          verticalScrollbarBehavior ?? scrollbarBehavior.HIDE,
     );
   }
 }
@@ -314,7 +311,7 @@ class IntroSliderState extends State<IntroSlider>
   Color? highlightColorSkipBtn;
 
   /// Show or hide SKIP button
-  bool? isShowSkipBtn;
+  bool? showSkipBtn;
 
   /// Rounded SKIP button
   double? borderRadiusSkipBtn;
@@ -339,7 +336,7 @@ class IntroSliderState extends State<IntroSlider>
   Color? highlightColorPrevBtn;
 
   /// Show or hide PREV button
-  bool? isShowPrevBtn;
+  bool? showPrevBtn;
 
   /// Rounded PREV button
   double? borderRadiusPrevBtn;
@@ -380,11 +377,11 @@ class IntroSliderState extends State<IntroSlider>
   String? nameNextBtn;
 
   /// Show or hide NEXT button
-  bool? isShowNextBtn;
+  bool? showNextBtn;
 
   // ---------- Dot indicator ----------
   /// Show or hide dot indicator
-  bool? isShowDotIndicator = true;
+  bool? showDotIndicator = true;
 
   /// Color for dot when passive
   Color? colorDot;
@@ -414,7 +411,7 @@ class IntroSliderState extends State<IntroSlider>
   ScrollPhysics? scrollPhysics;
 
   /// Show or hide status bar
-  bool? shouldHideStatusBar;
+  bool? hideStatusBar;
 
   /// The way the vertical scrollbar should behave
   final scrollbarBehavior verticalScrollbarBehavior;
@@ -433,12 +430,12 @@ class IntroSliderState extends State<IntroSlider>
     required this.styleNameSkipBtn,
     required this.colorSkipBtn,
     required this.highlightColorSkipBtn,
-    required this.isShowSkipBtn,
+    required this.showSkipBtn,
     required this.borderRadiusSkipBtn,
 
     // Prev button
     required this.widthPrevBtn,
-    required this.isShowPrevBtn,
+    required this.showPrevBtn,
     required this.namePrevBtn,
     required this.renderPrevBtn,
     required this.styleNamePrevBtn,
@@ -460,10 +457,10 @@ class IntroSliderState extends State<IntroSlider>
     // Next button
     required this.nameNextBtn,
     required this.renderNextBtn,
-    required this.isShowNextBtn,
+    required this.showNextBtn,
 
     // Dot indicator
-    required this.isShowDotIndicator,
+    required this.showDotIndicator,
     required this.colorDot,
     required this.colorActiveDot,
     required this.sizeDot,
@@ -477,7 +474,7 @@ class IntroSliderState extends State<IntroSlider>
     // Behavior
     required this.isScrollable,
     required this.scrollPhysics,
-    required this.shouldHideStatusBar,
+    required this.hideStatusBar,
     required this.verticalScrollbarBehavior,
   });
 
@@ -609,8 +606,8 @@ class IntroSliderState extends State<IntroSlider>
     });
 
     // Dot indicator
-    if (isShowDotIndicator == null) {
-      isShowDotIndicator = true;
+    if (showDotIndicator == null) {
+      showDotIndicator = true;
     }
     if (colorDot == null) {
       colorDot = Color(0x80000000);
@@ -646,8 +643,8 @@ class IntroSliderState extends State<IntroSlider>
         }
       };
     }
-    if (isShowSkipBtn == null) {
-      isShowSkipBtn = true;
+    if (showSkipBtn == null) {
+      showSkipBtn = true;
     }
     if (styleNameSkipBtn == null) {
       styleNameSkipBtn = defaultBtnNameTextStyle;
@@ -672,8 +669,8 @@ class IntroSliderState extends State<IntroSlider>
     }
 
     // Prev button
-    if (isShowPrevBtn == null || isShowSkipBtn!) {
-      isShowPrevBtn = false;
+    if (showPrevBtn == null || showSkipBtn!) {
+      showPrevBtn = false;
     }
     if (styleNamePrevBtn == null) {
       styleNamePrevBtn = defaultBtnNameTextStyle;
@@ -700,8 +697,8 @@ class IntroSliderState extends State<IntroSlider>
       isShowDoneBtn = true;
     }
 
-    if (isShowNextBtn == null) {
-      isShowNextBtn = true;
+    if (showNextBtn == null) {
+      showNextBtn = true;
     }
 
     // Done button
@@ -768,7 +765,7 @@ class IntroSliderState extends State<IntroSlider>
   @override
   Widget build(BuildContext context) {
     // Full screen view
-    if (shouldHideStatusBar == true) {
+    if (hideStatusBar == true) {
       SystemChrome.setEnabledSystemUIOverlays([]);
     }
 
@@ -859,19 +856,19 @@ class IntroSliderState extends State<IntroSlider>
           // Skip button
           Container(
             alignment: Alignment.center,
-            child: isShowSkipBtn!
+            child: showSkipBtn!
                 ? buildSkipButton()
-                : (isShowPrevBtn! ? buildPrevButton() : Container()),
-            width: isShowSkipBtn!
+                : (showPrevBtn! ? buildPrevButton() : Container()),
+            width: showSkipBtn!
                 ? widthSkipBtn ?? MediaQuery.of(context).size.width / 4
-                : (isShowPrevBtn!
+                : (showPrevBtn!
                     ? widthPrevBtn
                     : MediaQuery.of(context).size.width / 4),
           ),
 
           // Dot indicator
           Flexible(
-            child: isShowDotIndicator!
+            child: showDotIndicator!
                 ? Container(
                     child: Stack(
                       children: <Widget>[
@@ -915,7 +912,7 @@ class IntroSliderState extends State<IntroSlider>
                 ? isShowDoneBtn!
                     ? buildDoneButton()
                     : Container()
-                : isShowNextBtn!
+                : showNextBtn!
                     ? buildNextButton()
                     : Container(),
             width: widthDoneBtn ?? MediaQuery.of(context).size.width / 4,
