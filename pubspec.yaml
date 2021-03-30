@@ -25,11 +25,9 @@ dependencies:
     sdk: flutter
   flutter_barcode_scanner: ^2.0.0-nullsafety.0
   http: ^0.13.0
-  intro_slider:
-    path: /home/ddt/AndroidStudioProjects/flutter-intro-slider
   # TODO: replace iop-sdk with the package from pub dev
   iop_sdk:
-    path: /home/ddt/IOP/morpheus-dart
+    path: ../morpheus-dart
   json_annotation: ^4.0.1
   provider: ^5.0.0
   qr_flutter: ^4.0.0
