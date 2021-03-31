@@ -10,8 +10,6 @@ class PasswordSlideBody extends StatefulWidget {
 }
 
 class _PasswordSlideBodyState extends State<PasswordSlideBody> {
-  late String _password;
-
   @override
   Widget build(BuildContext context) {
     return Column(
