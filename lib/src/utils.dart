@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'package:iop_wallet/src/theme.dart';
 
-final double buttonWidth = 100;
+const double buttonWidth = 100;
 
 class AuthorityUrlArguments {
   AuthorityUrlArguments({required this.host, required this.port});
@@ -17,7 +17,8 @@ Future<String> scanQrUntilResult() async {
   return barcodeScanRes;
 }
 
-// TODO: This is now only used in showMnemonicPage in the settings. This might be deleted in the future.
+// TODO: This is only used in showMnemonicPage (settings).
+//  Might be deleted in the future.
 List<TableRow> createMnemonicTable(List<String> mnemonicList) {
   final mnemonicTable = <TableRow>[];
   var tableRow = <Widget>[];
@@ -34,13 +35,14 @@ List<TableRow> createMnemonicTable(List<String> mnemonicList) {
   return mnemonicTable;
 }
 
-// TODO: This is now only used in the function above. This might be deleted in the future.
+// TODO: This is now only used in the function above.
+//  This might be deleted in the future.
 Widget createListTile(int index, String content) {
   return ListTile(
     dense: true,
     minLeadingWidth: 1,
     horizontalTitleGap: 4,
-    contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 14),
+    contentPadding: const EdgeInsets.symmetric(horizontal: 14),
     title: Text(
       '${index + 1}: $content',
       style: textTheme.bodyText2,

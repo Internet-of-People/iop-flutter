@@ -4,7 +4,7 @@ final ThemeData appTheme = ThemeData(
   primaryColor: Colors.teal,
   primaryColorLight: Colors.teal[400],
   primaryColorDark: Colors.teal[800],
-  primarySwatch: MaterialColor(0xff009688, const {
+  primarySwatch: const MaterialColor(0xff009688, {
     50: Color(0xffa0f8f2),
     100: Color(0xff88f7ef),
     200: Color(0xff58f3e9),
@@ -31,11 +31,11 @@ final TextTheme textTheme = TextTheme(
   headline2: TextStyle(
       color: Colors.teal[900], fontSize: 20, fontWeight: FontWeight.bold),
   // Text inside mnemonicTable
-  headline3:
-      TextStyle(color: Colors.white, fontSize: 12, fontWeight: FontWeight.bold),
+  headline3: const TextStyle(
+      color: Colors.white, fontSize: 12, fontWeight: FontWeight.bold),
   // Text for onboarding description
   bodyText1: TextStyle(color: Colors.teal[800], fontSize: 18),
   // Text for Form Fields
   bodyText2: TextStyle(color: Colors.teal[400], fontSize: 14),
-  button: TextStyle(color: Colors.white, fontSize: 14),
+  button: const TextStyle(color: Colors.white, fontSize: 14),
 );

@@ -11,16 +11,14 @@ class WalletPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
-        child: Column(children: [
-          Expanded(
-            child: Padding(
-              padding: const EdgeInsets.all(32),
-              child: _CredentialList(),
-            ),
-          )
-        ]),
-      ),
+      body: Column(children: [
+        Expanded(
+          child: Padding(
+            padding: const EdgeInsets.all(32),
+            child: _CredentialList(),
+          ),
+        )
+      ]),
     );
   }
 }
@@ -51,7 +49,7 @@ class _CredentialList extends StatelessWidget {
                 child: Text(wallet.credentials[index].credentialName),
               ),
               trailing: IconButton(
-                icon: Icon(
+                icon: const Icon(
                   Icons.remove_circle_outline,
                   color: Colors.red,
                 ),

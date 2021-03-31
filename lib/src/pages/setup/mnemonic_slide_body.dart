@@ -27,7 +27,7 @@ class _MnemonicSlideBodyState extends State<MnemonicSlideBody> {
           child: Table(children: _buildMnemonicTable()),
         ),
         Padding(
-          padding: EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
@@ -45,7 +45,7 @@ class _MnemonicSlideBodyState extends State<MnemonicSlideBody> {
     Clipboard.setData(ClipboardData(text: clipboard));
 
     ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
+      const SnackBar(
         content: Text('Copied to clipboard.'),
       ),
     );
@@ -79,10 +79,10 @@ class _MnemonicSlideBodyState extends State<MnemonicSlideBody> {
         height: 44,
         decoration: BoxDecoration(
             color: appTheme.primaryColorLight,
-            borderRadius: BorderRadius.all(Radius.circular(4))),
+            borderRadius: const BorderRadius.all(Radius.circular(4))),
         child: ListTile(
           dense: true,
-          contentPadding: EdgeInsets.symmetric(horizontal: 4),
+          contentPadding: const EdgeInsets.symmetric(horizontal: 4),
           title: Text(
             '${index + 1}: $content',
             style: textTheme.headline3,

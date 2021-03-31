@@ -22,11 +22,12 @@ class WalletModel extends ChangeNotifier {
     });
   }
 
-  Future load() async {
+  Future<void> load() async {
     isWaiting = true;
-    final credentialsString = await AppSharedPrefs.loadWallet();
+    final List<String> credentialsString = await AppSharedPrefs.loadWallet();
     credentials = credentialsString
-        .map((str) => Credential.fromJson(jsonDecode(str)))
+        .map((str) =>
+            Credential.fromJson(jsonDecode(str) as Map<String, dynamic>))
         .toList();
     notifyListeners();
     isWaiting = false;
@@ -51,7 +52,7 @@ class WalletModel extends ChangeNotifier {
 
   Future<void> emptyStorage() async {
     isWaiting = true;
-    await AppSharedPrefs.setWallet([]);
+    await AppSharedPrefs.setWallet(<Credential>[]);
     isWaiting = false;
   }
 }

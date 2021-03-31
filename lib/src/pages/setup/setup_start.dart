@@ -11,13 +11,13 @@ class SetupPage extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            Image(
+            const Image(
               image: AssetImage('lib/src/assets/iop_logo.png'),
               width: 400,
             ),
             Center(
               child: Padding(
-                padding: EdgeInsets.all(8.0),
+                padding: const EdgeInsets.all(8.0),
                 child: Text('Ready to take back your digital identity?',
                     style: textTheme.headline2),
               ),
@@ -30,7 +30,7 @@ class SetupPage extends StatelessWidget {
                     onPressed: () {
                       Navigator.pushNamed(context, routeSetupCreateVault);
                     },
-                    child: Text('Create a New Personal Vault'),
+                    child: const Text('Create a New Personal Vault'),
                   ),
                 ),
                 SizedBox(
@@ -39,7 +39,7 @@ class SetupPage extends StatelessWidget {
                     onPressed: () {
                       Navigator.pushNamed(context, routeSetupRestoreVault);
                     },
-                    child: Text('Restore an Existing Vault'),
+                    child: const Text('Restore an Existing Vault'),
                   ),
                 ),
               ],

@@ -19,7 +19,7 @@ class WelcomePage extends StatelessWidget {
             return SetupNavigator();
           }
         } else {
-          return CircularProgressIndicator();
+          return const CircularProgressIndicator();
         }
       },
     );

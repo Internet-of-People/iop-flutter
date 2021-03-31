@@ -27,7 +27,6 @@ void main() {
     await tester.pumpWidget(HomePage());
 
     await tester.tap(find.byType(IconButton).first);
-    print(find.byType(IconButton).first);
     await tester.pumpAndSettle();
     // Create Finders
     final buttonFinder = find.text('Settings');

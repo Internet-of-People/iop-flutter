@@ -12,9 +12,9 @@ class HomePage extends StatelessWidget {
     return DefaultTabController(
       length: 2,
       child: Scaffold(
-        appBar: AppBar(centerTitle: true, title: Text('IOP Wallet')),
+        appBar: AppBar(centerTitle: true, title: const Text('IOP Wallet')),
         body: TabBarView(children: _tabs),
-        bottomNavigationBar: TabBar(
+        bottomNavigationBar: const TabBar(
           tabs: [
             Tab(icon: Icon(Icons.home_outlined)),
             Tab(icon: Icon(Icons.wallet_membership)),
@@ -40,7 +40,7 @@ class HomePage extends StatelessWidget {
                   Navigator.pushNamed(context, routeSettings);
                 },
               ),
-              ListTile(title: Text('History')),
+              const ListTile(title: Text('History')),
             ],
           ),
         ),

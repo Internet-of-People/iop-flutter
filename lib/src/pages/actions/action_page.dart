@@ -16,7 +16,7 @@ class ActionPage extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
-          Image(
+          const Image(
             image: AssetImage('lib/src/assets/iop_logo.png'),
             width: 300,
           ),
@@ -25,14 +25,15 @@ class ActionPage extends StatelessWidget {
               ElevatedButton(
                 onPressed: () => scanQr(context, listAuthorityProcesses),
                 child: SizedBox(
-                    width: boxWidth, child: Center(child: Text('Scan QR'))),
+                    width: boxWidth,
+                    child: const Center(child: Text('Scan QR'))),
               ),
               ElevatedButton(
                 onPressed: () =>
                     Navigator.pushNamed(context, routeAddCredential),
                 child: SizedBox(
                     width: boxWidth,
-                    child: Center(child: Text('Add Credential'))),
+                    child: const Center(child: Text('Add Credential'))),
               ),
             ],
           ),
@@ -43,13 +44,13 @@ class ActionPage extends StatelessWidget {
 
   Future<void> scanQr(BuildContext context, Function executeOnResult) async {
     // TODO replace local authority url with 'await scanQrUntilResult()'
-    final barcodeScanRes = 'http://10.0.2.2:8083';
+    const barcodeScanRes = 'http://10.0.2.2:8083';
     await executeOnResult(context, barcodeScanRes);
   }
 
   Future<void> listAuthorityProcesses(BuildContext context, String ip) async {
     final uri = Uri.parse(ip);
-    final host = uri.scheme + '://' + uri.host;
+    final host = '${uri.scheme}://${uri.host}';
     final port = uri.port;
     await Navigator.pushNamed(context, routeAuthorityProcesses,
         arguments: AuthorityUrlArguments(host: host, port: port));

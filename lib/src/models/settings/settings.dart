@@ -12,10 +12,8 @@ class SettingsModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> setMnemonic(List<String> mnemonic) async {
-    await AppSharedPrefs.setMnemonic(mnemonic);
-  }
+  Future<void> setMnemonic(List<String> mnemonic) async =>
+      AppSharedPrefs.setMnemonic(mnemonic);
 
-  Future<List<String>?> getMnemonic() async =>
-      await AppSharedPrefs.loadMnemonic();
+  Future<List<String>?> getMnemonic() async => AppSharedPrefs.loadMnemonic();
 }

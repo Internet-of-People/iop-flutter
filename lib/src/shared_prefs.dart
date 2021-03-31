@@ -3,9 +3,9 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'models/credential/credential.dart';
 
 class AppSharedPrefs {
-  static final _credentialPrefsKey = 'credentials';
-  static final _initializedKey = 'initialized';
-  static final _mnemonicKey = 'mnemonic';
+  static const _credentialPrefsKey = 'credentials';
+  static const _initializedKey = 'initialized';
+  static const _mnemonicKey = 'mnemonic';
 
   static Future<void> setWallet(List<Credential> credentials) async {
     final prefs = await SharedPreferences.getInstance();

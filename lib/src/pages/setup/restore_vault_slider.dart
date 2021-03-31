@@ -14,8 +14,8 @@ class RestoreVaultSlider extends StatefulWidget {
 }
 
 class _RestoreVaultSliderState extends State<RestoreVaultSlider> {
-  final List<Slide> _slides = [];
-  final PasswordSlideBody _passwordSlideBody = PasswordSlideBody();
+  final _slides = <Slide>[];
+  final _passwordSlideBody = PasswordSlideBody();
 
   @override
   void initState() {
@@ -29,7 +29,7 @@ class _RestoreVaultSliderState extends State<RestoreVaultSlider> {
 
   @override
   Widget build(BuildContext context) {
-    var settings = context.watch<SettingsModel>();
+    final settings = context.watch<SettingsModel>();
 
     return IntroSlider(
         slides: _slides,

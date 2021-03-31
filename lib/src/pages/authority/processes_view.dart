@@ -2,19 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:iop_wallet/src/models/process/process.dart';
 
 class ProcessListView extends StatelessWidget {
-  ProcessListView(this._processes);
+  const ProcessListView(this._processes);
 
   final Map<String, Process> _processes;
 
   @override
   Widget build(BuildContext context) {
     final items = _buildItems(context);
-    return Container(
-      child: ListView.builder(
-          itemCount: _processes.length,
-          padding: EdgeInsets.all(16.0),
-          itemBuilder: (_, index) => items[index]),
-    );
+    return ListView.builder(
+        itemCount: _processes.length,
+        padding: const EdgeInsets.all(16.0),
+        itemBuilder: (_, index) => items[index]);
   }
 
   List<Column> _buildItems(context) {
@@ -23,10 +21,10 @@ class ProcessListView extends StatelessWidget {
       final process = entry.value;
       columns.add(Column(
         children: <Widget>[
-          Divider(height: 5.0),
+          const Divider(height: 5.0),
           ListTile(
-            title: Text('${process.name}'),
-            subtitle: Text('${process.description}'),
+            title: Text(process.name),
+            subtitle: Text(process.description),
           ),
         ],
       ));

@@ -10,7 +10,7 @@ import 'package:iop_wallet/src/theme.dart';
 import 'package:provider/provider.dart';
 import 'package:provider/single_child_widget.dart';
 
-void main() async {
+Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   await SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);

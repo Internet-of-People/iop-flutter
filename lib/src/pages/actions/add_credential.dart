@@ -17,23 +17,23 @@ class AddCredentialPage extends StatelessWidget {
     final jsonController = TextEditingController();
 
     return Scaffold(
-      appBar: AppBar(centerTitle: true, title: Text('Add Credential')),
+      appBar: AppBar(centerTitle: true, title: const Text('Add Credential')),
       body: Column(
         children: [
           Padding(
-            padding: EdgeInsets.all(8.0),
+            padding: const EdgeInsets.all(8.0),
             child: TextField(
               controller: nameEditingController,
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                   prefixIcon: Icon(Icons.add),
                   labelText: 'Enter a Credential Title'),
             ),
           ),
           Padding(
-            padding: EdgeInsets.all(8.0),
+            padding: const EdgeInsets.all(8.0),
             child: TextField(
               controller: jsonController,
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                 prefixIcon: Icon(Icons.note),
                 labelText: 'Enter Details',
               ),
@@ -44,11 +44,11 @@ class AddCredentialPage extends StatelessWidget {
             child: ElevatedButton(
               onPressed: () {
                 wallet.add(Credential.fromJson({
-                  'credentialName': '${nameEditingController.text}',
-                  'details': jsonDecode('${jsonController.text}')
+                  'credentialName': nameEditingController.text,
+                  'details': jsonDecode(jsonController.text)
                 }));
               },
-              child: Text('Add Credential'),
+              child: const Text('Add Credential'),
             ),
           ),
           SizedBox(
@@ -60,22 +60,22 @@ class AddCredentialPage extends StatelessWidget {
                   'details': {'name': 'Hello', 'details': 'world'}
                 }));
               },
-              child: Text('Add dummy Credential'),
+              child: const Text('Add dummy Credential'),
             ),
           ),
           SizedBox(
             width: boxWidth,
             child: ElevatedButton(
-                onPressed: () => scanQR(), child: Text('Scan QR-code')),
+                onPressed: () => scanQR(), child: const Text('Scan QR-code')),
           )
         ],
       ),
     );
   }
 
-  Future<void> scanQR() async {
+  Future<String> scanQR() async {
     final barcodeScanRes = await FlutterBarcodeScanner.scanBarcode(
         '#ff6666', 'Cancel', true, ScanMode.QR);
-    print(barcodeScanRes);
+    return barcodeScanRes;
   }
 }

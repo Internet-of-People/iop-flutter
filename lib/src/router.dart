@@ -32,7 +32,7 @@ Route<dynamic> generateRoute(RouteSettings settings) {
   } else if (settings.name == routeSettings) {
     page = SettingsPage();
   } else if (settings.name == routeShowMnemonic) {
-    page = showMnemonicPage();
+    page = ShowMnemonicPage();
   } else if (settings.name == routeWallet) {
     page = WalletPage();
   } else if (settings.name!.startsWith(routePrefixSetup)) {

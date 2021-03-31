@@ -1,6 +1,4 @@
 import 'dart:convert';
-
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:iop_wallet/src/models/settings/settings.dart';
@@ -12,24 +10,24 @@ class SettingsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final settings = context.watch<SettingsModel>();
+    final SettingsModel settings = context.watch<SettingsModel>();
     return FutureBuilder<BlockInfo>(
         future: _futureBlockInfo,
-        builder: (context, snapshot) {
+        builder: (BuildContext context, AsyncSnapshot<BlockInfo> snapshot) {
           if (snapshot.connectionState == ConnectionState.done) {
             if (snapshot.hasError) {
               return Text('${snapshot.error}');
             }
             return _buildScaffold(context, settings, snapshot.data?.height);
           }
-          return Center(child: CircularProgressIndicator());
+          return const Center(child: CircularProgressIndicator());
         });
   }
 
   Widget _buildScaffold(
       BuildContext context, SettingsModel settings, Object? blockInfo) {
     return Scaffold(
-      appBar: AppBar(centerTitle: true, title: Text('Settings')),
+      appBar: AppBar(centerTitle: true, title: const Text('Settings')),
       body: Center(
         child: Column(
           children: [
@@ -37,7 +35,7 @@ class SettingsPage extends StatelessWidget {
               onTap: () => showDialog(
                   context: context,
                   builder: (_) => _buildExportDialog(context, settings)),
-              title: Padding(
+              title: const Padding(
                 padding: EdgeInsets.all(16),
                 child: Text('Export Wallet'),
               ),
@@ -45,14 +43,15 @@ class SettingsPage extends StatelessWidget {
             ListTile(
               onTap: () => showDialog(
                   context: context,
-                  builder: (context) => _buildRemoveDialog(context, settings)),
-              title: Padding(
+                  builder: (BuildContext context) =>
+                      _buildRemoveDialog(context, settings)),
+              title: const Padding(
                 padding: EdgeInsets.all(16),
                 child: Text('Remove Wallet'),
               ),
             ),
             Padding(
-              padding: EdgeInsets.all(16),
+              padding: const EdgeInsets.all(16),
               child: Text('Blockheight: $blockInfo'),
             ),
           ],
@@ -63,18 +62,20 @@ class SettingsPage extends StatelessWidget {
 
   Widget _buildRemoveDialog(BuildContext context, SettingsModel settings) {
     return AlertDialog(
-      title: Text('Remove Wallet'),
-      content: Text(
-          'Are you sure to delete your wallet? You will lose access to your credentials unless you have a backup of your seed phrase.'),
-      actions: [
-        TextButton(onPressed: () => Navigator.pop(context), child: Text('No')),
+      title: const Text('Remove Wallet'),
+      content: const Text('Are you sure to delete your wallet? '
+          'You will lose access to your credentials '
+          'unless you have a backup of your seed phrase.'),
+      actions: <TextButton>[
+        TextButton(
+            onPressed: () => Navigator.pop(context), child: const Text('No')),
         TextButton(
             onPressed: () async {
               await settings.setInitialized(false);
               await Navigator.pushNamedAndRemoveUntil(
                   context, routeWelcome, (Route<dynamic> route) => false);
             },
-            child: Text('Yes')),
+            child: const Text('Yes')),
       ],
       elevation: 24.0,
     );
@@ -82,17 +83,18 @@ class SettingsPage extends StatelessWidget {
 
   Widget _buildExportDialog(BuildContext context, SettingsModel settings) {
     return AlertDialog(
-      title: Text('Export Wallet'),
-      content: Text(
-          'Are you sure nobody is looking? Your mnemonic allows anyone to access your identities.'),
+      title: const Text('Export Wallet'),
+      content: const Text('Are you sure nobody is looking? '
+          'Your mnemonic allows anyone to access your identities.'),
       actions: [
-        TextButton(onPressed: () => Navigator.pop(context), child: Text('No')),
+        TextButton(
+            onPressed: () => Navigator.pop(context), child: const Text('No')),
         TextButton(
             onPressed: () async {
               Navigator.pop(context);
               await Navigator.pushNamed(context, routeShowMnemonic);
             },
-            child: Text('Yes')),
+            child: const Text('Yes')),
       ],
       elevation: 24.0,
     );
@@ -102,7 +104,7 @@ class SettingsPage extends StatelessWidget {
     final resp =
         await http.get(Uri.https('hydra.iop.global:4705', 'api/v2/blockchain'));
     if (resp.statusCode == 200) {
-      return BlockInfo.fromJson(jsonDecode(resp.body));
+      return BlockInfo.fromJson(jsonDecode(resp.body) as Map<String, dynamic>);
     } else {
       throw Exception('Failed to load BlockInfo');
     }
@@ -117,9 +119,9 @@ class BlockInfo {
     final block = data['block'];
 
     return BlockInfo(
-      height: block['height'],
-      id: block['id'],
-      supply: data['supply'],
+      height: block['height'] as int,
+      id: block['id'] as String,
+      supply: data['supply'] as String,
     );
   }
 
