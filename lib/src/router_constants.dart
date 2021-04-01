@@ -1,6 +1,7 @@
 const routeHome = '/';
 const routeAddCredential = '/add_credential';
 const routeAuthorityProcesses = '/authority_processes';
+const routeProfiles = '/routeProfiles';
 const routeShowMnemonic = '/show_mnemonic';
 const routeScanner = '/scanner';
 const routeSettings = '/settings';

@@ -31,9 +31,15 @@ class HomePage extends StatelessWidget {
                 style: textTheme.headline1,
               ))),
               ListTile(
-                title: Text(
+                title: const Text('Profiles'),
+                onTap: () {
+                  Navigator.pop(context);
+                  Navigator.pushNamed(context, routeProfiles);
+                },
+              ),
+              ListTile(
+                title: const Text(
                   'Settings',
-                  style: textTheme.bodyText1,
                 ),
                 onTap: () {
                   Navigator.pop(context);
