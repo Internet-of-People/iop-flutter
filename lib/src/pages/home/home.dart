@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:iop_wallet/src/pages/actions/action_page.dart';
+import 'package:iop_wallet/src/pages/home/header.dart';
 import 'package:iop_wallet/src/pages/wallet/wallet_page.dart';
 import 'package:iop_wallet/src/router_constants.dart';
-import 'package:iop_wallet/src/theme.dart';
 
 class HomePage extends StatelessWidget {
   final _tabs = <Tab>[Tab(child: ActionPage()), Tab(child: WalletPage())];
@@ -24,12 +24,7 @@ class HomePage extends StatelessWidget {
         drawer: Drawer(
           child: ListView(
             children: [
-              DrawerHeader(
-                  child: Center(
-                      child: Text(
-                'IOP Wallet',
-                style: textTheme.headline1,
-              ))),
+              Header(),
               ListTile(
                 title: const Text('Profiles'),
                 onTap: () {
