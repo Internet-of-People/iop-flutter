@@ -4,7 +4,7 @@ import 'package:iop_wallet/src/intro-slider/intro_slider.dart';
 import 'package:iop_wallet/src/intro-slider/slide_object.dart';
 import 'package:iop_wallet/src/models/settings/settings.dart';
 import 'package:iop_wallet/src/pages/setup/onboarding_slides.dart';
-import 'package:iop_wallet/src/pages/setup/mnemonic_slide_body.dart';
+import 'package:iop_wallet/src/pages/setup/generate_mnemonic_slide_body.dart';
 import 'package:iop_wallet/src/pages/setup/password_slide_body.dart';
 import 'package:iop_wallet/src/router_constants.dart';
 import 'package:provider/provider.dart';
@@ -16,7 +16,8 @@ class CreateVaultSlider extends StatefulWidget {
 
 class _CreateVaultSliderState extends State<CreateVaultSlider> {
   final List<Slide> _slides = [];
-  final MnemonicSlideBody _mnemonicSlideBody = MnemonicSlideBody();
+  final GenerateMnemonicSlideBody _mnemonicSlideBody =
+      GenerateMnemonicSlideBody();
   final PasswordSlideBody _passwordSlideBody = PasswordSlideBody();
 
   @override

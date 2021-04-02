@@ -17,14 +17,13 @@ class _PasswordSlideBodyState extends State<PasswordSlideBody> {
         formattedIcon(Icons.security),
         Padding(
           padding: const EdgeInsets.all(32.0),
-          child: Center(
-              child: _buildPasswordForm('Enter your password here', true)),
+          child: Center(child: _buildPasswordForm(true)),
         ),
       ],
     );
   }
 
-  Widget _buildPasswordForm(String hintText, bool obscured) {
+  Widget _buildPasswordForm(bool obscured) {
     return Form(
       key: widget.formKey,
       child: Column(children: [
@@ -39,13 +38,13 @@ class _PasswordSlideBodyState extends State<PasswordSlideBody> {
             labelStyle: textTheme.bodyText2,
           ),
           style: textTheme.bodyText1,
-          validator: passwordValidator,
+          validator: _passwordValidator,
         ),
       ]),
     );
   }
 
-  static String? passwordValidator(String? password) {
+  String? _passwordValidator(String? password) {
     if (password == null) {
       return 'Password is required!';
     }

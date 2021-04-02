@@ -3,12 +3,13 @@ import 'package:iop_sdk/crypto.dart';
 import 'package:flutter/services.dart';
 import 'package:iop_wallet/src/theme.dart';
 
-class MnemonicSlideBody extends StatefulWidget {
+class GenerateMnemonicSlideBody extends StatefulWidget {
   @override
-  _MnemonicSlideBodyState createState() => _MnemonicSlideBodyState();
+  _GenerateMnemonicSlideBodyState createState() =>
+      _GenerateMnemonicSlideBodyState();
 }
 
-class _MnemonicSlideBodyState extends State<MnemonicSlideBody> {
+class _GenerateMnemonicSlideBodyState extends State<GenerateMnemonicSlideBody> {
   final Bip39 _bip39 = Bip39('en');
   late List<String> _mnemonic;
 

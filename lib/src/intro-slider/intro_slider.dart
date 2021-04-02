@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -648,9 +646,11 @@ class IntroSliderState extends State<IntroSlider>
         final index = tabController.index;
         if (slides?[index].onNextPress != null) {
           slides![index].onNextPress!();
-        }
-        if (!isAnimating(tabController.animation!.value)) {
-          tabController.animateTo(index + 1);
+          // tabController.animateTo(index + 1);
+        } else {
+          if (!isAnimating(tabController.animation!.value)) {
+            tabController.animateTo(index + 1);
+          }
         }
       },
       style: TextButton.styleFrom(
@@ -743,181 +743,35 @@ class IntroSliderState extends State<IntroSlider>
       final scrollController = ScrollController();
       scrollControllers.add(scrollController);
       tabs!.add(
-        renderTab(
-          scrollController,
-          slides?[i].widgetTitle,
-          slides?[i].title,
-          slides?[i].maxLineTitle,
-          slides?[i].styleTitle,
-          slides?[i].marginTitle,
-          slides?[i].widgetDescription,
-          slides?[i].description,
-          slides?[i].maxLineTextDescription,
-          slides?[i].styleDescription,
-          slides?[i].marginDescription,
-          slides?[i].pathImage,
-          slides?[i].widthImage,
-          slides?[i].heightImage,
-          slides?[i].foregroundImageFit,
-          slides?[i].centerWidget,
-          slides?[i].onCenterItemPress,
-          slides?[i].backgroundTabColor,
-          slides?[i].gradientTabBegin,
-          slides?[i].gradientTabEnd,
-          slides?[i].directionColorBegin,
-          slides?[i].directionColorEnd,
-          slides?[i].backgroundImage,
-          slides?[i].backgroundImageFit,
-          slides?[i].backgroundOpacity,
-          slides?[i].backgroundOpacityColor,
-          slides?[i].backgroundBlendMode,
+        Slide(
+          widgetTitle: slides?[i].widgetTitle,
+          title: slides?[i].title,
+          maxLineTitle: slides?[i].maxLineTitle,
+          marginTitle: slides?[i].marginTitle,
+          widgetDescription: slides?[i].widgetDescription,
+          description: slides?[i].description,
+          maxLineTextDescription: slides?[i].maxLineTextDescription,
+          marginDescription: slides?[i].marginDescription,
+          pathImage: slides?[i].pathImage,
+          widthImage: slides?[i].widthImage,
+          heightImage: slides?[i].heightImage,
+          foregroundImageFit: slides?[i].foregroundImageFit,
+          centerWidget: slides?[i].centerWidget,
+          onCenterItemPress: slides?[i].onCenterItemPress,
+          gradientTabBegin: slides?[i].gradientTabBegin,
+          gradientTabEnd: slides?[i].gradientTabEnd,
+          directionColorBegin: slides?[i].directionColorBegin,
+          directionColorEnd: slides?[i].directionColorEnd,
+          backgroundImage: slides?[i].backgroundImage,
+          backgroundImageFit: slides?[i].backgroundImageFit,
+          backgroundOpacity: slides?[i].backgroundOpacity,
+          backgroundOpacityColor: slides?[i].backgroundOpacityColor,
+          backgroundBlendMode: slides?[i].backgroundBlendMode,
+          scrollController: scrollController,
         ),
       );
     }
     return tabs;
-  }
-
-  Widget renderTab(
-    ScrollController scrollController,
-
-    // Title
-    Widget? widgetTitle,
-    String? title,
-    int? maxLineTitle,
-    TextStyle? styleTitle,
-    EdgeInsets? marginTitle,
-
-    // Description
-    Widget? widgetDescription,
-    String? description,
-    int? maxLineTextDescription,
-    TextStyle? styleDescription,
-    EdgeInsets? marginDescription,
-
-    // Image
-    String? pathImage,
-    double? widthImage,
-    double? heightImage,
-    BoxFit? foregroundImageFit,
-
-    // Center Widget
-    Widget? centerWidget,
-    Function? onCenterItemPress,
-
-    // Background color
-    Color? backgroundColor,
-    Color? colorBegin,
-    Color? colorEnd,
-    AlignmentGeometry? directionColorBegin,
-    AlignmentGeometry? directionColorEnd,
-
-    // Background image
-    String? backgroundImage,
-    BoxFit? backgroundImageFit,
-    double? backgroundOpacity,
-    Color? backgroundOpacityColor,
-    BlendMode? backgroundBlendMode,
-  ) {
-    final listView = ListView(
-      controller: scrollController,
-      children: <Widget>[
-        Container(
-          // Title
-          margin: marginTitle ??
-              const EdgeInsets.only(
-                  top: 70.0, bottom: 50.0, left: 20.0, right: 20.0),
-          child: widgetTitle ??
-              Text(
-                title ?? '',
-                style: styleTitle ??
-                    const TextStyle(
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 30.0,
-                    ),
-                maxLines: maxLineTitle ?? 1,
-                textAlign: TextAlign.center,
-                overflow: TextOverflow.ellipsis,
-              ),
-        ),
-
-        // Image or Center widget
-        GestureDetector(
-          onTap: onCenterItemPress as void Function()?,
-          child: pathImage != null
-              ? Image.asset(
-                  pathImage,
-                  width: widthImage ?? 200.0,
-                  height: heightImage ?? 200.0,
-                  fit: foregroundImageFit ?? BoxFit.contain,
-                )
-              : Center(child: centerWidget ?? Container()),
-        ),
-
-        // Description
-        Container(
-          margin: marginDescription ??
-              const EdgeInsets.fromLTRB(20.0, 50.0, 20.0, 50.0),
-          child: widgetDescription ??
-              Text(
-                description ?? '',
-                style: styleDescription ??
-                    const TextStyle(color: Colors.white, fontSize: 18.0),
-                textAlign: TextAlign.center,
-                maxLines: maxLineTextDescription ?? 100,
-                overflow: TextOverflow.ellipsis,
-              ),
-        ),
-      ],
-    );
-    return Container(
-      width: double.infinity,
-      height: double.infinity,
-      decoration: backgroundImage != null
-          ? BoxDecoration(
-              image: DecorationImage(
-                image: AssetImage(backgroundImage),
-                fit: backgroundImageFit ?? BoxFit.cover,
-                colorFilter: ColorFilter.mode(
-                  backgroundOpacityColor != null
-                      ? backgroundOpacityColor
-                          .withOpacity(backgroundOpacity ?? 0.5)
-                      : Colors.black.withOpacity(backgroundOpacity ?? 0.5),
-                  backgroundBlendMode ?? BlendMode.darken,
-                ),
-              ),
-            )
-          : BoxDecoration(
-              gradient: LinearGradient(
-                colors: backgroundColor != null
-                    ? [backgroundColor, backgroundColor]
-                    : [
-                        colorBegin ?? Colors.amberAccent,
-                        colorEnd ?? Colors.amberAccent
-                      ],
-                begin: directionColorBegin ?? Alignment.topLeft,
-                end: directionColorEnd ?? Alignment.bottomRight,
-              ),
-            ),
-      child: Container(
-        margin: const EdgeInsets.only(bottom: 60.0),
-        child: verticalScrollbarBehavior != scrollbarBehavior.HIDE
-            ? Platform.isIOS
-                ? CupertinoScrollbar(
-                    controller: scrollController,
-                    isAlwaysShown: verticalScrollbarBehavior ==
-                        scrollbarBehavior.SHOW_ALWAYS,
-                    child: listView,
-                  )
-                : Scrollbar(
-                    controller: scrollController,
-                    isAlwaysShown: verticalScrollbarBehavior ==
-                        scrollbarBehavior.SHOW_ALWAYS,
-                    child: listView,
-                  )
-            : listView,
-      ),
-    );
   }
 
   List<Widget> renderListDots() {

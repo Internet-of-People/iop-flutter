@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:iop_wallet/src/pages/setup/enter_mnemonic_slide_body.dart';
 import 'package:iop_wallet/src/pages/setup/password_slide_body.dart';
 import 'package:provider/provider.dart';
 import 'package:iop_wallet/src/intro-slider/intro_slider.dart';
@@ -15,6 +16,7 @@ class RestoreVaultSlider extends StatefulWidget {
 
 class _RestoreVaultSliderState extends State<RestoreVaultSlider> {
   final _slides = <Slide>[];
+  final _enterMnemonicSlideBody = EnterMnemonicSlideBody();
   final _passwordSlideBody = PasswordSlideBody();
 
   @override
@@ -22,7 +24,8 @@ class _RestoreVaultSliderState extends State<RestoreVaultSlider> {
     super.initState();
     _slides.addAll(<Slide>[
       OnboardingSlides.mnemonicInfoSlide,
-      OnboardingSlides.enterMnemonic,
+      OnboardingSlides.enterMnemonic(
+          _enterMnemonicSlideBody, _enterMnemonicSlideBody.onNextPress),
       OnboardingSlides.enterPassword(_passwordSlideBody),
     ]);
   }
