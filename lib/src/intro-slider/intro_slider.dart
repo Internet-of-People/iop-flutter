@@ -624,6 +624,10 @@ class IntroSliderState extends State<IntroSlider>
     } else {
       return TextButton(
         onPressed: () {
+          final index = tabController.index;
+          if (slides?[index].onPrevPress != null) {
+            slides![index].onPrevPress!();
+          }
           if (!isAnimating(tabController.animation!.value)) {
             tabController.animateTo(tabController.index - 1);
           }
@@ -641,8 +645,12 @@ class IntroSliderState extends State<IntroSlider>
   Widget buildNextButton() {
     return TextButton(
       onPressed: () {
+        final index = tabController.index;
+        if (slides?[index].onNextPress != null) {
+          slides![index].onNextPress!();
+        }
         if (!isAnimating(tabController.animation!.value)) {
-          tabController.animateTo(tabController.index + 1);
+          tabController.animateTo(index + 1);
         }
       },
       style: TextButton.styleFrom(
@@ -753,9 +761,9 @@ class IntroSliderState extends State<IntroSlider>
           slides?[i].foregroundImageFit,
           slides?[i].centerWidget,
           slides?[i].onCenterItemPress,
-          slides?[i].backgroundColor,
-          slides?[i].colorBegin,
-          slides?[i].colorEnd,
+          slides?[i].backgroundTabColor,
+          slides?[i].gradientTabBegin,
+          slides?[i].gradientTabEnd,
           slides?[i].directionColorBegin,
           slides?[i].directionColorEnd,
           slides?[i].backgroundImage,

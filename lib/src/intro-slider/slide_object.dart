@@ -6,68 +6,53 @@ class Slide {
   Widget? widgetTitle;
 
   // Title
-  /// Change text title at top
   String? title;
 
-  /// Change max number of lines title at top
   int? maxLineTitle;
 
-  /// Style for text title
   TextStyle? styleTitle;
 
-  /// Margin for text title
   EdgeInsets? marginTitle;
 
   // Image
-  /// Path to your local image
   String? pathImage;
 
-  /// Width of image
   double? widthImage;
 
-  /// Height of image
   double? heightImage;
 
-  /// Scale of image
   BoxFit? foregroundImageFit;
 
-  /// Fire when press image or center widget
   Function? onCenterItemPress;
 
   // Custom center widget that replaces image
   Widget? centerWidget;
 
-  // Description widget
-  /// If non-null, used instead of [description] and its relevant properties
+  // Description
   Widget? widgetDescription;
 
-  // Description
-  /// Change text description at bottom
   String? description;
 
-  /// Maximum line of text description
   int? maxLineTextDescription;
 
-  /// Style for text description
   TextStyle? styleDescription;
 
-  /// Margin for text description
   EdgeInsets? marginDescription;
 
+  // Individual button actions
+  Function? onNextPress;
+
+  Function? onPrevPress;
+
   // Background color
-  /// Background tab color
-  Color? backgroundColor;
+  Color? backgroundTabColor;
 
-  /// Gradient tab color begin
-  Color? colorBegin;
+  Color? gradientTabBegin;
 
-  /// Gradient tab color end
-  Color? colorEnd;
+  Color? gradientTabEnd;
 
-  /// Direction color begin
   AlignmentGeometry? directionColorBegin;
 
-  /// Direction color end
   AlignmentGeometry? directionColorEnd;
 
   // Background image
@@ -102,10 +87,14 @@ class Slide {
     this.styleDescription,
     this.marginDescription,
 
+    // Individual button actions
+    this.onNextPress,
+    this.onPrevPress,
+
     // Background color
-    this.backgroundColor,
-    this.colorBegin,
-    this.colorEnd,
+    this.backgroundTabColor,
+    this.gradientTabBegin,
+    this.gradientTabEnd,
     this.directionColorBegin,
     this.directionColorEnd,
 
