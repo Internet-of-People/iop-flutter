@@ -24,8 +24,8 @@ class _CreateVaultSliderState extends State<CreateVaultSlider> {
   void initState() {
     super.initState();
     _slides.addAll(<Slide>[
-      OnboardingSlides.mnemonicInfoSlide,
-      OnboardingSlides.showMnemonic(_mnemonicSlideBody),
+      OnboardingSlides.mnemonicInfoSlide(),
+      OnboardingSlides.showMnemonic(_mnemonicSlideBody, () {}),
       OnboardingSlides.enterPassword(_passwordSlideBody),
     ]);
   }

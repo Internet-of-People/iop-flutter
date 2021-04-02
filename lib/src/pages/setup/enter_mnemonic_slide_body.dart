@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:iop_wallet/src/intro-slider/slide_object.dart';
 import 'package:iop_wallet/src/theme.dart';
 import 'package:iop_wallet/src/utils.dart';
 
@@ -19,14 +20,22 @@ class EnterMnemonicSlideBody extends StatefulWidget {
 class _EnterMnemonicSlideBodyState extends State<EnterMnemonicSlideBody> {
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        formattedIcon(Icons.account_balance),
-        Padding(
-          padding: const EdgeInsets.all(32.0),
-          child: _buildMnemonicForm(),
-        )
-      ],
+    return Slide(
+      title: 'Unlock Your Vault',
+      description:
+          'Anybody with access to these 24 words can steal your identity. '
+          'Write them down and store them in a secure location, '
+          'in case you lose your device!',
+      centerWidget: Column(
+        children: [
+          formattedIcon(Icons.account_balance),
+          Padding(
+            padding: const EdgeInsets.all(32.0),
+            child: _buildMnemonicForm(),
+          )
+        ],
+      ),
+      marginDescription: const EdgeInsets.all(15),
     );
   }
 

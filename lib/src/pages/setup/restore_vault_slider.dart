@@ -23,7 +23,7 @@ class _RestoreVaultSliderState extends State<RestoreVaultSlider> {
   void initState() {
     super.initState();
     _slides.addAll(<Slide>[
-      OnboardingSlides.mnemonicInfoSlide,
+      OnboardingSlides.mnemonicInfoSlide(),
       OnboardingSlides.enterMnemonic(
           _enterMnemonicSlideBody, _enterMnemonicSlideBody.onNextPress),
       OnboardingSlides.enterPassword(_passwordSlideBody),
