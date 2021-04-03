@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:iop_wallet/src/router_constants.dart';
 import 'package:iop_wallet/src/theme.dart';
 
-class SetupPage extends StatelessWidget {
+class WelcomeNewUser extends StatelessWidget {
   final double boxWidth = 240;
   @override
   Widget build(BuildContext context) {

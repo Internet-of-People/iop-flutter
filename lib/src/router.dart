@@ -4,12 +4,12 @@ import 'package:iop_sdk/entities.dart';
 import 'package:iop_wallet/src/pages/actions/add_credential.dart';
 import 'package:iop_wallet/src/pages/authority/authority_processes.dart';
 import 'package:iop_wallet/src/pages/home/home.dart';
+import 'package:iop_wallet/src/pages/onboarding/create_vault.dart';
+import 'package:iop_wallet/src/pages/onboarding/restore_vault.dart';
+import 'package:iop_wallet/src/pages/onboarding/welcome_new_user.dart';
 import 'package:iop_wallet/src/pages/profiles/profiles.dart';
 import 'package:iop_wallet/src/pages/settings/show_mnemonic.dart';
-import 'package:iop_wallet/src/pages/setup/create_vault_slider.dart';
-import 'package:iop_wallet/src/pages/setup/restore_vault_slider.dart';
 import 'package:iop_wallet/src/pages/settings/settings.dart';
-import 'package:iop_wallet/src/pages/setup/setup_start.dart';
 import 'package:iop_wallet/src/pages/wallet/wallet_page.dart';
 import 'package:iop_wallet/src/pages/welcome/welcome.dart';
 import 'package:iop_wallet/src/router_constants.dart';
@@ -36,7 +36,7 @@ Route<dynamic> generateRoute(RouteSettings settings) {
     page = SettingsPage();
   } else if (settings.name == routeShowMnemonic) {
     page = ShowMnemonicPage();
-  } else if (settings.name == routeWallet) {
+  } else if (settings.name == routeVault) {
     page = WalletPage();
   } else if (settings.name!.startsWith(routePrefixSetup)) {
     page = SetupNavigator();
@@ -62,17 +62,14 @@ class SetupNavigator extends StatelessWidget {
   Route _onGenerateRoute(RouteSettings settings) {
     late Widget page;
     switch (settings.name) {
-      case routeSetupStart:
-        page = SetupPage();
-        break;
       case routeSetupCreateVault:
-        page = CreateVaultSlider();
+        page = CreateVault();
         break;
       case routeSetupRestoreVault:
-        page = RestoreVaultSlider();
+        page = RestoreVault();
         break;
       default:
-        page = SetupPage();
+        page = WelcomeNewUser();
     }
 
     return MaterialPageRoute(builder: (context) => page, settings: settings);

@@ -1,15 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:iop_sdk/crypto.dart';
 import 'package:flutter/services.dart';
+import 'package:iop_wallet/src/pages/onboarding/mnemonic_model.dart';
 import 'package:iop_wallet/src/theme.dart';
 
-class GenerateMnemonicSlideBody extends StatefulWidget {
+class GenerateMnemonicSlide extends StatefulWidget {
+  final MnemonicModel model;
+
+  const GenerateMnemonicSlide(this.model);
+
   @override
-  _GenerateMnemonicSlideBodyState createState() =>
-      _GenerateMnemonicSlideBodyState();
+  _GenerateMnemonicSlideState createState() =>
+      _GenerateMnemonicSlideState();
 }
 
-class _GenerateMnemonicSlideBodyState extends State<GenerateMnemonicSlideBody> {
+class _GenerateMnemonicSlideState extends State<GenerateMnemonicSlide> {
   final Bip39 _bip39 = Bip39('en');
   late List<String> _mnemonic;
 
@@ -24,7 +29,7 @@ class _GenerateMnemonicSlideBodyState extends State<GenerateMnemonicSlideBody> {
     return Column(
       children: [
         Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16),
+          padding: const EdgeInsets.symmetric(horizontal: 0),
           child: Table(children: _buildMnemonicTable()),
         ),
         Padding(
@@ -53,7 +58,10 @@ class _GenerateMnemonicSlideBodyState extends State<GenerateMnemonicSlideBody> {
   }
 
   void _generatePhrase() {
-    setState(() => _mnemonic = _bip39.generatePhrase().split(' '));
+    setState(() {
+      _mnemonic = _bip39.generatePhrase().split(' ');
+      widget.model.words = _mnemonic;
+    });
   }
 
   List<TableRow> _buildMnemonicTable() {
@@ -94,7 +102,7 @@ class _GenerateMnemonicSlideBodyState extends State<GenerateMnemonicSlideBody> {
   }
 
   Widget _buildStyledTextButton(
-          String label, IconData iconData, void Function()? onPressed) =>
+      String label, IconData iconData, void Function()? onPressed) =>
       SizedBox(
         width: 120,
         child: TextButton.icon(

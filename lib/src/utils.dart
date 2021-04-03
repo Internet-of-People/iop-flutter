@@ -50,6 +50,7 @@ Widget createListTile(int index, String content) {
   );
 }
 
+// TODO: remove this formatted icon which does something with formatting.
 Icon formattedIcon(IconData iconData) =>
     Icon(iconData, size: 250, color: appTheme.primaryColor);
 

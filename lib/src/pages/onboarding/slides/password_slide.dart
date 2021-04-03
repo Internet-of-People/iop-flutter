@@ -1,20 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:iop_wallet/src/theme.dart';
-import 'package:iop_wallet/src/utils.dart';
 
-class PasswordSlideBody extends StatefulWidget {
-  final GlobalKey<FormState> formKey = GlobalKey<FormState>();
+class PasswordSlide extends StatefulWidget {
+  final GlobalKey<FormState> formKey;
+  final TextEditingController controller;
+
+  const PasswordSlide(this.formKey, this.controller);
 
   @override
-  _PasswordSlideBodyState createState() => _PasswordSlideBodyState();
+  _PasswordSlideState createState() => _PasswordSlideState();
 }
 
-class _PasswordSlideBodyState extends State<PasswordSlideBody> {
+class _PasswordSlideState extends State<PasswordSlide> {
+  bool _validationStarted = false;
+
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
-        formattedIcon(Icons.security),
         Padding(
           padding: const EdgeInsets.all(32.0),
           child: Center(child: _buildPasswordForm(true)),
@@ -28,7 +31,13 @@ class _PasswordSlideBodyState extends State<PasswordSlideBody> {
       key: widget.formKey,
       child: Column(children: [
         TextFormField(
+          controller: widget.controller,
           obscureText: true,
+          onChanged: (_) {
+            if(_validationStarted) {
+              widget.formKey.currentState!.validate();
+            }
+          },
           decoration: InputDecoration(
             icon: Icon(
               Icons.vpn_key,
@@ -45,6 +54,8 @@ class _PasswordSlideBodyState extends State<PasswordSlideBody> {
   }
 
   String? _passwordValidator(String? password) {
+    _validationStarted = true;
+
     if (password == null) {
       return 'Password is required!';
     }
