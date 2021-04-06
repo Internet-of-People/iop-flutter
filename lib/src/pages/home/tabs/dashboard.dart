@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:iop_sdk/authority.dart';
 import 'package:iop_wallet/src/router_constants.dart';
 import 'package:iop_wallet/src/utils.dart';
 
-class ActionPage extends StatelessWidget {
+class DashboardTab extends StatelessWidget {
   final double boxWidth = 150;
 
   @override
@@ -27,13 +28,6 @@ class ActionPage extends StatelessWidget {
                 child: SizedBox(
                     width: boxWidth,
                     child: const Center(child: Text('Scan QR'))),
-              ),
-              ElevatedButton(
-                onPressed: () =>
-                    Navigator.pushNamed(context, routeAddCredential),
-                child: SizedBox(
-                    width: boxWidth,
-                    child: const Center(child: Text('Add Credential'))),
               ),
             ],
           ),

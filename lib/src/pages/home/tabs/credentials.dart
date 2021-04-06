@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:iop_wallet/src/models/wallet/wallet.dart';
+import 'package:iop_wallet/src/pages/home/tabs/credential_details.dart';
 import 'package:iop_wallet/src/theme.dart';
 import 'package:provider/provider.dart';
 
-import 'credential_details.dart';
+export 'credentials.dart';
 
-export 'wallet_page.dart';
-
-class WalletPage extends StatelessWidget {
+class CredentialsTab extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -44,7 +43,7 @@ class _CredentialList extends StatelessWidget {
                       context,
                       MaterialPageRoute(
                           builder: (context) =>
-                              CredentialRoute(wallet.credentials[index])));
+                              CredentialDetails(wallet.credentials[index])));
                 },
                 child: Text(wallet.credentials[index].credentialName),
               ),

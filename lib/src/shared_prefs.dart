@@ -1,14 +1,17 @@
+import 'package:iop_wallet/src/models/credential/credential2.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'models/credential/credential.dart';
 
 class AppSharedPrefs {
   static const _serializedVaultKey = 'vault';
+  static const _activePersonaKey = 'active_persona';
   static const _credentialPrefsKey = 'credentials';
 
   static Future<void> setVault(String serializedVault) async {
     final prefs = await SharedPreferences.getInstance();
     await prefs.setString(_serializedVaultKey, serializedVault);
+    await setActivePersona(0);
   }
 
   static Future<String?> getVault() async {
@@ -19,6 +22,28 @@ class AppSharedPrefs {
   static Future<void> removeVault() async {
     final prefs = await SharedPreferences.getInstance();
     await prefs.remove(_serializedVaultKey);
+    await prefs.remove(_activePersonaKey);
+  }
+
+  static Future<void> setActivePersona(int index) async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setInt(_activePersonaKey, index);
+  }
+
+  static Future<int?> getActivePersona() async {
+    final prefs = await SharedPreferences.getInstance();
+    return prefs.getInt(_activePersonaKey);
+  }
+
+  static Future<void> addSignedStatement() async {
+    final prefs = await SharedPreferences.getInstance();
+    final credentials = prefs.getString(_credentialPrefsKey);
+    // TODO: parse credentials, addo the array, save back
+  }
+
+  static Future<List<Credential2>> getCredentials() async {
+    // TODO
+    return [];
   }
 
   // TODO: remove(?) these

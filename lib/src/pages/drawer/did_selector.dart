@@ -47,7 +47,7 @@ class DidsDropdown extends StatelessWidget {
             items: _dids?.map<DropdownMenuItem<String>>((String value) {
               return DropdownMenuItem<String>(
                 value: value,
-                child: Text(value, overflow: TextOverflow.ellipsis),
+                child: Text(value, overflow: TextOverflow.fade),
               );
             }).toList(),
           ),
