@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+import 'package:iop_sdk/network.dart';
+import 'package:iop_wallet/src/shared_prefs.dart';
 import 'package:introduction_screen/introduction_screen.dart';
-import 'package:iop_wallet/src/models/settings/settings.dart';
 import 'package:iop_wallet/src/pages/onboarding/mnemonic_model.dart';
 import 'package:iop_wallet/src/pages/onboarding/slides/generate_mnemonic_slide.dart';
 import 'package:iop_wallet/src/pages/onboarding/slides/password_slide.dart';
 import 'package:iop_wallet/src/router_constants.dart';
+import 'package:iop_sdk/crypto.dart';
 
 class CreateVault extends StatefulWidget {
   @override
@@ -65,7 +66,7 @@ class _CreateVaultState extends State<CreateVault> {
           decoration: pageDecoration,
         ),
       ],
-      onDone: () => _onDoneClick(context),
+      onDone: () => _onDoneClick(),
       skipFlex: 0,
       nextFlex: 0,
       next: const Text('Next'),
@@ -85,19 +86,29 @@ class _CreateVaultState extends State<CreateVault> {
     );
   }
   
-  Future<void> _onDoneClick(BuildContext context) async {
-    // TODO: use these to create the vault
-    print(_mnemonicModel.words);
-    print(_passwordController.value.text);
+  Future<void> _onDoneClick() async {
+    final unlockPassword = _passwordController.value.text;
 
     if (!_passwordFormKey.currentState!.validate()) {
       return;
     }
 
-    final settings = context.watch<SettingsModel>();
-    await settings.setInitialized(true);
+    final vault = Vault.create(
+      _mnemonicModel.words.join(' '),
+      'Mne7Aj3Tm3mhBAnP',
+      unlockPassword,
+    );
+
+    MorpheusPlugin.init(vault, unlockPassword);
+    HydraPlugin.init(vault, unlockPassword, Network.TestNet, 0);
+    HydraPlugin.init(vault, unlockPassword, Network.DevNet, 0);
+    HydraPlugin.init(vault, unlockPassword, Network.MainNet, 0);
+
+    final serializedVault = vault.save();
+
+    await AppSharedPrefs.setVault(serializedVault);
     await Navigator
         .of(context)
-        .pushNamedAndRemoveUntil(routeWelcome, (route) => false);
+        .pushNamedAndRemoveUntil(routeHome, (route) => false);
   }
 }

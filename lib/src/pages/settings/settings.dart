@@ -1,16 +1,15 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:flutter_file_dialog/flutter_file_dialog.dart';
 import 'package:http/http.dart' as http;
-import 'package:iop_wallet/src/models/settings/settings.dart';
 import 'package:iop_wallet/src/router_constants.dart';
-import 'package:provider/provider.dart';
+import 'package:iop_wallet/src/shared_prefs.dart';
 
 class SettingsPage extends StatelessWidget {
   late final Future<BlockInfo> _futureBlockInfo = _fetchBlockheight();
 
   @override
   Widget build(BuildContext context) {
-    final SettingsModel settings = context.watch<SettingsModel>();
     return FutureBuilder<BlockInfo>(
         future: _futureBlockInfo,
         builder: (BuildContext context, AsyncSnapshot<BlockInfo> snapshot) {
@@ -18,14 +17,14 @@ class SettingsPage extends StatelessWidget {
             if (snapshot.hasError) {
               return Text('${snapshot.error}');
             }
-            return _buildScaffold(context, settings, snapshot.data?.height);
+            return _buildScaffold(context, snapshot.data?.height);
           }
           return const Center(child: CircularProgressIndicator());
         });
   }
 
   Widget _buildScaffold(
-      BuildContext context, SettingsModel settings, Object? blockInfo) {
+      BuildContext context, Object? blockInfo) {
     return Scaffold(
       appBar: AppBar(centerTitle: true, title: const Text('Settings')),
       body: Center(
@@ -34,7 +33,7 @@ class SettingsPage extends StatelessWidget {
             ListTile(
               onTap: () => showDialog(
                   context: context,
-                  builder: (_) => _buildExportDialog(context, settings)),
+                  builder: (_) => _buildExportDialog(context)),
               title: const Padding(
                 padding: EdgeInsets.all(16),
                 child: Text('Export Wallet'),
@@ -44,7 +43,7 @@ class SettingsPage extends StatelessWidget {
               onTap: () => showDialog(
                   context: context,
                   builder: (BuildContext context) =>
-                      _buildRemoveDialog(context, settings)),
+                      _buildRemoveDialog(context)),
               title: const Padding(
                 padding: EdgeInsets.all(16),
                 child: Text('Remove Wallet'),
@@ -60,7 +59,7 @@ class SettingsPage extends StatelessWidget {
     );
   }
 
-  Widget _buildRemoveDialog(BuildContext context, SettingsModel settings) {
+  Widget _buildRemoveDialog(BuildContext context) {
     return AlertDialog(
       title: const Text('Remove Wallet'),
       content: const Text('Are you sure to delete your wallet? '
@@ -71,7 +70,7 @@ class SettingsPage extends StatelessWidget {
             onPressed: () => Navigator.pop(context), child: const Text('No')),
         TextButton(
             onPressed: () async {
-              await settings.setInitialized(false);
+              await AppSharedPrefs.removeVault();
               await Navigator.pushNamedAndRemoveUntil(
                   context, routeWelcome, (Route<dynamic> route) => false);
             },
@@ -81,7 +80,7 @@ class SettingsPage extends StatelessWidget {
     );
   }
 
-  Widget _buildExportDialog(BuildContext context, SettingsModel settings) {
+  Widget _buildExportDialog(BuildContext context) {
     return AlertDialog(
       title: const Text('Export Wallet'),
       content: const Text('Are you sure nobody is looking? '
@@ -91,8 +90,14 @@ class SettingsPage extends StatelessWidget {
             onPressed: () => Navigator.pop(context), child: const Text('No')),
         TextButton(
             onPressed: () async {
-              Navigator.pop(context);
-              await Navigator.pushNamed(context, routeShowMnemonic);
+              final params = SaveFileDialogParams(
+                  sourceFilePath: "path_of_file_to_save"
+              );
+
+              final filePath = await FlutterFileDialog.saveFile(params: params);
+              print(filePath);
+              //Navigator.pop(context);
+              //await Navigator.pushNamed(context, routeShowMnemonic);
             },
             child: const Text('Yes')),
       ],

@@ -3,10 +3,25 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'models/credential/credential.dart';
 
 class AppSharedPrefs {
+  static const _serializedVaultKey = 'vault';
   static const _credentialPrefsKey = 'credentials';
-  static const _initializedKey = 'initialized';
-  static const _mnemonicKey = 'mnemonic';
 
+  static Future<void> setVault(String serializedVault) async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setString(_serializedVaultKey, serializedVault);
+  }
+
+  static Future<String?> getVault() async {
+    final prefs = await SharedPreferences.getInstance();
+    return prefs.getString(_serializedVaultKey);
+  }
+
+  static Future<void> removeVault() async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.remove(_serializedVaultKey);
+  }
+
+  // TODO: remove(?) these
   static Future<void> setWallet(List<Credential> credentials) async {
     final prefs = await SharedPreferences.getInstance();
     await prefs.setStringList(_credentialPrefsKey,
@@ -16,25 +31,5 @@ class AppSharedPrefs {
   static Future<List<String>> loadWallet() async {
     final prefs = await SharedPreferences.getInstance();
     return prefs.getStringList(_credentialPrefsKey) ?? <String>[];
-  }
-
-  static Future<void> setInitialized(bool initialized) async {
-    final prefs = await SharedPreferences.getInstance();
-    await prefs.setBool(_initializedKey, initialized);
-  }
-
-  static Future<bool?> loadInitialized() async {
-    final prefs = await SharedPreferences.getInstance();
-    return prefs.getBool(_initializedKey);
-  }
-
-  static Future<void> setMnemonic(List<String> mnemonic) async {
-    final prefs = await SharedPreferences.getInstance();
-    await prefs.setStringList(_mnemonicKey, mnemonic);
-  }
-
-  static Future<List<String>?> loadMnemonic() async {
-    final prefs = await SharedPreferences.getInstance();
-    return prefs.getStringList(_mnemonicKey);
   }
 }

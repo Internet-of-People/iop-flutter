@@ -33,7 +33,8 @@ class WelcomeNewUser extends StatelessWidget {
                     child: const Text('Create a New Personal Vault'),
                   ),
                 ),
-                SizedBox(
+                // TODO: implement it, when restore path is done
+                /*SizedBox(
                   width: boxWidth,
                   child: ElevatedButton(
                     onPressed: () {
@@ -41,7 +42,7 @@ class WelcomeNewUser extends StatelessWidget {
                     },
                     child: const Text('Restore an Existing Vault'),
                   ),
-                ),
+                ),*/
               ],
             ),
           ],
