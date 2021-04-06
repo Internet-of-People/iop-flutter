@@ -36,9 +36,11 @@ class HomePage extends StatelessWidget {
                 title: const Text(
                   'Settings',
                 ),
-                onTap: () {
+                onTap: () async {
                   Navigator.pop(context);
-                  Navigator.pushNamed(context, routeSettings);
+                  await Navigator
+                      .of(context)
+                      .pushNamed(routeSettings);
                 },
               ),
               const ListTile(title: Text('History')),
