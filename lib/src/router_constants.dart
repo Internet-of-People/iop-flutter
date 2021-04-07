@@ -1,6 +1,7 @@
 const routeHome = '/';
 const routeAuthorityProcesses = '/authority/processes';
 const routeAuthorityProcessDetails = '/authority/processes/details';
+const routeAuthorityCreateWitnessRequest = '/authority/processes/createRequest';
 const routeCredentialDetails = '/credentials/details';
 const routePersonas = '/personas';
 const routeScanner = '/scanner';

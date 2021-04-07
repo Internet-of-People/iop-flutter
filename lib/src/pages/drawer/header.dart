@@ -63,7 +63,6 @@ class _HeaderState extends State<Header> {
 
   Future<MorpheusPlugin> _loadMorpheus() async {
     final serializedVault = await AppSharedPrefs.getVault();
-
     final vault = Vault.load(serializedVault!);
     return MorpheusPlugin.get(vault);
   }

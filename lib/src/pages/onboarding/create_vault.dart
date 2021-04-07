@@ -107,6 +107,8 @@ class _CreateVaultState extends State<CreateVault> {
     final serializedVault = vault.save();
 
     await AppSharedPrefs.setVault(serializedVault);
+    await AppSharedPrefs.setUnlockPassword(unlockPassword);
+
     await Navigator
         .of(context)
         .pushNamedAndRemoveUntil(routeHome, (route) => false);

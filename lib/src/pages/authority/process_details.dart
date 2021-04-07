@@ -3,6 +3,8 @@ import 'package:iop_sdk/authority.dart';
 import 'package:iop_sdk/entities.dart';
 import 'package:iop_sdk/ssi.dart';
 import 'package:iop_wallet/src/nullable_text.dart';
+import 'package:iop_wallet/src/pages/authority/create_witness_request.dart';
+import 'package:iop_wallet/src/router_constants.dart';
 import 'package:json_schema2/json_schema2.dart';
 
 class ProcessDetailsArgs {
@@ -37,8 +39,6 @@ class _ProcessDetailsState extends State<ProcessDetails> {
     0: false,
     1: false,
   };
-  bool _claimSchemaDetailsOpen = false;
-  bool _evidenceSchemaDetailsOpen = false;
 
   @override
   void initState() {
@@ -140,17 +140,18 @@ class _ProcessDetailsState extends State<ProcessDetails> {
       return FloatingActionButton.extended(
           label: const Text('Create Witness Request'),
           icon: const Icon(Icons.assignment),
-          onPressed: () {
-            // TODO
-            /*Navigator.push(
-            context,
-            MaterialPageRoute(
-                builder: (context) => CreateWitnessRequest(
-                      widget._process.name,
-                      widget._processContentId,
-                      snapshot.data.claimSchema,
-                      snapshot.data.evidenceSchema,
-                    )));*/
+          onPressed: () async {
+            await Navigator.pushNamed(
+              context,
+              routeAuthorityCreateWitnessRequest,
+              arguments: CreateWitnessRequestArgs(
+                widget.args.process.name,
+                widget.args.contentId,
+                snapshot.data!.claimSchema,
+                snapshot.data!.evidenceSchema,
+                widget.args.authorityConfig,
+              ),
+            );
           });
     }
 

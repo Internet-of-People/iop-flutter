@@ -3,6 +3,9 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class AppSharedPrefs {
   static const _serializedVaultKey = 'vault';
+  // TODO: this might be required in the future
+  // to provide via a modal or something
+  static const _unlockPasswordKey = 'unlock_password';
   static const _activePersonaKey = 'active_persona';
   static const _walletKey = 'wallet';
 
@@ -21,6 +24,17 @@ class AppSharedPrefs {
     final prefs = await SharedPreferences.getInstance();
     await prefs.remove(_serializedVaultKey);
     await prefs.remove(_activePersonaKey);
+    await prefs.remove(_unlockPasswordKey);
+  }
+
+  static Future<void> setUnlockPassword(String password) async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setString(_unlockPasswordKey, password);
+  }
+
+  static Future<String?> getUnlockPassword() async {
+    final prefs = await SharedPreferences.getInstance();
+    return prefs.getString(_unlockPasswordKey);
   }
 
   static Future<void> setActivePersona(int index) async {

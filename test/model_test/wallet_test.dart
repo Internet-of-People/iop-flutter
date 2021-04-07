@@ -21,7 +21,7 @@ void main() {
     });
 
     test('Add Credential', () async {
-      await wallet.add(Credential.fromJson({
+      await wallet.addCredential(Credential.fromJson({
         'sentAt': 'some datetime',
         'processName': 'Sample Digitalized ID Card',
         'capabilityUrl': 'an exact url which you can pull',
@@ -61,7 +61,7 @@ void main() {
     setUp(() async {
       wallet = WalletModel.empty();
       await wallet.emptyStorage();
-      await wallet.add(credential);
+      await wallet.addCredential(credential);
     });
 
     test('New Wallet contains credential', () async {

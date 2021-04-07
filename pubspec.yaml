@@ -25,7 +25,10 @@ dependencies:
   flutter:
     sdk: flutter
   flutter_barcode_scanner: ^2.0.0-nullsafety.0
+  flutter_image_compress: ^1.0.0
+  form_field_validator: ^1.1.0
   http: ^0.13.0
+  image_picker: ^0.7.4
   introduction_screen: ^2.1.0
   # TODO: replace iop-sdk with the package from pub dev
   iop_sdk:

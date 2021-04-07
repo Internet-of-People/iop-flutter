@@ -17,23 +17,33 @@ class CredentialList extends StatefulWidget {
 
 class _CredentialListState extends State<CredentialList> {
   late WalletModel wallet;
+  late Future<void> _updateCredentialsFut;
 
 
   @override
-  Future<void> initState() async {
+  void initState() {
     super.initState();
-    await _updateCredentials();
+    _updateCredentialsFut = _updateCredentials();
   }
 
   @override
   Widget build(BuildContext context) {
     wallet = context.watch<WalletModel>();
-    return (wallet.credentials.isEmpty)
-        ? _buildEmptyList()
-        : _buildList();
+    return FutureBuilder(
+      future: _updateCredentialsFut,
+      builder: (BuildContext context, AsyncSnapshot<void> snapshot) {
+        if (snapshot.connectionState == ConnectionState.done) {
+          return (wallet.credentials.isEmpty)
+              ? _buildEmptyList()
+              : _buildList();
+        }
+
+        return const Center(child: CircularProgressIndicator());
+      },
+    );
   }
-  
-  Widget _buildList(){
+
+  Widget _buildList() {
     return Column(
       children: [
         Expanded(
@@ -49,7 +59,7 @@ class _CredentialListState extends State<CredentialList> {
       ],
     );
   }
-  
+
   Widget _buildEmptyList() {
     return Column(
       children: [
@@ -102,6 +112,7 @@ class _CredentialListState extends State<CredentialList> {
         .toList();
 
     final futures = credentialsPending.map((c) async {
+      print(c.capabilityUrl);
       final uri = Uri.parse(c.capabilityUrl);
       final host = '${uri.scheme}://${uri.host}';
       final port = uri.port;

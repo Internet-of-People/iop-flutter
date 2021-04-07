@@ -19,7 +19,7 @@ class WalletModel extends ChangeNotifier {
       _$WalletModelFromJson(json);
   Map<String, dynamic> toJson() => _$WalletModelToJson(this);
 
-  Future<void> add(Credential credential) async {
+  Future<void> addCredential(Credential credential) async {
     await _updateStorage(() {
       credentials.add(credential);
     });
