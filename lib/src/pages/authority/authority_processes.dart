@@ -1,24 +1,22 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-// ignore: import_of_legacy_library_into_null_safe
 import 'package:iop_sdk/authority.dart';
-// ignore: import_of_legacy_library_into_null_safe
 import 'package:iop_sdk/entities.dart';
 import 'package:iop_sdk/ssi.dart';
-import 'package:iop_wallet/src/models/process/process.dart';
-import 'package:iop_wallet/src/pages/authority/processes_view.dart';
+import 'package:iop_wallet/src/pages/authority/process_list.dart';
 
 class AuthorityProcessesPage extends StatefulWidget {
-  const AuthorityProcessesPage({required this.authorityUrl});
-  final ApiConfig authorityUrl;
+  final ApiConfig cfg;
+
+  const AuthorityProcessesPage(this.cfg, {Key? key}) : super(key: key);
 
   @override
   _AuthorityProcessesPageState createState() => _AuthorityProcessesPageState();
 }
 
 class _AuthorityProcessesPageState extends State<AuthorityProcessesPage> {
-  late Future<Map<String, Process>>? _processesFut;
+  late Future<Map<ContentId, Process>>? _processesFut;
 
   @override
   void initState() {
@@ -28,40 +26,31 @@ class _AuthorityProcessesPageState extends State<AuthorityProcessesPage> {
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder<Map<String, Process>>(
+    return FutureBuilder<Map<ContentId, Process>>(
       future: _processesFut,
-      builder:
-          (BuildContext context, AsyncSnapshot<Map<String, Process>> snapshot) {
+      builder: (BuildContext context,
+          AsyncSnapshot<Map<ContentId, Process>> snapshot) {
         return Scaffold(
           appBar: AppBar(
             centerTitle: true,
             title: const Text('Available Processes'),
           ),
           body: snapshot.hasData
-              ? ProcessListView(snapshot.data!)
+              ? ProcessList(snapshot.data!, widget.cfg)
               : const Center(child: CircularProgressIndicator()),
         );
       },
     );
   }
 
-  Future<Map<String, Process>>? _createProcessesFut() async {
-    final api = AuthorityPublicApi(widget.authorityUrl);
+  Future<Map<ContentId, Process>>? _createProcessesFut() async {
+    final api = AuthorityPublicApi(widget.cfg);
     final contentIds = await api.listProcesses();
 
-    final contentFutures = Map<ContentId, Future<dynamic>>.fromIterable(
-        contentIds,
-        value: (contentId) async => api.getPublicBlob(contentId as ContentId));
-
-    final contents = await Future.wait(contentFutures.values);
-
-    final Map<String, Process> contentIdContentMap = <String, Process>{};
-
-    for (int i = 0; i < contents.length; i++) {
-      final json = jsonDecode(contents[i].value.toString());
-      contentIdContentMap[contentIds[i].toJson()] =
-          Process.fromJson(json as Map<String, dynamic>);
-    }
-    return Future<Map<String, Process>>(() => contentIdContentMap);
+    final resolver = ContentResolver<Process>((id) async {
+      final blob = await api.getPublicBlob(id) as String;
+      return Process.fromJson(json.decode(blob) as Map<String, dynamic>);
+    });
+    return resolver.resolveByContentIds(contentIds);
   }
 }

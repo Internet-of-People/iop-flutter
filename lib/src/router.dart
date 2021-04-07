@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:iop_sdk/entities.dart';
 import 'package:iop_wallet/src/pages/authority/authority_processes.dart';
+import 'package:iop_wallet/src/pages/authority/process_details.dart';
 import 'package:iop_wallet/src/pages/home/home.dart';
 import 'package:iop_wallet/src/pages/onboarding/create_vault.dart';
 import 'package:iop_wallet/src/pages/personas/personas.dart';
 import 'package:iop_wallet/src/pages/settings/settings.dart';
 import 'package:iop_wallet/src/pages/welcome/welcome.dart';
 import 'package:iop_wallet/src/router_constants.dart';
-import 'package:iop_wallet/src/utils.dart';
 
 Route<dynamic> generateRoute(RouteSettings settings) {
   late Widget page;
@@ -23,9 +23,13 @@ Route<dynamic> generateRoute(RouteSettings settings) {
     page = CreateVault();
   }
   else if (settings.name == routeAuthorityProcesses) {
-    if (args is AuthorityUrlArguments) {
-      page =
-          AuthorityProcessesPage(authorityUrl: ApiConfig(args.host, args.port));
+    if (args is ApiConfig) {
+      page = AuthorityProcessesPage(args);
+    }
+  }
+  else if(settings.name == routeAuthorityProcessDetails) {
+    if (args is ProcessDetailsArgs) {
+      page = ProcessDetails(args);
     }
   }
   else if (settings.name == routePersonas) {
