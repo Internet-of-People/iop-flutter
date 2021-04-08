@@ -193,7 +193,7 @@ class CreateWitnessRequestState extends State<CreateWitnessRequest> {
   }
 
   Future<void> _onSign() async {
-    if(_claimData == null || _evidenceData == null) {
+    if (_claimData == null || _evidenceData == null) {
       return;
     }
 
@@ -232,17 +232,12 @@ class CreateWitnessRequestState extends State<CreateWitnessRequest> {
     final authorityApi = AuthorityPublicApi(widget._args.authorityConfig);
     final response = await authorityApi.sendRequest(signedRequest);
 
-    final capabilityUrl = '${widget._args.authorityConfig.host}:${widget._args.authorityConfig.port}/request/${response.value}/status';
-
+    final capabilityUrl =
+        '${widget._args.authorityConfig.host}:${widget._args.authorityConfig.port}/request/${response.value}/status';
+    // Wallet is never used to build a widget, which is why we use context.read. We only want to call a method on the model
     final wallet = context.read<WalletModel>();
-    wallet.addCredential(Credential(
-      DateTime.now().toIso8601String(),
-      widget._args.processName,
-      capabilityUrl,
-      Status.pending,
-      null,
-      null
-    ));
+    wallet.addCredential(Credential(DateTime.now().toIso8601String(),
+        widget._args.processName, capabilityUrl, Status.pending, null, null));
     await wallet.save();
 
     setState(() {
@@ -258,7 +253,7 @@ class CreateWitnessRequestState extends State<CreateWitnessRequest> {
               ),
               content: SingleChildScrollView(
                 child: ListBody(
-                  children: const<Widget>[Text('Your request has been sent.')],
+                  children: const <Widget>[Text('Your request has been sent.')],
                 ),
               ),
               actions: <Widget>[

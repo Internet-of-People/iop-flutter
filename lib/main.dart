@@ -18,8 +18,9 @@ Future<void> main() async {
   runApp(
     MultiProvider(
       providers: <SingleChildWidget>[
-        ChangeNotifierProvider<WalletModel>(
-            create: (BuildContext context) => walletModel),
+        ChangeNotifierProvider<WalletModel>.value(
+          value: walletModel,
+        ),
       ],
       child: UserApp(),
     ),
