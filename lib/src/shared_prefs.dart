@@ -1,12 +1,10 @@
-import 'package:iop_wallet/src/models/credential/credential2.dart';
+import 'package:iop_wallet/src/models/credential/credential.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
-import 'models/credential/credential.dart';
 
 class AppSharedPrefs {
   static const _serializedVaultKey = 'vault';
   static const _activePersonaKey = 'active_persona';
-  static const _credentialPrefsKey = 'credentials';
+  static const _walletKey = 'wallet';
 
   static Future<void> setVault(String serializedVault) async {
     final prefs = await SharedPreferences.getInstance();
@@ -35,26 +33,13 @@ class AppSharedPrefs {
     return prefs.getInt(_activePersonaKey);
   }
 
-  static Future<void> addSignedStatement() async {
+  static Future<void> setWallet(String serializedWallet) async {
     final prefs = await SharedPreferences.getInstance();
-    final credentials = prefs.getString(_credentialPrefsKey);
-    // TODO: parse credentials, addo the array, save back
+    await prefs.setString(_walletKey, serializedWallet);
   }
 
-  static Future<List<Credential2>> getCredentials() async {
-    // TODO
-    return [];
-  }
-
-  // TODO: remove(?) these
-  static Future<void> setWallet(List<Credential> credentials) async {
+  static Future<String?> loadWallet() async {
     final prefs = await SharedPreferences.getInstance();
-    await prefs.setStringList(_credentialPrefsKey,
-        credentials.map((credential) => credential.toString()).toList());
-  }
-
-  static Future<List<String>> loadWallet() async {
-    final prefs = await SharedPreferences.getInstance();
-    return prefs.getStringList(_credentialPrefsKey) ?? <String>[];
+    return prefs.getString(_walletKey);
   }
 }

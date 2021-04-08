@@ -4,38 +4,43 @@ import 'package:iop_wallet/src/models/wallet/wallet.dart';
 
 void main() {
   group('Wallet Model notifies listeners', () {
-    var callCount = 0;
+    late int callCount;
     late WalletModel wallet;
 
-    setUp(() async {
+    setUp(() {
       callCount = 0;
-      wallet = WalletModel()
+      wallet = WalletModel.empty()
         ..addListener(() {
           callCount += 1;
         });
-      await wallet.emptyStorage();
     });
 
-    test('Load Wallet', () {
+    test('Initialize Wallet', () {
       expect(wallet.credentials.length, 0);
       expect(callCount, 0);
     });
 
     test('Add Credential', () async {
-      callCount = 0;
       await wallet.add(Credential.fromJson({
-        'name': 'Hello',
-        'details': {'name': 'World'}
+        'sentAt': 'some datetime',
+        'processName': 'Sample Digitalized ID Card',
+        'capabilityUrl': 'an exact url which you can pull',
+        'status': 'approved',
+        'witnessStatement': null,
+        'rejectionReason': null,
       }));
       expect(wallet.credentials.length, 1);
       expect(callCount, 1);
     });
 
     test('Remove Credential', () async {
-      callCount = 0;
       await wallet.remove(Credential.fromJson({
-        'name': 'Hello',
-        'details': {'name': 'World'}
+        'sentAt': 'some datetime',
+        'processName': 'Sample Digitalized ID Card',
+        'capabilityUrl': 'an exact url which you can pull',
+        'status': 'approved',
+        'witnessStatement': null,
+        'rejectionReason': null,
       }));
       expect(wallet.credentials.length, 0);
       expect(callCount, 1);
@@ -45,22 +50,24 @@ void main() {
   group('Wallet Model Data is persisted', () {
     WalletModel wallet;
     final credential = Credential.fromJson({
-      'name': 'Hello',
-      'details': {'name': 'World'}
+      'sentAt': 'some datetime',
+      'processName': 'Sample Digitalized ID Card',
+      'capabilityUrl': 'an exact url which you can pull',
+      'status': 'approved',
+      'witnessStatement': null,
+      'rejectionReason': null,
     });
 
     setUp(() async {
-      wallet = WalletModel();
+      wallet = WalletModel.empty();
       await wallet.emptyStorage();
       await wallet.add(credential);
     });
 
     test('New Wallet contains credential', () async {
-      final newWallet = WalletModel();
+      final newWallet = WalletModel.empty();
       await newWallet.load();
-      expect(
-          newWallet.credentials[0].credentialName, credential.credentialName);
-      expect(newWallet.credentials[0].details, credential.details);
+      expect(newWallet.credentials[0].processName, credential.processName);
     });
   });
 }

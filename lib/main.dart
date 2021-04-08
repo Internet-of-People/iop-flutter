@@ -12,11 +12,14 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   await SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
+
+  final walletModel = WalletModel.empty();
+  await walletModel.load();
   runApp(
     MultiProvider(
       providers: <SingleChildWidget>[
         ChangeNotifierProvider<WalletModel>(
-            create: (BuildContext context) => WalletModel()),
+            create: (BuildContext context) => walletModel),
       ],
       child: UserApp(),
     ),

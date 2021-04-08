@@ -3,56 +3,63 @@ import 'dart:convert';
 import 'package:flutter/foundation.dart';
 import 'package:iop_wallet/src/models/credential/credential.dart';
 import 'package:iop_wallet/src/shared_prefs.dart';
+import 'package:json_annotation/json_annotation.dart';
 
+part 'wallet.g.dart';
+
+@JsonSerializable(explicitToJson: true)
 class WalletModel extends ChangeNotifier {
-  List<Credential> credentials = [];
+  WalletModel(this.credentials);
 
-  bool isWaiting = true;
-  bool hasError = false;
+  final List<Credential> credentials;
+
+  factory WalletModel.empty() => WalletModel(<Credential>[]);
+
+  factory WalletModel.fromJson(Map<String, dynamic> json) =>
+      _$WalletModelFromJson(json);
+  Map<String, dynamic> toJson() => _$WalletModelToJson(this);
 
   Future<void> add(Credential credential) async {
-    await _updateStorageAndNotifyAfter(() {
+    await _updateStorage(() {
       credentials.add(credential);
     });
   }
 
   Future<void> remove(Credential? credential) async {
-    await _updateStorageAndNotifyAfter(() {
+    await _updateStorage(() {
       credentials.remove(credential);
     });
   }
 
   Future<void> load() async {
-    isWaiting = true;
-    final List<String> credentialsString = await AppSharedPrefs.loadWallet();
-    credentials = credentialsString
-        .map((str) =>
-            Credential.fromJson(jsonDecode(str) as Map<String, dynamic>))
-        .toList();
+    final serializedWallet = await AppSharedPrefs.loadWallet();
+    if (serializedWallet == null) {
+      return;
+    }
+    final restoredWallet = WalletModel.fromJson(
+      json.decode(serializedWallet) as Map<String, dynamic>,
+    );
+    credentials.clear();
+    credentials.addAll(restoredWallet.credentials);
     notifyListeners();
-    isWaiting = false;
   }
 
-  Future<void> _updateStorageAndNotifyAfter(Function function) async {
+  Future<void> _updateStorage(Function function) async {
     try {
       function.call();
-      await _saveWallet();
-      notifyListeners();
-      hasError = false;
+      await save();
     } catch (e) {
-      hasError = true;
+      // nothing to do
     }
   }
 
-  Future<void> _saveWallet() async {
-    isWaiting = true;
-    await AppSharedPrefs.setWallet(credentials);
-    isWaiting = false;
+  Future<void> save() async {
+    await AppSharedPrefs.setWallet(json.encode(toJson()));
+    notifyListeners();
   }
 
   Future<void> emptyStorage() async {
-    isWaiting = true;
-    await AppSharedPrefs.setWallet(<Credential>[]);
-    isWaiting = false;
+    credentials.clear();
+    await save();
   }
 }

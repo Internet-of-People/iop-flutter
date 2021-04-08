@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:iop_sdk/entities.dart';
+import 'package:iop_wallet/src/models/credential/credential.dart';
 import 'package:iop_wallet/src/pages/authority/authority_processes.dart';
 import 'package:iop_wallet/src/pages/authority/process_details.dart';
 import 'package:iop_wallet/src/pages/home/home.dart';
+import 'package:iop_wallet/src/pages/home/tabs/credentials/credential_details.dart';
 import 'package:iop_wallet/src/pages/onboarding/create_vault.dart';
 import 'package:iop_wallet/src/pages/personas/personas.dart';
 import 'package:iop_wallet/src/pages/settings/settings.dart';
@@ -15,24 +17,23 @@ Route<dynamic> generateRoute(RouteSettings settings) {
 
   if (settings.name == routeHome) {
     page = HomePage();
-  }
-  else if (settings.name == routeWelcome) {
+  } else if (settings.name == routeWelcome) {
     page = WelcomePage();
-  }
-  else if (settings.name == routeSetupCreateVault) {
+  } else if (settings.name == routeSetupCreateVault) {
     page = CreateVault();
-  }
-  else if (settings.name == routeAuthorityProcesses) {
+  } else if (settings.name == routeAuthorityProcesses) {
     if (args is ApiConfig) {
       page = AuthorityProcessesPage(args);
     }
-  }
-  else if(settings.name == routeAuthorityProcessDetails) {
+  } else if (settings.name == routeCredentialDetails) {
+    if (args is Credential) {
+      page = CredentialDetails(args);
+    }
+  } else if (settings.name == routeAuthorityProcessDetails) {
     if (args is ProcessDetailsArgs) {
       page = ProcessDetails(args);
     }
-  }
-  else if (settings.name == routePersonas) {
+  } else if (settings.name == routePersonas) {
     page = PersonasPage();
   } else if (settings.name == routeSettings) {
     page = SettingsPage();
@@ -42,4 +43,3 @@ Route<dynamic> generateRoute(RouteSettings settings) {
 
   return MaterialPageRoute(builder: (context) => page, settings: settings);
 }
-

@@ -8,13 +8,66 @@ part of 'credential.dart';
 
 Credential _$CredentialFromJson(Map<String, dynamic> json) {
   return Credential(
-    json['credentialName'] as String,
-    json['details'] as Map<String, dynamic>,
+    json['sentAt'] as String,
+    json['processName'] as String,
+    json['capabilityUrl'] as String,
+    _$enumDecodeNullable(_$StatusEnumMap, json['status']),
+    json['witnessStatement'] == null
+        ? null
+        : Signed.fromJson(json['witnessStatement'] as Map<String, dynamic>),
+    json['rejectionReason'] as String?,
   );
 }
 
 Map<String, dynamic> _$CredentialToJson(Credential instance) =>
     <String, dynamic>{
-      'credentialName': instance.credentialName,
-      'details': instance.details,
+      'sentAt': instance.sentAt,
+      'processName': instance.processName,
+      'capabilityUrl': instance.capabilityUrl,
+      'status': _$StatusEnumMap[instance.status],
+      'witnessStatement': instance.witnessStatement?.toJson(),
+      'rejectionReason': instance.rejectionReason,
     };
+
+K _$enumDecode<K, V>(
+  Map<K, V> enumValues,
+  Object? source, {
+  K? unknownValue,
+}) {
+  if (source == null) {
+    throw ArgumentError(
+      'A value must be provided. Supported values: '
+      '${enumValues.values.join(', ')}',
+    );
+  }
+
+  return enumValues.entries.singleWhere(
+    (e) => e.value == source,
+    orElse: () {
+      if (unknownValue == null) {
+        throw ArgumentError(
+          '`$source` is not one of the supported values: '
+          '${enumValues.values.join(', ')}',
+        );
+      }
+      return MapEntry(unknownValue, enumValues.values.first);
+    },
+  ).key;
+}
+
+K? _$enumDecodeNullable<K, V>(
+  Map<K, V> enumValues,
+  dynamic source, {
+  K? unknownValue,
+}) {
+  if (source == null) {
+    return null;
+  }
+  return _$enumDecode<K, V>(enumValues, source, unknownValue: unknownValue);
+}
+
+const _$StatusEnumMap = {
+  Status.pending: 'pending',
+  Status.approved: 'approved',
+  Status.rejected: 'rejected',
+};

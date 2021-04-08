@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:iop_sdk/authority.dart';
 import 'package:iop_sdk/entities.dart';
@@ -35,9 +33,9 @@ class ProcessList extends StatelessWidget {
             subtitle: Text(process.description),
             onTap: () async {
               await Navigator.pushNamed(
-                  context,
-                  routeAuthorityProcessDetails,
-                  arguments: ProcessDetailsArgs(contentId, process, _cfg)
+                context,
+                routeAuthorityProcessDetails,
+                arguments: ProcessDetailsArgs(contentId, process, _cfg),
               );
             },
           ),
