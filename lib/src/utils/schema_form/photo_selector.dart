@@ -22,6 +22,7 @@ class PhotoSelectorFormField extends FormField<File> {
     bool autoValidate = false,
   }) : super(
             onSaved: onSaved,
+            // TODO: https://github.com/Milad-Akarie/form_field_validator/issues/16
             //validator: validator,
             initialValue: controller.image,
             autovalidateMode: autoValidate
@@ -74,8 +75,13 @@ class PhotoSelectorFormField extends FormField<File> {
                     final imageFile = await ImagePicker().getImage(
                       source: ImageSource.camera,
                     );
+
+                    if (imageFile == null) {
+                      return;
+                    }
+
                     final image = await decodeImageFromList(
-                      await imageFile!.readAsBytes(),
+                      await imageFile.readAsBytes(),
                     );
                     final scale = _calcScale(
                       image.width,

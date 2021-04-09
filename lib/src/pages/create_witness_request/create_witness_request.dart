@@ -1,16 +1,21 @@
 import 'package:flutter/material.dart';
-import 'package:iop_wallet/src/models/credential/credential.dart';
-import 'package:iop_wallet/src/models/wallet/wallet.dart';
+import 'package:json_schema2/json_schema2.dart';
 import 'package:provider/provider.dart';
+
 import 'package:iop_sdk/authority.dart';
 import 'package:iop_sdk/crypto.dart';
 import 'package:iop_sdk/entities.dart';
 import 'package:iop_sdk/ssi.dart';
-import 'package:iop_wallet/src/router_constants.dart';
+import 'package:iop_wallet/src/models/credential/credential.dart';
+import 'package:iop_wallet/src/models/wallet/wallet.dart';
+import 'package:iop_wallet/src/widgets/warning_card.dart';
 import 'package:iop_wallet/src/shared_prefs.dart';
 import 'package:iop_wallet/src/utils/schema_form/form_builder.dart';
 import 'package:iop_wallet/src/utils/schema_form/map_as_table.dart';
-import 'package:json_schema2/json_schema2.dart';
+
+import 'widgets/navigation_container.dart';
+import 'widgets/request_has_been_sent_dialog.dart';
+import 'widgets/step_buttons.dart';
 
 abstract class _Step {
   static const int claimSchema = 0;
@@ -34,23 +39,23 @@ class CreateWitnessRequestArgs {
   );
 }
 
-class CreateWitnessRequest extends StatefulWidget {
+class CreateWitnessRequestPage extends StatefulWidget {
   final JsonSchemaFormTree _claimSchemaTree = JsonSchemaFormTree();
   final JsonSchemaFormTree _evidenceSchemaTree = JsonSchemaFormTree();
   final CreateWitnessRequestArgs _args;
 
-  CreateWitnessRequest(
+  CreateWitnessRequestPage(
     this._args, {
     Key? key,
   }) : super(key: key);
 
   @override
   State<StatefulWidget> createState() {
-    return CreateWitnessRequestState();
+    return CreateWitnessRequestPageState();
   }
 }
 
-class CreateWitnessRequestState extends State<CreateWitnessRequest> {
+class CreateWitnessRequestPageState extends State<CreateWitnessRequestPage> {
   final GlobalKey<FormState> _claimFormKey = GlobalKey<FormState>();
   final GlobalKey<FormState> _evidenceFormKey = GlobalKey<FormState>();
   final List<StepState> _stepStates = [
@@ -132,23 +137,8 @@ class CreateWitnessRequestState extends State<CreateWitnessRequest> {
                     children: <Widget>[
                       MapAsTable(_claimData, 'Personal Information'),
                       MapAsTable(_evidenceData, 'Evidence'),
-                      Card(
-                          child: Container(
-                        margin: const EdgeInsets.all(16.0),
-                        child: Row(children: [
-                          Container(
-                            margin: const EdgeInsets.only(right: 16.0),
-                            child: const Icon(
-                              Icons.warning,
-                              color: Colors.deepOrange,
-                            ),
-                          ),
-                          const Expanded(
-                              child: Text(
-                            'Are you sure, you would like to sign this data below and create a witness request?',
-                          ))
-                        ]),
-                      )),
+                      const WarningCard(
+                          'Are you sure, you would like to sign this data below and create a witness request?')
                     ],
                   )),
             ]));
@@ -198,8 +188,10 @@ class CreateWitnessRequestState extends State<CreateWitnessRequest> {
     }
 
     final claimData = Content(DynamicContent(_claimData!, null, null), null);
-    final evidenceData =
-        Content(DynamicContent(_evidenceData!, null, null), null);
+    final evidenceData = Content(
+      DynamicContent(_evidenceData!, null, null),
+      null,
+    );
 
     final serializedVault = await AppSharedPrefs.getVault();
     final activePersona = await AppSharedPrefs.getActivePersona();
@@ -209,10 +201,8 @@ class CreateWitnessRequestState extends State<CreateWitnessRequest> {
     final morpheusPlugin = MorpheusPlugin.get(vault);
     final did = morpheusPlugin.public.personas.did(activePersona!);
 
-    final claim = Claim(DidData(did.toString()), claimData);
-
     final request = WitnessRequest(
-      claim,
+      Claim(DidData(did.toString()), claimData),
       KeyLink('${did.toString()}#0'),
       widget._args.processContentId,
       evidenceData,
@@ -234,10 +224,16 @@ class CreateWitnessRequestState extends State<CreateWitnessRequest> {
 
     final capabilityUrl =
         '${widget._args.authorityConfig.host}:${widget._args.authorityConfig.port}/request/${response.value}/status';
-    // Wallet is never used to build a widget, which is why we use context.read. We only want to call a method on the model
+
     final wallet = context.read<WalletModel>();
-    wallet.addCredential(Credential(DateTime.now().toIso8601String(),
-        widget._args.processName, capabilityUrl, Status.pending, null, null));
+    await wallet.addCredential(Credential(
+      DateTime.now().toIso8601String(),
+      widget._args.processName,
+      capabilityUrl,
+      Status.pending,
+      null,
+      null,
+    ));
     await wallet.save();
 
     setState(() {
@@ -245,29 +241,10 @@ class CreateWitnessRequestState extends State<CreateWitnessRequest> {
     });
 
     await showDialog(
-        context: context,
-        barrierDismissible: false,
-        builder: (context) => AlertDialog(
-              title: Row(
-                children: const <Widget>[Text('Sent')],
-              ),
-              content: SingleChildScrollView(
-                child: ListBody(
-                  children: const <Widget>[Text('Your request has been sent.')],
-                ),
-              ),
-              actions: <Widget>[
-                FlatButton(
-                  onPressed: () async {
-                    await Navigator.pushNamed(
-                      context,
-                      routeWelcome,
-                    );
-                  },
-                  child: const Text('BACK TO HOME'),
-                ),
-              ],
-            ));
+      context: context,
+      barrierDismissible: false,
+      builder: (context) => RequestHasBeenSentDialog(),
+    );
   }
 
   Widget _buildStepperNavigation(
@@ -275,58 +252,26 @@ class CreateWitnessRequestState extends State<CreateWitnessRequest> {
     void Function()? onStepCancel,
     void Function()? onStepContinue,
   }) {
-    final themeData = Theme.of(context);
-    final cancelButton = Container(
-      margin: const EdgeInsetsDirectional.only(start: 8.0),
-      child: FlatButton(
-        onPressed: onStepCancel,
-        textColor: Colors.black54,
-        textTheme: ButtonTextTheme.normal,
-        child: const Text('BACK'),
-      ),
-    );
-    final continueButton = FlatButton(
-      onPressed: onStepContinue,
-      color: themeData.primaryColor,
-      textColor: Colors.white,
-      textTheme: ButtonTextTheme.normal,
-      child: const Text('CONTINUE'),
-    );
-    final signButton = FlatButton(
-      onPressed: () => _onSign(),
-      color: themeData.primaryColor,
-      textColor: Colors.white,
-      textTheme: ButtonTextTheme.normal,
-      child: const Text('SIGN & SEND'),
-    );
-
     final buttons = <Widget>[];
 
     switch (_currentStep) {
       case _Step.claimSchema:
-        buttons.add(continueButton);
+        buttons.add(StepContinueButton('CONTINUE', onStepContinue));
         break;
       case _Step.evidenceSchema:
-        buttons.add(continueButton);
-        buttons.add(cancelButton);
+        buttons.add(StepContinueButton('CONTINUE', onStepContinue));
+        buttons.add(StepBackButton('BACK', onStepCancel));
         break;
       case _Step.confirmAndSign:
         if (_signing) {
           buttons.add(const CircularProgressIndicator());
         } else {
-          buttons.add(signButton);
-          buttons.add(cancelButton);
+          buttons.add(StepContinueButton('SIGN & SEND', _onSign));
+          buttons.add(StepBackButton('BACK', onStepCancel));
         }
         break;
     }
 
-    return Container(
-      margin: const EdgeInsets.only(top: 16.0),
-      child: ConstrainedBox(
-        constraints: const BoxConstraints.tightFor(height: 48.0),
-        child:
-            Row(mainAxisAlignment: MainAxisAlignment.center, children: buttons),
-      ),
-    );
+    return NavigationContainer(buttons);
   }
 }

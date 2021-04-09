@@ -4,7 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:iop_sdk/authority.dart';
 import 'package:iop_sdk/entities.dart';
 import 'package:iop_sdk/ssi.dart';
-import 'package:iop_wallet/src/pages/authority/process_list.dart';
+
+import 'widgets/process_list.dart';
 
 class AuthorityProcessesPage extends StatefulWidget {
   final ApiConfig cfg;

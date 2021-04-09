@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:iop_sdk/authority.dart';
 import 'package:iop_sdk/entities.dart';
 import 'package:iop_sdk/ssi.dart';
-import 'package:iop_wallet/src/pages/authority/process_details.dart';
+import 'package:iop_wallet/src/pages/authority_process_details/authority_process_details.dart';
 import 'package:iop_wallet/src/router_constants.dart';
 
 class ProcessList extends StatelessWidget {
@@ -35,7 +35,11 @@ class ProcessList extends StatelessWidget {
               await Navigator.pushNamed(
                 context,
                 routeAuthorityProcessDetails,
-                arguments: ProcessDetailsArgs(contentId, process, _cfg),
+                arguments: AuthorityProcessDetailsArgs(
+                  contentId,
+                  process,
+                  _cfg,
+                ),
               );
             },
           ),

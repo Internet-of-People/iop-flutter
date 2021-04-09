@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:iop_wallet/src/utils/nullable_text.dart';
 
 class MapAsTable extends StatelessWidget {
   final Map<String, dynamic>? _map;
@@ -20,52 +21,55 @@ class MapAsTable extends StatelessWidget {
   }
 
   Widget? _buildTable(
-    String title,
+    String? title,
     Map<String, dynamic>? data,
     bool topLevel,
     BuildContext context,
   ) {
-    if (data == null || !topLevel) {
+    if (data == null) {
       return null;
     }
 
-    const columns = <DataColumn>[
-      DataColumn(label: Text('Key')),
-      DataColumn(label: Text('Value')),
-    ];
-    final rows = _mapToRow(data, null, context);
+    if (topLevel) {
+      const columns = <DataColumn>[
+        DataColumn(label: Text('Key')),
+        DataColumn(label: Text('Value'))
+      ];
+      final rows = _mapToRow(data, null, context);
 
-    return Container(
-      margin: const EdgeInsets.symmetric(vertical: 16.0),
-      child: Column(
-        children: <Widget>[
-          Row(children: [
-            Expanded(
-              child: Text(
-                toBeginningOfSentenceCase(title)!,
+      return Container(
+        margin: const EdgeInsets.symmetric(vertical: 16.0),
+        child: Column(
+          children: <Widget>[
+            Row(children: [
+              Expanded(
+                  child: NullableText(
+                text: toBeginningOfSentenceCase(title),
                 style: Theme.of(context).textTheme.subtitle1,
-              ),
-            )
-          ]),
-          Row(children: [
-            Expanded(
-                child: Padding(
-                    padding: const EdgeInsets.only(top: 16.0),
-                    child: Text(
-                      'Hint: Click on the text to get more detail',
-                      style: Theme.of(context).textTheme.caption,
-                    )))
-          ]),
-          Row(children: [
-            Expanded(
-                child: DataTable(
-              columns: columns,
-              rows: rows,
-            ))
-          ])
-        ],
-      ),
-    );
+              ))
+            ]),
+            Row(children: [
+              Expanded(
+                  child: Padding(
+                      padding: const EdgeInsets.only(top: 16.0),
+                      child: Text(
+                        'Hint: Click on the text to get more detail',
+                        style: Theme.of(context).textTheme.caption,
+                      )))
+            ]),
+            Row(children: [
+              Expanded(
+                  child: DataTable(
+                columns: columns,
+                rows: rows,
+              ))
+            ])
+          ],
+        ),
+      );
+    }
+
+    return null;
   }
 
   List<DataRow> _mapToRow(
@@ -80,11 +84,8 @@ class MapAsTable extends StatelessWidget {
 
       if (entry.value is Map) {
         final thisLevel = parent == null ? entry.key : '$parent / ${entry.key}';
-        rows.addAll(_mapToRow(
-          entry.value as Map<String, dynamic>,
-          thisLevel,
-          context,
-        ));
+        rows.addAll(
+            _mapToRow(entry.value as Map<String, dynamic>, thisLevel, context));
       } else {
         cells.add(DataCell(Text(parent == null ? entry.key : entry.key),
             onTap: () async {
@@ -106,7 +107,7 @@ class MapAsTable extends StatelessWidget {
         if (entry.key.startsWith('photo')) {
           cells.add(DataCell(entry.value == null
               ? const Text('null')
-              : Image.memory(base64Decode(entry.value as String))));
+              : Image.memory(base64Decode(entry.value.toString()))));
         } else {
           var text = 'Unknown entry value';
           if (entry.value == null) {

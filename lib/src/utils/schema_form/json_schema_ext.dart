@@ -1,9 +1,9 @@
 import 'dart:io';
 
-import 'package:flutter/material.dart';
 import 'package:form_field_validator/form_field_validator.dart' as v
     show FormFieldValidator, FieldValidator, RequiredValidator, MultiValidator;
 import 'package:form_field_validator/form_field_validator.dart';
+import 'package:iop_wallet/src/utils/log.dart';
 import 'package:iop_wallet/src/utils/schema_form/form_field_validators_extra.dart';
 import 'package:json_schema2/json_schema2.dart';
 
@@ -16,6 +16,8 @@ abstract class _SubTypes {
   static const String nonce = 'nonce';
   static const String contentId = 'contentId';
 }
+
+final _log = Log(JsonSchema);
 
 extension JsonSchemaExt on JsonSchema {
   bool isString() {
@@ -72,7 +74,7 @@ extension JsonSchemaExt on JsonSchema {
         validators.add(NotNullOrEmptyValidator<File>(errorText: 'Required'));
         debug.add('required');
       } else {
-        debugPrint(
+        _log.error(
           'Field $propertyName has a type $type, which has no required validator implemented. Schema: $this',
         );
       }
@@ -108,9 +110,9 @@ extension JsonSchemaExt on JsonSchema {
       debug.add('pattern');
     }
 
-    // TODO
-    /*_log.debug(
-        '[Validation] ${propertyName} got validators attached: ${debug.join(', ')}');*/
+    final vDebug = debug.join(', ');
+    _log.debug('[Validation] $propertyName got validators attached: $vDebug');
+
     if(validators.isEmpty) {
       return null;
     }

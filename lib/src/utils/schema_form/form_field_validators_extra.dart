@@ -41,9 +41,4 @@ class NotNullOrEmptyValidator<T> extends FieldValidator<T> {
   bool isValid(T value) {
     return value != null;
   }
-
-  @override
-  String? call(T value) {
-    return isValid(value) ? '' : errorText;
-  }
 }

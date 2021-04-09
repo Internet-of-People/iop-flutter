@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:iop_sdk/entities.dart';
 import 'package:iop_wallet/src/models/credential/credential.dart';
-import 'package:iop_wallet/src/pages/authority/authority_processes.dart';
-import 'package:iop_wallet/src/pages/authority/create_witness_request.dart';
-import 'package:iop_wallet/src/pages/authority/process_details.dart';
+import 'package:iop_wallet/src/pages/authority_process_details/authority_process_details.dart';
+import 'package:iop_wallet/src/pages/authority_processes/authority_processes.dart';
+import 'package:iop_wallet/src/pages/create_witness_request/create_witness_request.dart';
 import 'package:iop_wallet/src/pages/home/home.dart';
 import 'package:iop_wallet/src/pages/home/tabs/credentials/credential_details.dart';
 import 'package:iop_wallet/src/pages/onboarding/create_vault.dart';
@@ -36,13 +36,13 @@ Route<dynamic> generateRoute(RouteSettings settings) {
     }
   }
   else if (settings.name == routeAuthorityProcessDetails) {
-    if (args is ProcessDetailsArgs) {
-      page = ProcessDetails(args);
+    if (args is AuthorityProcessDetailsArgs) {
+      page = AuthorityProcessDetailsPage(args);
     }
   }
   else if(settings.name == routeAuthorityCreateWitnessRequest) {
     if(args is CreateWitnessRequestArgs) {
-      page = CreateWitnessRequest(args);
+      page = CreateWitnessRequestPage(args);
     }
   }
   else if (settings.name == routePersonas) {

@@ -1,7 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:iop_sdk/authority.dart';
-import 'package:iop_wallet/src/map_as_table.dart';
+import 'package:iop_wallet/src/utils/schema_form/map_as_table.dart';
 import 'package:iop_wallet/src/models/credential/credential.dart';
 import 'package:iop_wallet/src/utils/status_utils.dart';
 
