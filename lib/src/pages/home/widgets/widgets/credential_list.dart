@@ -45,11 +45,6 @@ class _CredentialListState extends State<CredentialList> {
   Widget _buildList() {
     return Column(
       children: [
-        //TODO: delete this
-        TextButton(
-          onPressed: () => _addCredential(),
-          child: const Text('Add Credential'),
-        ),
         Expanded(
           child: ListView.builder(
             itemCount: wallet.credentials.length,
@@ -114,7 +109,6 @@ class _CredentialListState extends State<CredentialList> {
         wallet.credentials.where((c) => c.status == Status.pending).toList();
 
     final futures = credentialsPending.map((c) async {
-      print(c.capabilityUrl);
       final uri = Uri.parse(c.capabilityUrl);
       final host = '${uri.scheme}://${uri.host}';
       final port = uri.port;
@@ -164,16 +158,5 @@ class _CredentialListState extends State<CredentialList> {
             child: const Text('Yes')),
       ],
     );
-  }
-
-  void _addCredential() {
-    wallet.addCredential(Credential(
-      '2020-03-19T13:05:56.000Z',
-      'Sample Digitalize ID Card',
-      'http://34.76.108.115:8080/request/uQePaSVwtgnHGIiLg2zT5JGyn3IGtbzR7Jcp84sNFfKaF/status',
-      Status.rejected,
-      null,
-      'You were being a bitch',
-    ));
   }
 }
