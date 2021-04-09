@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
-class ProcessVersion extends StatelessWidget {
+class VersionColumn extends StatelessWidget {
   final int _version;
 
-  const ProcessVersion(this._version, {Key? key}) : super(key: key);
+  const VersionColumn(this._version, {Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

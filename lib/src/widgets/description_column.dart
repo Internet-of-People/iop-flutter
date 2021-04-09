@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:iop_wallet/src/utils/nullable_text.dart';
 
-class ProcessDescription extends StatelessWidget {
+class DescriptionColumn extends StatelessWidget {
   final String _description;
 
-  const ProcessDescription(this._description, {Key? key}) : super(key: key);
+  const DescriptionColumn(this._description, {Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

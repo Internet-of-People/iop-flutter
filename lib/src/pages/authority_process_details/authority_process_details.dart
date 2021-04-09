@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:iop_sdk/authority.dart';
 import 'package:iop_sdk/entities.dart';
 import 'package:iop_sdk/ssi.dart';
-import 'package:iop_wallet/src/pages/authority_process_details/widgets/description.dart';
+import 'package:iop_wallet/src/widgets/description_column.dart';
+import 'package:iop_wallet/src/widgets/version_column.dart';
 import 'package:iop_wallet/src/pages/authority_process_details/widgets/schema_panel.dart';
-import 'package:iop_wallet/src/pages/authority_process_details/widgets/version.dart';
 import 'package:iop_wallet/src/pages/create_witness_request/create_witness_request.dart';
 import 'package:iop_wallet/src/router_constants.dart';
 import 'package:json_schema2/json_schema2.dart';
@@ -23,7 +23,7 @@ class AuthorityProcessDetailsArgs {
 
 class ResolvedSchemas {
   final JsonSchema claimSchema;
-  final JsonSchema evidenceSchema;
+  final JsonSchema? evidenceSchema;
 
   ResolvedSchemas(this.claimSchema, this.evidenceSchema);
 }
@@ -42,7 +42,7 @@ class _AuthorityProcessDetailsPageState
     extends State<AuthorityProcessDetailsPage> {
   late AuthorityPublicApi _authorityApi;
   late Future<dynamic> _fetchClaimSchemaFut;
-  late Future<dynamic> _fetchEvidenceSchemaFut;
+  late Future<dynamic?> _fetchEvidenceSchemaFut;
   final _detailsInfoState = <int, bool>{
     0: false,
     1: false,
@@ -53,21 +53,28 @@ class _AuthorityProcessDetailsPageState
     super.initState();
     _authorityApi = AuthorityPublicApi(widget.args.authorityConfig);
 
-    // TODO: later we need something in the SDK, an extended ContentResolver
-    // which eats both ContentId and Content<DynamicContent>. Until then,
-    // we expect contentId's in these schemas.
-    _fetchClaimSchemaFut =
-        _authorityApi.getPublicBlob(widget.args.process.claimSchema.contentId!);
-    _fetchEvidenceSchemaFut = _authorityApi
-        .getPublicBlob(widget.args.process.evidenceSchema!.contentId!);
+    final resolver = ContentResolver((ContentId id) async {
+      return _authorityApi.getPublicBlob(id);
+    });
+
+    _fetchClaimSchemaFut = resolver.resolve(widget.args.process.claimSchema);
+    if (widget.args.process.evidenceSchema == null) {
+      _fetchClaimSchemaFut = Future.value(null);
+    } else {
+      _fetchEvidenceSchemaFut = resolver.resolve(
+        widget.args.process.evidenceSchema!,
+      );
+    }
   }
 
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
       future: Future.wait([_fetchClaimSchemaFut, _fetchEvidenceSchemaFut]).then(
-        (responses) => ResolvedSchemas(JsonSchema.createSchema(responses[0]),
-            JsonSchema.createSchema(responses[1])),
+        (responses) => ResolvedSchemas(
+          JsonSchema.createSchema(responses[0]),
+          responses[1] == null ? null : JsonSchema.createSchema(responses[1]),
+        ),
       ),
       builder: (BuildContext context, AsyncSnapshot<ResolvedSchemas> snapshot) {
         return Scaffold(
@@ -78,8 +85,8 @@ class _AuthorityProcessDetailsPageState
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: <Widget>[
-                  ProcessDescription(widget.args.process.description),
-                  ProcessVersion(widget.args.process.version),
+                  DescriptionColumn(widget.args.process.description),
+                  VersionColumn(widget.args.process.version),
                   Container(
                     margin: const EdgeInsets.all(16.0),
                     child: ExpansionPanelList(

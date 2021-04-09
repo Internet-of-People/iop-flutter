@@ -9,7 +9,8 @@ class PersonasPage extends StatelessWidget {
         padding: EdgeInsets.all(32.0),
         child: Center(
           child: Text(
-              'Coming Soon. At the moment, you will be using your default persona'),
+            'Coming Soon. Now, you will be using your default persona',
+          ),
         ),
       ),
     );

@@ -27,7 +27,7 @@ class CreateWitnessRequestArgs {
   final String processName;
   final ContentId processContentId;
   final JsonSchema claimSchema;
-  final JsonSchema evidenceSchema;
+  final JsonSchema? evidenceSchema;
   final ApiConfig authorityConfig;
 
   CreateWitnessRequestArgs(
@@ -70,22 +70,27 @@ class CreateWitnessRequestPageState extends State<CreateWitnessRequestPage> {
   Map<String, dynamic>? _evidenceData;
   int _currentStep = _Step.claimSchema;
   late SchemaDefinedFormContent _claimForm;
-  late SchemaDefinedFormContent _evidenceForm;
+  late SchemaDefinedFormContent? _evidenceForm;
   bool _signing = false;
+  late bool _requiresEvidence;
 
   @override
   void initState() {
     super.initState();
+
+    _requiresEvidence = widget._args.evidenceSchema != null;
 
     _claimForm = SchemaDefinedFormContent(
       widget._args.claimSchema,
       widget._claimSchemaTree,
     );
 
-    _evidenceForm = SchemaDefinedFormContent(
-      widget._args.evidenceSchema,
-      widget._evidenceSchemaTree,
-    );
+    if(_requiresEvidence) {
+      _evidenceForm = SchemaDefinedFormContent(
+        widget._args.evidenceSchema!,
+        widget._evidenceSchemaTree,
+      );
+    }
   }
 
   @override
@@ -124,7 +129,7 @@ class CreateWitnessRequestPageState extends State<CreateWitnessRequestPage> {
                       child: Form(
                         key: _evidenceFormKey,
                         autovalidateMode: _evidenceFormAutoValidate,
-                        child: _evidenceForm,
+                        child: _buildEvidenceForm(),
                       ),
                     ),
                   )),
@@ -137,8 +142,11 @@ class CreateWitnessRequestPageState extends State<CreateWitnessRequestPage> {
                     children: <Widget>[
                       MapAsTable(_claimData, 'Personal Information'),
                       MapAsTable(_evidenceData, 'Evidence'),
-                      const WarningCard(
-                          'Are you sure, you would like to sign this data below and create a witness request?')
+                      const Padding(
+                        padding: EdgeInsets.only(top: 32.0),
+                        child: WarningCard(
+                            'Are you sure, you would like to sign this data below and create a witness request?'),
+                      )
                     ],
                   )),
             ]));
@@ -188,10 +196,7 @@ class CreateWitnessRequestPageState extends State<CreateWitnessRequestPage> {
     }
 
     final claimData = Content(DynamicContent(_claimData!, null, null), null);
-    final evidenceData = Content(
-      DynamicContent(_evidenceData!, null, null),
-      null,
-    );
+    final evidenceData = _buildEvidenceData();
 
     final serializedVault = await AppSharedPrefs.getVault();
     final activePersona = await AppSharedPrefs.getActivePersona();
@@ -227,8 +232,9 @@ class CreateWitnessRequestPageState extends State<CreateWitnessRequestPage> {
 
     final wallet = context.read<WalletModel>();
     await wallet.addCredential(Credential(
-      DateTime.now().toIso8601String(),
+      widget._args.processContentId,
       widget._args.processName,
+      DateTime.now().toIso8601String(),
       capabilityUrl,
       Status.pending,
       null,
@@ -256,22 +262,40 @@ class CreateWitnessRequestPageState extends State<CreateWitnessRequestPage> {
 
     switch (_currentStep) {
       case _Step.claimSchema:
-        buttons.add(StepContinueButton('CONTINUE', onStepContinue));
+        buttons.add(StepContinueButton('Continue', onStepContinue));
         break;
       case _Step.evidenceSchema:
-        buttons.add(StepContinueButton('CONTINUE', onStepContinue));
-        buttons.add(StepBackButton('BACK', onStepCancel));
+        buttons.add(StepContinueButton('Continue', onStepContinue));
+        buttons.add(StepBackButton('Back', onStepCancel));
         break;
       case _Step.confirmAndSign:
         if (_signing) {
           buttons.add(const CircularProgressIndicator());
         } else {
-          buttons.add(StepContinueButton('SIGN & SEND', _onSign));
-          buttons.add(StepBackButton('BACK', onStepCancel));
+          buttons.add(StepContinueButton('Sign & Send', _onSign));
+          buttons.add(StepBackButton('back', onStepCancel));
         }
         break;
     }
 
     return NavigationContainer(buttons);
+  }
+
+  Widget _buildEvidenceForm() {
+    if(_evidenceForm == null) {
+      return const Text('No evidence is required.');
+    }
+    return _evidenceForm!;
+  }
+
+  Content<DynamicContent> _buildEvidenceData() {
+    if(_evidenceData == null) {
+      return Content(DynamicContent({}, null, null),null);
+    }
+
+    return Content(
+      DynamicContent(_evidenceData!, null, null),
+      null,
+    );
   }
 }

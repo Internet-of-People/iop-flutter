@@ -17,7 +17,33 @@ class MapAsTable extends StatelessWidget {
       return Column(children: [table]);
     }
 
-    return const Text('NO DATA PROVIDED');
+    return Column(
+      children: [
+        Row(
+          children: [
+            Expanded(
+              child: Center(
+                child: NullableText(
+                  text: toBeginningOfSentenceCase(_title),
+                  style: Theme.of(context).textTheme.subtitle1,
+                ),
+              ),
+            ),
+
+          ],
+        ),
+        Row(children: const [
+          Expanded(
+            child: Center(
+              child: Padding(
+                padding: EdgeInsets.only(top: 16.0),
+                child: Text('NO DATA PROVIDED'),
+              )
+            ),
+          )
+        ])
+      ],
+    );
   }
 
   Widget? _buildTable(
@@ -26,7 +52,7 @@ class MapAsTable extends StatelessWidget {
     bool topLevel,
     BuildContext context,
   ) {
-    if (data == null) {
+    if (data == null || data.isEmpty) {
       return null;
     }
 

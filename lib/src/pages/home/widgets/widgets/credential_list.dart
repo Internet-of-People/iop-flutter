@@ -5,6 +5,7 @@ import 'package:iop_wallet/src/models/credential/credential.dart';
 import 'package:iop_wallet/src/models/wallet/wallet.dart';
 import 'package:iop_wallet/src/router_constants.dart';
 import 'package:iop_wallet/src/theme.dart';
+import 'package:iop_wallet/src/utils/log.dart';
 import 'package:iop_wallet/src/utils/status_utils.dart';
 import 'package:provider/provider.dart';
 
@@ -14,6 +15,8 @@ class CredentialList extends StatefulWidget {
   @override
   _CredentialListState createState() => _CredentialListState();
 }
+
+final _log = Log(CredentialList);
 
 class _CredentialListState extends State<CredentialList> {
   late WalletModel wallet;
@@ -119,7 +122,7 @@ class _CredentialListState extends State<CredentialList> {
       final requestResp = await api.getRequestStatus(link);
 
       if (requestResp == null) {
-        // TODO: log error
+        _log.error('Could not update credentials');
         return;
       }
 

@@ -52,6 +52,6 @@ class _AuthorityProcessesPageState extends State<AuthorityProcessesPage> {
       final blob = await api.getPublicBlob(id) as String;
       return Process.fromJson(json.decode(blob) as Map<String, dynamic>);
     });
-    return resolver.resolveByContentIds(contentIds);
+    return resolver.resolveContentIds(contentIds);
   }
 }

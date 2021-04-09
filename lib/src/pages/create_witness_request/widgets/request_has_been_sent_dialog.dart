@@ -24,7 +24,7 @@ class RequestHasBeenSentDialog extends StatelessWidget {
             );
           },
           style: TextButton.styleFrom(primary: themeData.primaryColor),
-          child: const Text('BACK TO HOME'),
+          child: const Text('Back to the Dashboard'),
         ),
       ],
     );

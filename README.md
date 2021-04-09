@@ -1,19 +1,27 @@
 # IOP Wallet
 
-The user app that holds a vault with digital identities (DID and VC's).
+The user app that holds a vault with digital identities (DID and VC's). See more at our [developer portal](https://developer.iop.technology/).
 
-### Project setup
-```
-flutter pub get
-```
+## Development
 
-### Unsafe dependencies
+### Setup
 
-Run to check the dependencies that haven't migrated to null-safety yet:
-
-```
-flutter pub outdated --mode=null-safety
+```bash
+$ flutter pub get
 ```
 
-Current unsafe dependencies:
+### Generate Json Mappers
+
+```bash
+$ flutter pub run build_runner build --delete-conflicting-outputs
+```
+
+### Null Safety
+
+The app is null-safe, however some of its depencies are not:
 - build_runner
+
+```bash
+# Check which packages are not yet null-safe:
+$ flutter pub outdated --mode=null-safety
+```

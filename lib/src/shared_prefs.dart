@@ -4,7 +4,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 class AppSharedPrefs {
   static const _serializedVaultKey = 'vault';
   // TODO: this might be required in the future
-  // to provide via a modal or something
+  // to be provided via a modal or something
   static const _unlockPasswordKey = 'unlock_password';
   static const _activePersonaKey = 'active_persona';
   static const _walletKey = 'wallet';

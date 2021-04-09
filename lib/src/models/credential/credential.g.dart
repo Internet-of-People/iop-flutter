@@ -8,8 +8,9 @@ part of 'credential.dart';
 
 Credential _$CredentialFromJson(Map<String, dynamic> json) {
   return Credential(
-    json['sentAt'] as String,
+    ContentId.fromJson(json['processId'] as String),
     json['processName'] as String,
+    json['sentAt'] as String,
     json['capabilityUrl'] as String,
     _$enumDecodeNullable(_$StatusEnumMap, json['status']),
     json['witnessStatement'] == null
@@ -22,6 +23,7 @@ Credential _$CredentialFromJson(Map<String, dynamic> json) {
 Map<String, dynamic> _$CredentialToJson(Credential instance) =>
     <String, dynamic>{
       'sentAt': instance.sentAt,
+      'processId': instance.processId.toJson(),
       'processName': instance.processName,
       'capabilityUrl': instance.capabilityUrl,
       'status': _$StatusEnumMap[instance.status],

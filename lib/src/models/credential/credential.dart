@@ -7,8 +7,9 @@ part 'credential.g.dart';
 @JsonSerializable(explicitToJson: true)
 class Credential {
   Credential(
-    this.sentAt,
+    this.processId,
     this.processName,
+    this.sentAt,
     this.capabilityUrl,
     this.status,
     this.witnessStatement,
@@ -16,6 +17,7 @@ class Credential {
   );
 
   String sentAt;
+  ContentId processId;
   String processName;
   String capabilityUrl;
   Status? status;

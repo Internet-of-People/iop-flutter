@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'package:iop_sdk/authority.dart';
 import 'package:iop_sdk/entities.dart';
 import 'package:iop_sdk/inspector.dart';
@@ -38,13 +39,12 @@ class DashboardTab extends StatelessWidget {
   }
 
   Future<void> _scanQr(BuildContext context) async {
-    /*final barcodeScanRes = await FlutterBarcodeScanner.scanBarcode(
+    final barcodeScanRes = await FlutterBarcodeScanner.scanBarcode(
         '#ff6666',
         'Cancel',
         true,
         ScanMode.QR
-    );*/
-    const barcodeScanRes = 'http://34.76.108.115:8080';
+    );
     final uri = Uri.parse(barcodeScanRes);
     final apiConfig = ApiConfig('${uri.scheme}://${uri.host}', uri.port);
 
@@ -56,7 +56,11 @@ class DashboardTab extends StatelessWidget {
       );
     }
     else if(await _isInspectorApi(apiConfig)) {
-      // TODO
+      await Navigator.pushNamed(
+          context,
+          routeInspectorScenarios,
+          arguments: apiConfig
+      );
     }
     else {
       ScaffoldMessenger.of(context).showSnackBar(
