@@ -19,7 +19,6 @@ class _CredentialListState extends State<CredentialList> {
   late WalletModel wallet;
   late Future<void> _updateCredentialsFut;
 
-
   @override
   void initState() {
     super.initState();
@@ -46,6 +45,11 @@ class _CredentialListState extends State<CredentialList> {
   Widget _buildList() {
     return Column(
       children: [
+        //TODO: delete this
+        TextButton(
+          onPressed: () => _addCredential(),
+          child: const Text('Add Credential'),
+        ),
         Expanded(
           child: ListView.builder(
             itemCount: wallet.credentials.length,
@@ -106,10 +110,8 @@ class _CredentialListState extends State<CredentialList> {
   }
 
   Future<void> _updateCredentials() async {
-    final credentialsPending = wallet
-        .credentials
-        .where((c) => c.status == Status.pending)
-        .toList();
+    final credentialsPending =
+        wallet.credentials.where((c) => c.status == Status.pending).toList();
 
     final futures = credentialsPending.map((c) async {
       print(c.capabilityUrl);
@@ -122,15 +124,14 @@ class _CredentialListState extends State<CredentialList> {
       final api = AuthorityPublicApi(config);
       final requestResp = await api.getRequestStatus(link);
 
-      if(requestResp == null) {
+      if (requestResp == null) {
         // TODO: log error
         return;
       }
 
-      if(requestResp.status == Status.approved) {
+      if (requestResp.status == Status.approved) {
         c.approved(requestResp.signedStatement!);
-      }
-      else if(requestResp.status == Status.rejected) {
+      } else if (requestResp.status == Status.rejected) {
         c.rejected(requestResp.rejectionReason!);
       }
 
@@ -162,7 +163,17 @@ class _CredentialListState extends State<CredentialList> {
             },
             child: const Text('Yes')),
       ],
-      elevation: 24.0,
     );
+  }
+
+  void _addCredential() {
+    wallet.addCredential(Credential(
+      '2020-03-19T13:05:56.000Z',
+      'Sample Digitalize ID Card',
+      'http://34.76.108.115:8080/request/uQePaSVwtgnHGIiLg2zT5JGyn3IGtbzR7Jcp84sNFfKaF/status',
+      Status.rejected,
+      null,
+      'You were being a bitch',
+    ));
   }
 }

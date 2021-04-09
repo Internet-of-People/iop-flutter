@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:iop_wallet/src/pages/drawer/drawer.dart';
-import 'package:iop_wallet/src/pages/home/tabs/credentials/credentials_tab.dart';
-import 'package:iop_wallet/src/pages/home/tabs/dashboard.dart';
+
+import 'widgets/credentials_tab.dart';
+import 'widgets/dashboard_tab.dart';
 
 class HomePage extends StatelessWidget {
   final _tabs = <Tab>[Tab(child: DashboardTab()), Tab(child: CredentialsTab())];

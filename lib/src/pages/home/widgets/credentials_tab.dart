@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'credential_list.dart';
+import 'widgets/credential_list.dart';
 
 class CredentialsTab extends StatelessWidget {
   @override

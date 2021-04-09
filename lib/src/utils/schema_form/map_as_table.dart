@@ -41,20 +41,27 @@ class MapAsTable extends StatelessWidget {
         margin: const EdgeInsets.symmetric(vertical: 16.0),
         child: Column(
           children: <Widget>[
-            Row(children: [
-              Expanded(
-                  child: NullableText(
-                text: toBeginningOfSentenceCase(title),
-                style: Theme.of(context).textTheme.subtitle1,
-              ))
-            ]),
+            Row(
+              children: [
+                Expanded(
+                  child: Center(
+                    child: NullableText(
+                      text: toBeginningOfSentenceCase(title),
+                      style: Theme.of(context).textTheme.subtitle1,
+                    ),
+                  ),
+                )
+              ],
+            ),
             Row(children: [
               Expanded(
                   child: Padding(
                       padding: const EdgeInsets.only(top: 16.0),
-                      child: Text(
-                        'Hint: Click on the text to get more detail',
-                        style: Theme.of(context).textTheme.caption,
+                      child: Center(
+                        child: Text(
+                          'Hint: Click on the text to get more detail',
+                          style: Theme.of(context).textTheme.caption,
+                        ),
                       )))
             ]),
             Row(children: [

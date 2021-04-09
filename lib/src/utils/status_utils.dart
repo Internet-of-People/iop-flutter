@@ -3,13 +3,13 @@ import 'package:iop_sdk/authority.dart';
 
 class StatusUtils {
   static String asText(Status status) {
-    switch(status) {
+    switch (status) {
       case Status.pending:
-        return 'pending';
+        return 'Pending';
       case Status.approved:
-        return 'approved';
+        return 'Approved';
       case Status.rejected:
-        return 'rejected';
+        return 'Rejected';
       default:
         return '?';
     }
