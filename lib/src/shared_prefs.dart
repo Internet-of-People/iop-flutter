@@ -1,4 +1,3 @@
-import 'package:iop_wallet/src/models/credential/credential.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class AppSharedPrefs {

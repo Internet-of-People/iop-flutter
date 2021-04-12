@@ -144,8 +144,7 @@ class CreateWitnessRequestPageState extends State<CreateWitnessRequestPage> {
                       MapAsTable(_evidenceData, 'Evidence'),
                       const Padding(
                         padding: EdgeInsets.only(top: 32.0),
-                        child: WarningCard(
-                            'Are you sure, you would like to sign this data below and create a witness request?'),
+                        child: WarningCard('''Are you sure, you would like to sign this data below and create a witness request?'''),
                       )
                     ],
                   )),

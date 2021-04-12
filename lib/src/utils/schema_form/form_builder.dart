@@ -94,43 +94,47 @@ class SchemaDefinedFormContentState extends State<SchemaDefinedFormContent> {
           : JsonSchemaFormTree();
       schemaTree.putSubtreeIfAbsent(name, subTree);
       return _buildContainer(
-          _buildObject(name, schema, false, subTree), topLevel);
+        _buildObject(name, schema, false, subTree),
+        topLevel,
+      );
     } else {
       throw Exception(
           'Not supported JsonSchema type: ${schema.type}, schema: $schema');
     }
   }
 
-  Widget _buildObject(String name, JsonSchema schema, bool topLevel,
-      JsonSchemaFormTree schemaTree) {
+  Widget _buildObject(
+    String name,
+    JsonSchema schema,
+    bool topLevel,
+    JsonSchemaFormTree schemaTree,
+  ) {
     final objectChildren = <Widget>[];
 
-    if (name != null) {
-      if (topLevel) {
-        objectChildren.add(Row(
-          children: <Widget>[
-            Expanded(
-                child: Card(
-              child: Container(
-                margin: const EdgeInsets.all(16.0),
-                child: Text(
-                  toBeginningOfSentenceCase(name)!,
-                  style: Theme.of(context).textTheme.caption,
-                ),
+    if (topLevel) {
+      objectChildren.add(Row(
+        children: <Widget>[
+          Expanded(
+              child: Card(
+            child: Container(
+              margin: const EdgeInsets.all(16.0),
+              child: Text(
+                toBeginningOfSentenceCase(name)!,
+                style: Theme.of(context).textTheme.caption,
               ),
-            ))
-          ],
-        ));
-      } else {
-        objectChildren.add(Row(
-          children: <Widget>[
-            Text(
-              toBeginningOfSentenceCase(name)!,
-              style: Theme.of(context).textTheme.subtitle1,
-            )
-          ],
-        ));
-      }
+            ),
+          ))
+        ],
+      ));
+    } else {
+      objectChildren.add(Row(
+        children: <Widget>[
+          Text(
+            toBeginningOfSentenceCase(name)!,
+            style: Theme.of(context).textTheme.subtitle1,
+          )
+        ],
+      ));
     }
 
     for (final entry in schema.properties.entries) {

@@ -19,7 +19,7 @@ class PresentationQr extends StatelessWidget {
               height: 200,
               width: 200,
               child: Center(
-                child: QrImage(data: this._url, size: 200.0),
+                child: QrImage(data: _url, size: 200.0),
               ),
             )
           ],

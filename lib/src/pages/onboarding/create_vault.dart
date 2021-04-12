@@ -41,7 +41,10 @@ class _CreateVaultState extends State<CreateVault> {
           child: Padding(
             padding: EdgeInsets.only(top: 32),
             child: Center(
-              child: Text('Create Your Vault', style: TextStyle(fontSize: 32.0, fontWeight: FontWeight.bold),),
+              child: Text(
+                'Create Your Vault',
+                style: TextStyle(fontSize: 32.0, fontWeight: FontWeight.bold),
+              ),
             ),
           ),
         ),
@@ -50,8 +53,8 @@ class _CreateVaultState extends State<CreateVault> {
         PageViewModel(
           title: 'The Mnemonic',
           bodyWidget: const Text(
-            'The mnemonic is a human readable representation of your master seed. '
-            'This seed allows you to derive all the key pairs for your identities.',
+            '''The mnemonic is a human readable representation of your master seed. '''
+            '''This seed allows you to derive all the key pairs for your identities.''',
           ),
           decoration: pageDecoration,
         ),
@@ -73,7 +76,7 @@ class _CreateVaultState extends State<CreateVault> {
       done: const Text('Done'),
       curve: Curves.easeInToLinear,
       controlsMargin: const EdgeInsets.all(16),
-      controlsPadding:const EdgeInsets.fromLTRB(8.0, 4.0, 8.0, 4.0),
+      controlsPadding: const EdgeInsets.fromLTRB(8.0, 4.0, 8.0, 4.0),
       dotsDecorator: const DotsDecorator(
         activeColor: Colors.teal,
         size: Size(10.0, 10.0),
@@ -85,7 +88,7 @@ class _CreateVaultState extends State<CreateVault> {
       ),
     );
   }
-  
+
   Future<void> _onDoneClick() async {
     final unlockPassword = _passwordController.value.text;
 
@@ -109,8 +112,7 @@ class _CreateVaultState extends State<CreateVault> {
     await AppSharedPrefs.setVault(serializedVault);
     await AppSharedPrefs.setUnlockPassword(unlockPassword);
 
-    await Navigator
-        .of(context)
+    await Navigator.of(context)
         .pushNamedAndRemoveUntil(routeHome, (route) => false);
   }
 }

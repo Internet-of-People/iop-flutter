@@ -165,6 +165,7 @@ enum _Panel {
 }
 
 extension _PanelExt on _Panel {
+  // ignore: unused_element
   int get index {
     switch (this) {
       case _Panel.prerequisites:

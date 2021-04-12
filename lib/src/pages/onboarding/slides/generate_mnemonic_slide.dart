@@ -28,12 +28,9 @@ class _GenerateMnemonicSlideState extends State<GenerateMnemonicSlide> {
   Widget build(BuildContext context) {
     return Column(
       children: [
+        Table(children: _buildMnemonicTable()),
         Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 0),
-          child: Table(children: _buildMnemonicTable()),
-        ),
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+          padding: const EdgeInsets.all(16.0),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [

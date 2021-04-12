@@ -20,9 +20,7 @@ class InformationHeader extends StatelessWidget {
           margin: const EdgeInsets.only(bottom: 16.0),
           child: Row(children: const [
             Expanded(
-              child: Text(
-                'You are about to share a subset of your data that is enough to apply this scenario.',
-              ),
+              child: Text('''You are about to share a subset of your data that is enough to apply this scenario.'''),
             )
           ]),
         ),

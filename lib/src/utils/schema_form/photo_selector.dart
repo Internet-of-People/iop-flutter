@@ -18,6 +18,7 @@ class PhotoSelectorFormField extends FormField<File> {
     required this.controller,
     required this.title,
     FormFieldSetter<File>? onSaved,
+    // ignore: avoid_unused_constructor_parameters
     required FormFieldValidator<File> validator,
     bool autoValidate = false,
   }) : super(

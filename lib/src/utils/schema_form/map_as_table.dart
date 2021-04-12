@@ -135,7 +135,7 @@ class MapAsTable extends StatelessWidget {
                   ));
         }));
 
-        // TODO currently we expect photo values' keys to be started with 'photo'
+        // TODO we expect photo values' keys to be started with 'photo'
         // TODO we also expect that photos are base64 encoded
         if (entry.key.startsWith('photo')) {
           cells.add(DataCell(entry.value == null

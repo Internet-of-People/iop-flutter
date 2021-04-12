@@ -22,6 +22,7 @@ void main() {
 
     test('Add Credential', () async {
       await wallet.addCredential(Credential.fromJson({
+        'processId':'id',
         'sentAt': 'some datetime',
         'processName': 'Sample Digitalized ID Card',
         'capabilityUrl': 'an exact url which you can pull',
@@ -35,6 +36,7 @@ void main() {
 
     test('Remove Credential', () async {
       await wallet.remove(Credential.fromJson({
+        'processId':'id',
         'sentAt': 'some datetime',
         'processName': 'Sample Digitalized ID Card',
         'capabilityUrl': 'an exact url which you can pull',
@@ -50,6 +52,7 @@ void main() {
   group('Wallet Model Data is persisted', () {
     WalletModel wallet;
     final credential = Credential.fromJson({
+      'processId':'id',
       'sentAt': 'some datetime',
       'processName': 'Sample Digitalized ID Card',
       'capabilityUrl': 'an exact url which you can pull',

@@ -74,9 +74,7 @@ extension JsonSchemaExt on JsonSchema {
         validators.add(NotNullOrEmptyValidator<File>(errorText: 'Required'));
         debug.add('required');
       } else {
-        _log.error(
-          'Field $propertyName has a type $type, which has no required validator implemented. Schema: $this',
-        );
+        _log.error('''Field $propertyName has a type $type, which has no required validator implemented. Schema: $this''');
       }
     }
 
