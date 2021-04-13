@@ -28,7 +28,7 @@ class PresentationQr extends StatelessWidget {
       actions: <Widget>[
         TextButton(
           onPressed: () async {
-            await Navigator.of(context).pushNamed(routeHome);
+            await Navigator.of(context).pushNamed(routeDashboard);
           },
           style: TextButton.styleFrom(primary: Colors.black54),
           child: const Text('Back to Dashboard'),

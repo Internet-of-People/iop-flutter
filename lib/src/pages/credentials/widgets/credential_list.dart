@@ -112,14 +112,13 @@ class _CredentialListState extends State<CredentialList> {
         wallet.credentials.where((c) => c.status == Status.pending).toList();
 
     final futures = credentialsPending.map((c) async {
-      final uri = Uri.parse(c.capabilityUrl);
+      final uri = Uri.parse(c.authorityUrl);
       final host = '${uri.scheme}://${uri.host}';
       final port = uri.port;
-      final link = CapabilityLink(uri.pathSegments[1]);
 
       final config = ApiConfig(host, port);
       final api = AuthorityPublicApi(config);
-      final requestResp = await api.getRequestStatus(link);
+      final requestResp = await api.getRequestStatus(c.capabilityLink);
 
       if (requestResp == null) {
         _log.error('Could not update credentials');

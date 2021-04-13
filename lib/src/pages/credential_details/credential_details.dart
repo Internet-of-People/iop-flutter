@@ -38,7 +38,7 @@ class CredentialDetails extends StatelessWidget {
     }
 
     if (_credential.status == Status.pending) {
-      sections.add(_buildMetaSection());
+      sections.add(_buildDetailsSection());
     }
 
     if (_credential.status == Status.rejected &&
@@ -83,10 +83,10 @@ class CredentialDetails extends StatelessWidget {
     );
   }
 
-  Widget _buildMetaSection() {
+  Widget _buildDetailsSection() {
     return Container(
         margin: const EdgeInsets.only(left: 16.0, right: 16.0),
-        child: MapAsTable(_credential.toJson(), 'Meta'));
+        child: MapAsTable(_credential.toJson(), 'Details'));
   }
 
   Widget _buildSignatureSection(BuildContext context) {

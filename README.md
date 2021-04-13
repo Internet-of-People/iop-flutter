@@ -10,6 +10,12 @@ The user app that holds a vault with digital identities (DID and VC's). See more
 $ flutter pub get
 ```
 
+### Lint
+
+```bash
+$ flutter analyze
+```
+
 ### Generate Json Mappers
 
 ```bash

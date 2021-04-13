@@ -144,7 +144,7 @@ class CreateWitnessRequestPageState extends State<CreateWitnessRequestPage> {
                       MapAsTable(_evidenceData, 'Evidence'),
                       const Padding(
                         padding: EdgeInsets.only(top: 32.0),
-                        child: WarningCard('''Are you sure, you would like to sign this data below and create a witness request?'''),
+                        child: WarningCard('''Are you sure, you would like to send this data above and request a Verifiable Credential?'''),
                       )
                     ],
                   )),
@@ -224,17 +224,15 @@ class CreateWitnessRequestPageState extends State<CreateWitnessRequestPage> {
     );
 
     final authorityApi = AuthorityPublicApi(widget._args.authorityConfig);
-    final response = await authorityApi.sendRequest(signedRequest);
-
-    final capabilityUrl =
-        '${widget._args.authorityConfig.host}:${widget._args.authorityConfig.port}/request/${response.value}/status';
+    final capabilityLink = await authorityApi.sendRequest(signedRequest);
 
     final wallet = context.read<WalletModel>();
     await wallet.addCredential(Credential(
       widget._args.processContentId,
       widget._args.processName,
       DateTime.now().toIso8601String(),
-      capabilityUrl,
+      authorityApi.baseUrl,
+      capabilityLink,
       Status.pending,
       null,
       null,
@@ -264,15 +262,15 @@ class CreateWitnessRequestPageState extends State<CreateWitnessRequestPage> {
         buttons.add(StepContinueButton('Continue', onStepContinue));
         break;
       case _Step.evidenceSchema:
-        buttons.add(StepContinueButton('Continue', onStepContinue));
         buttons.add(StepBackButton('Back', onStepCancel));
+        buttons.add(StepContinueButton('Continue', onStepContinue));
         break;
       case _Step.confirmAndSign:
         if (_signing) {
           buttons.add(const CircularProgressIndicator());
         } else {
-          buttons.add(StepContinueButton('Sign & Send', _onSign));
-          buttons.add(StepBackButton('back', onStepCancel));
+          buttons.add(StepBackButton('Back', onStepCancel));
+          buttons.add(StepContinueButton('Request Credential', _onSign));
         }
         break;
     }

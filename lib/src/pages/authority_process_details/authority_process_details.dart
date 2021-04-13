@@ -122,7 +122,7 @@ class _AuthorityProcessDetailsPageState
   FloatingActionButton _buildButton(AsyncSnapshot<ResolvedSchemas> snapshot) {
     if (snapshot.hasData) {
       return FloatingActionButton.extended(
-          label: const Text('Create Witness Request'),
+          label: const Text('Start Process'),
           icon: const Icon(Icons.assignment),
           onPressed: () async {
             await Navigator.pushNamed(

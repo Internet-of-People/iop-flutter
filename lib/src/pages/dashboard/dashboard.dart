@@ -4,14 +4,19 @@ import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'package:iop_sdk/authority.dart';
 import 'package:iop_sdk/entities.dart';
 import 'package:iop_sdk/inspector.dart';
+import 'package:iop_wallet/src/pages/drawer/drawer.dart';
 import 'package:iop_wallet/src/router_constants.dart';
 
-class DashboardTab extends StatelessWidget {
+class DashboardPage extends StatelessWidget {
   final double boxWidth = 150;
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(body: Center(child: _getOptions(context)));
+    return Scaffold(
+      appBar: AppBar(centerTitle: true, title: const Text('IOP Wallet')),
+      body: Center(child: _getOptions(context)),
+      drawer: MainDrawer(),
+    );
   }
 
   Widget _getOptions(BuildContext context) {
@@ -40,29 +45,17 @@ class DashboardTab extends StatelessWidget {
 
   Future<void> _scanQr(BuildContext context) async {
     final barcodeScanRes = await FlutterBarcodeScanner.scanBarcode(
-        '#ff6666',
-        'Cancel',
-        true,
-        ScanMode.QR
-    );
+        '#ff6666', 'Cancel', true, ScanMode.QR);
     final uri = Uri.parse(barcodeScanRes);
     final apiConfig = ApiConfig('${uri.scheme}://${uri.host}', uri.port);
 
-    if(await _isAuthorityApi(apiConfig)) {
-      await Navigator.pushNamed(
-          context,
-          routeAuthorityProcesses,
-          arguments: apiConfig
-      );
-    }
-    else if(await _isInspectorApi(apiConfig)) {
-      await Navigator.pushNamed(
-          context,
-          routeInspectorScenarios,
-          arguments: apiConfig
-      );
-    }
-    else {
+    if (await _isAuthorityApi(apiConfig)) {
+      await Navigator.pushNamed(context, routeAuthorityProcesses,
+          arguments: apiConfig);
+    } else if (await _isInspectorApi(apiConfig)) {
+      await Navigator.pushNamed(context, routeInspectorScenarios,
+          arguments: apiConfig);
+    } else {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
           content: Text('Not supported QR code'),
@@ -75,8 +68,7 @@ class DashboardTab extends StatelessWidget {
     try {
       await AuthorityPublicApi(apiConfig).listProcesses();
       return true;
-    }
-    catch(e) {
+    } catch (e) {
       // Nothing to do here
     }
     return false;
@@ -86,8 +78,7 @@ class DashboardTab extends StatelessWidget {
     try {
       await InspectorPublicApi(apiConfig).listScenarios();
       return true;
-    }
-    catch(e) {
+    } catch (e) {
       // Nothing to do here
     }
     return false;

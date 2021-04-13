@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:iop_wallet/src/pages/home/home.dart';
+import 'package:iop_wallet/src/pages/dashboard/dashboard.dart';
 import 'package:iop_wallet/src/pages/onboarding/welcome_new_user.dart';
 import 'package:iop_wallet/src/shared_prefs.dart';
 
@@ -24,9 +24,9 @@ class _WelcomePageState extends State<WelcomePage> {
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.done) {
           if (snapshot.data == true) {
-            return HomePage();
+            return DashboardPage();
           } else {
-            return WelcomeNewUser();
+            return WelcomeNewUserPage();
           }
         } else {
           return const CircularProgressIndicator();

@@ -10,7 +10,8 @@ class Credential {
     this.processId,
     this.processName,
     this.sentAt,
-    this.capabilityUrl,
+    this.authorityUrl,
+    this.capabilityLink,
     this.status,
     this.witnessStatement,
     this.rejectionReason,
@@ -19,7 +20,8 @@ class Credential {
   String sentAt;
   ContentId processId;
   String processName;
-  String capabilityUrl;
+  String authorityUrl;
+  CapabilityLink capabilityLink;
   Status? status;
   Signed<WitnessStatement>? witnessStatement;
   String? rejectionReason;

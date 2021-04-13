@@ -11,7 +11,8 @@ Credential _$CredentialFromJson(Map<String, dynamic> json) {
     ContentId.fromJson(json['processId'] as String),
     json['processName'] as String,
     json['sentAt'] as String,
-    json['capabilityUrl'] as String,
+    json['authorityUrl'] as String,
+    CapabilityLink.fromJson(json['capabilityLink'] as String),
     _$enumDecodeNullable(_$StatusEnumMap, json['status']),
     json['witnessStatement'] == null
         ? null
@@ -25,7 +26,8 @@ Map<String, dynamic> _$CredentialToJson(Credential instance) =>
       'sentAt': instance.sentAt,
       'processId': instance.processId.toJson(),
       'processName': instance.processName,
-      'capabilityUrl': instance.capabilityUrl,
+      'authorityUrl': instance.authorityUrl,
+      'capabilityLink': instance.capabilityLink.toJson(),
       'status': _$StatusEnumMap[instance.status],
       'witnessStatement': instance.witnessStatement?.toJson(),
       'rejectionReason': instance.rejectionReason,

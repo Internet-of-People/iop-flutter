@@ -19,7 +19,7 @@ class AppSharedPrefs {
     return prefs.getString(_serializedVaultKey);
   }
 
-  static Future<void> removeVault() async {
+  static Future<void> removeWallet() async {
     final prefs = await SharedPreferences.getInstance();
     await prefs.remove(_serializedVaultKey);
     await prefs.remove(_activePersonaKey);

@@ -19,6 +19,14 @@ class MainDrawer extends StatelessWidget {
             },
           ),
           ListTile(
+            leading: const Icon(Icons.wallet_membership),
+            title: const Text('Credentials'),
+            onTap: () {
+              Navigator.pop(context);
+              Navigator.pushNamed(context, routeCredentials);
+            },
+          ),
+          ListTile(
             leading: const Icon(Icons.settings),
             title: const Text(
               'Settings',

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:iop_wallet/src/router_constants.dart';
 import 'package:iop_wallet/src/theme.dart';
 
-class WelcomeNewUser extends StatelessWidget {
+class WelcomeNewUserPage extends StatelessWidget {
   final double boxWidth = 240;
   @override
   Widget build(BuildContext context) {
@@ -28,9 +28,9 @@ class WelcomeNewUser extends StatelessWidget {
                   width: boxWidth,
                   child: ElevatedButton(
                     onPressed: () {
-                      Navigator.pushNamed(context, routeSetupCreateVault);
+                      Navigator.pushNamed(context, routeSetupCreateWallet);
                     },
-                    child: const Text('Create a New Personal Vault'),
+                    child: const Text('Create a New Personal Wallet'),
                   ),
                 ),
                 // TODO: implement it, when restore path is done
@@ -38,7 +38,7 @@ class WelcomeNewUser extends StatelessWidget {
                   width: boxWidth,
                   child: ElevatedButton(
                     onPressed: () {
-                      Navigator.pushNamed(context, routeSetupRestoreVault);
+                      Navigator.pushNamed(context, routeSetupRestoreWallet);
                     },
                     child: const Text('Restore an Existing Vault'),
                   ),

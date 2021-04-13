@@ -19,7 +19,7 @@ class SettingsPage extends StatelessWidget {
                   builder: (_) => _buildExportDialog(context)),
               title: const Padding(
                 padding: EdgeInsets.all(16),
-                child: Text('Export Vault'),
+                child: Text('Export Wallet'),
               ),
             ),
             ListTile(
@@ -29,7 +29,7 @@ class SettingsPage extends StatelessWidget {
                       _buildRemoveDialog(context)),
               title: const Padding(
                 padding: EdgeInsets.all(16),
-                child: Text('Remove Vault'),
+                child: Text('Remove Wallet'),
               ),
             ),
           ],
@@ -43,13 +43,13 @@ class SettingsPage extends StatelessWidget {
       title: const Text('Remove Wallet'),
       content: const Text('Are you sure to delete your wallet? '
           'You will lose access to your credentials '
-          'unless you have a backup of your seed phrase.'),
+          'unless you have a backup.'),
       actions: <TextButton>[
         TextButton(
             onPressed: () => Navigator.pop(context), child: const Text('No')),
         TextButton(
             onPressed: () async {
-              await AppSharedPrefs.removeVault();
+              await AppSharedPrefs.removeWallet();
               await Navigator.pushNamedAndRemoveUntil(
                   context, routeWelcome, (Route<dynamic> route) => false);
             },
@@ -61,9 +61,8 @@ class SettingsPage extends StatelessWidget {
 
   Widget _buildExportDialog(BuildContext context) {
     return AlertDialog(
-      title: const Text('Export Vault'),
-      content: const Text('Are you sure nobody is looking? '
-          'Your mnemonic allows anyone to access your identities.'),
+      title: const Text('Export Wallet'),
+      content: const Text('''Your wallet will be exported to your Downloads folder.'''),
       actions: [
         TextButton(
             onPressed: () => Navigator.pop(context), child: const Text('No')),
@@ -71,7 +70,7 @@ class SettingsPage extends StatelessWidget {
             onPressed: () async {
               final serializedVault = await AppSharedPrefs.getVault();
               await FileSaver.instance.saveFile(
-                  'iop_vault',
+                  'iop_wallet',
                   Uint8List.fromList(serializedVault!.codeUnits),'.json',
                   mimeType: MimeType.JSON
               );

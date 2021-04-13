@@ -30,9 +30,7 @@ dependencies:
   http: ^0.13.0
   image_picker: ^0.7.4
   introduction_screen: ^2.1.0
-  # TODO: replace iop-sdk with the package from pub dev
-  iop_sdk:
-    path: ../morpheus-dart
+  iop_sdk: ^5.0.0-alpha1
   json_annotation: ^4.0.1
   json_resolver: ^2.0.0
   json_schema2: ^2.0.0

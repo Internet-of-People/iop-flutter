@@ -8,12 +8,12 @@ import 'package:iop_wallet/src/pages/onboarding/slides/password_slide.dart';
 import 'package:iop_wallet/src/router_constants.dart';
 import 'package:iop_sdk/crypto.dart';
 
-class CreateVault extends StatefulWidget {
+class CreateWallet extends StatefulWidget {
   @override
-  _CreateVaultState createState() => _CreateVaultState();
+  _CreateWalletState createState() => _CreateWalletState();
 }
 
-class _CreateVaultState extends State<CreateVault> {
+class _CreateWalletState extends State<CreateWallet> {
   final _introKey = GlobalKey<IntroductionScreenState>();
   final _passwordFormKey = GlobalKey<FormState>();
   final _passwordController = TextEditingController();
@@ -42,7 +42,7 @@ class _CreateVaultState extends State<CreateVault> {
             padding: EdgeInsets.only(top: 32),
             child: Center(
               child: Text(
-                'Create Your Vault',
+                'Create Your Wallet',
                 style: TextStyle(fontSize: 32.0, fontWeight: FontWeight.bold),
               ),
             ),
@@ -113,6 +113,6 @@ class _CreateVaultState extends State<CreateVault> {
     await AppSharedPrefs.setUnlockPassword(unlockPassword);
 
     await Navigator.of(context)
-        .pushNamedAndRemoveUntil(routeHome, (route) => false);
+        .pushNamedAndRemoveUntil(routeDashboard, (route) => false);
   }
 }
