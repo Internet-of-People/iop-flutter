@@ -15,6 +15,7 @@
 *.ipr
 *.iws
 .idea/
+local.properties
 
 # Visual Studio Code related
 .classpath
