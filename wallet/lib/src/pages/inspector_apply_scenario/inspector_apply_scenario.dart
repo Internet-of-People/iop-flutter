@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:iop_sdk/crypto.dart';
 import 'package:iop_sdk/entities.dart';
@@ -87,7 +89,9 @@ class _ApplyScenarioPageState extends State<ApplyScenarioPage> {
 
         if (_claimContentIsAvailable(item)) {
           dataToBeShared[f] = resolve(
-            json: item.statement!.content.content!.claim.content!.toJson(),
+            json: item
+                .statement!.content.content!.claim.content!.content.content!
+                .toJson(),
             path: f,
           );
         }
@@ -153,9 +157,7 @@ class _ApplyScenarioPageState extends State<ApplyScenarioPage> {
     final scenarioUrl = '${inspectorApi.baseUrl}/blob/${presentationId.value}';
 
     await showDialog(
-      context: context,
-      builder: (context) => PresentationQr(scenarioUrl)
-    );
+        context: context, builder: (context) => PresentationQr(scenarioUrl));
   }
 
   License _mapLicense(LicenseSpecification licenseSpecification) {
@@ -169,6 +171,7 @@ class _ApplyScenarioPageState extends State<ApplyScenarioPage> {
   }
 
   bool _claimContentIsAvailable(ScenarioRequirementItem item) {
-    return item.statement?.content.content?.claim.content != null;
+    return item.statement?.content.content?.claim.content?.content.content !=
+        null;
   }
 }
