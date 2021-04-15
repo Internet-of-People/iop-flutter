@@ -22,6 +22,12 @@ $ flutter analyze
 $ flutter pub run build_runner build --delete-conflicting-outputs
 ```
 
+### Generate Icons
+
+```bash
+$ flutter pub run flutter_launcher_icons:main
+```
+
 ### Null Safety
 
 The app is null-safe, however some of its depencies are not:
