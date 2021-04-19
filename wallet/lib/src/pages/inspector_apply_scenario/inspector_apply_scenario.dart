@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:iop_sdk/crypto.dart';
 import 'package:iop_sdk/entities.dart';

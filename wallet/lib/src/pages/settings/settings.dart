@@ -2,6 +2,8 @@ import 'dart:typed_data';
 
 import 'package:file_saver/file_saver.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:iop_wallet/src/models/wallet/wallet.dart';
 import 'package:iop_wallet/src/router_constants.dart';
 import 'package:iop_wallet/src/shared_prefs.dart';
 
@@ -49,6 +51,9 @@ class SettingsPage extends StatelessWidget {
             onPressed: () => Navigator.pop(context), child: const Text('No')),
         TextButton(
             onPressed: () async {
+              final wallet = context.read<WalletModel>();
+              await wallet.emptyStorage();
+              // TODO: move all AppSharedPrefs to model level
               await AppSharedPrefs.removeWallet();
               await Navigator.pushNamedAndRemoveUntil(
                   context, routeWelcome, (Route<dynamic> route) => false);

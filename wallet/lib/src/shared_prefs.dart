@@ -24,6 +24,7 @@ class AppSharedPrefs {
     await prefs.remove(_serializedVaultKey);
     await prefs.remove(_activePersonaKey);
     await prefs.remove(_unlockPasswordKey);
+    await prefs.remove(_walletKey);
   }
 
   static Future<void> setUnlockPassword(String password) async {
