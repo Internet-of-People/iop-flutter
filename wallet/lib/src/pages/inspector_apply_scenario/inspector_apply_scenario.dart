@@ -155,7 +155,12 @@ class _ApplyScenarioPageState extends State<ApplyScenarioPage> {
     final scenarioUrl = '${inspectorApi.baseUrl}/blob/${presentationId.value}';
 
     await showDialog(
-        context: context, builder: (context) => PresentationQr(scenarioUrl));
+      context: context,
+      builder: (context) => PresentationQr(
+        scenarioUrl,
+        presentationId,
+      ),
+    );
   }
 
   License _mapLicense(LicenseSpecification licenseSpecification) {
